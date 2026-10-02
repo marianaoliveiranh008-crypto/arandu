@@ -8,7 +8,7 @@
 </head>
 <body>
     <main class="container">
-        <img src="" alt="Arandu" class="logo">
+        <img src="img/logo.png" alt="Arandu" class="logo">
 
         <div class="caixa-login">
             <h1>Crie sua conta<br>na Arandu!</h1>

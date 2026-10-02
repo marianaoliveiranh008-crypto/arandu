@@ -8,8 +8,7 @@
 </head>
 <body>
     <main class="container">
-        <img src="https://drive.google.com/file/d/1Pi_dgjH8JAQ3Syyeug5O_XeIaLA6icGI/view?usp=sharing" alt="Logo Arandu" class="logo">
-
+        <img src="img/logo.png" alt="Arandu" class="logo">
         <div class="caixa-login">
             <h1>Seja bem-vindo<br>à Arandu!</h1>
 
