@@ -1,3 +1,76 @@
+<?php
+    session_start();
+    require_once 'config/database.php';
+
+    if($_SERVER['REQUEST_METHOD'] === 'POST'){
+        $nome = trim($_POST['nome'] ?? '');
+        $cpfLimpo = trim($_POST['cpf'] ?? '');
+        $telefone = trim($_POST['telefone'] ?? '');
+        $cepLimpo = trim($_POST['cep'] ?? '');
+        $email = trim($_POST['email'] ?? '');
+        $senha = trim($_POST['senha'] ?? '');
+        $confirmar = trim($_POST['confirmar'] ?? '');
+
+        if(empty($nome) || empty($cpfLimpo) || empty($telefone) || empty($cepLimpo) || empty($email) || empty($senha) || empty($confirmar)) {
+            echo "Por favor, preencha todos os campos corretamente.";
+        }elseif($senha !== $confirmar){
+            echo "As senhas não coincidem!";
+        }elseif(strlen($senha)<6){
+            echo "A senha deve ter pelo menos 6 caracteres.";
+        }else{
+            $sqlVerificar = "SELECT id_usuario FROM usuario WHERE email = ? OR cpf_usuario = ?";
+            $stmtVerificar = $conexao->prepare($sqlVerificar);
+            $stmtVerificar->bind_param("ss", $email, $cpfLimpo);
+            $stmtVerificar->execute();
+            $resultadoVerificar = $stmtVerificar->get_result();
+
+            if($resultadoVerificar->num_rows>0){
+                echo "E-mail ou CPF já cadastrados.";
+                $stmtVerificar->close();
+            }else{
+                $stmtVerificar->close();
+                
+            $senhaHash = password_hash(
+                $senha,
+                PASSWORD_DEFAULT
+            );
+
+            $conexao->begin_transaction();
+
+            try{
+                $sqlInsertUsuario = "INSERT INTO usuario (nome, email, senha, telefone, cpf_usuario) VALUES (?, ?, ?, ?, ?)";
+                $stmtUsuario = $conexao->prepare($sqlInsertUsuario);
+                $stmtUsuario->bind_param(
+                    "sssss",
+                    $nome,
+                    $email,
+                    $senhaHash,
+                    $telefone,
+                    $cpfLimpo
+                );
+                $stmtUsuario->execute();
+                $idUsuarioCriado = $conexao->insert_id();
+                $stmtUsuario->close();
+
+                $sqlInsertEndereco = "INSERT INTO endereco (rua, numero, bairro, cidade, estado, cep, id_usuario) VALUES ('A definir', '0', 'A definir', 'Novo Hamburgo', 'RS', ?, ?)";
+                $stmtEndereco = $conexao->prepare($sqlInsertEndereco);
+                $stmtEndereco->bind_param("si", $cepLimpo, $idUsuarioCriado);
+                $stmtEndereco->execute();
+                $stmtEndereco->close();
+
+                $conexao->commit();
+
+                $_SESSION['sucesso'] = "Cadastro realizado com sucesso!";
+                header("Location: index.php");
+                exit;
+            }catch(Exception $e){
+                $conexao->rollback();
+                echo "Erro ao realizar o cadastro. Tente novamente.";
+            }
+        }
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -13,7 +86,7 @@
         <div class="caixa-login">
             <h1>Crie sua conta<br>na Arandu!</h1>
 
-            <form>
+            <form action="cadastro.php" method="POST">
                 <label for="nome">Nome completo:</label>
                 <input type="text" id="nome" name="nome" placeholder="Seu nome" required>
 
