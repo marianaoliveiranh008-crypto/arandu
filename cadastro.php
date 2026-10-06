@@ -49,7 +49,7 @@
                     $cpfLimpo
                 );
                 $stmtUsuario->execute();
-                $idUsuarioCriado = $conexao->insert_id();
+                $idUsuarioCriado = $conexao->insert_id;
                 $stmtUsuario->close();
 
                 $sqlInsertEndereco = "INSERT INTO endereco (rua, numero, bairro, cidade, estado, cep, id_usuario) VALUES ('A definir', '0', 'A definir', 'Novo Hamburgo', 'RS', ?, ?)";
