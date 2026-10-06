@@ -128,3 +128,290 @@ body {
         font-size: 10px;
     }
 }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #ffffff;
+    color: #ed5b35;
+}
+
+a {
+    text-decoration: none;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+header {
+    height: 72px;
+    display: flex;
+    align-items: center;
+    padding: 0 65px;
+    gap: 30px;
+    background-color: #fff;
+}
+
+.brand {
+    width: 70px;
+    display: flex;
+    align-items: center;
+}
+
+.brand img {
+    width: 65px;
+    height: auto;
+}
+
+.nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    flex: 1;
+}
+
+.nav-menu a {
+    color: #ed5b35;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.nav-menu a:hover,
+.link-ghost:hover,
+.cart-link:hover {
+    text-decoration: underline;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.search-box {
+    width: 235px;
+    height: 34px;
+    background-color: #ffdc9d;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+}
+
+.search-box span {
+    font-size: 28px;
+    font-weight: bold;
+    margin-right: 8px;
+    transform: rotate(-20deg);
+    color: #ed5b35;
+}
+
+.search-box input {
+    border: none;
+    outline: none;
+    background: transparent;
+    width: 100%;
+    font-size: 14px;
+    color: #ed5b35;
+}
+
+.search-box input::placeholder {
+    color: #e99472;
+}
+
+.user-tools {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 28px;
+}
+
+.link-ghost,
+.cart-link {
+    color: #ed5b35;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.cart-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.cart-count {
+    min-width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #ed5b35;
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.page-home {
+    background-color: #ffda98;
+    min-height: calc(100vh - 72px);
+    padding: 40px 60px;
+}
+
+.categoria {
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.titulo {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 18px;
+    border-bottom: 2px solid rgba(237, 91, 53, 0.18);
+    padding-bottom: 8px;
+}
+
+.titulo h2 {
+    font-size: 20px;
+    font-weight: bold;
+    color: #ed5b35;
+}
+
+.titulo span {
+    font-size: 27px;
+    font-weight: bold;
+    color: #ed5b35;
+}
+
+.livros {
+    display: flex;
+    gap: 20px;
+    position: relative;
+    flex-wrap: nowrap;
+    overflow-x: hidden;
+    padding: 8px 52px 12px 52px;
+}
+
+.livro {
+    width: 170px;
+    height: 260px;
+    background-color: white;
+    border-radius: 10px;
+    padding: 16px 12px 10px;
+    text-align: center;
+    flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.livro img {
+    width: 120px;
+    height: 180px;
+    object-fit: cover;
+    margin: 0 auto 8px;
+    border-radius: 6px;
+}
+
+.livro h3 {
+    font-size: 13px;
+    color: #ed5b35;
+    line-height: 15px;
+    min-height: 30px;
+    margin-bottom: 8px;
+}
+
+.livro a {
+    color: #e98268;
+    font-size: 12px;
+    text-decoration: underline;
+}
+
+.seta {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: rgba(255,255,255,0.9);
+    color: #ed5b35;
+    font-size: 36px;
+    cursor: pointer;
+    border-radius: 50%;
+    width: 42px;
+    height: 42px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    z-index: 2;
+}
+
+.seta-esquerda {
+    left: 8px;
+}
+
+.seta-direita {
+    right: 8px;
+}
+
+@media (max-width: 900px) {
+    header {
+        padding: 0 25px;
+        gap: 15px;
+    }
+
+    .nav-menu {
+        gap: 12px;
+    }
+
+    .nav-menu a {
+        font-size: 13px;
+    }
+
+    .search-box {
+        width: 180px;
+    }
+
+    .page-home {
+        padding: 30px 25px;
+        overflow-x: hidden;
+    }
+
+    .livros {
+        overflow-x: auto;
+        padding-bottom: 10px;
+    }
+
+    .livros::-webkit-scrollbar {
+        height: 5px;
+    }
+}
+
+@media (max-width: 650px) {
+    header {
+        height: auto;
+        padding: 15px;
+        flex-wrap: wrap;
+    }
+
+    .nav-menu {
+        order: 3;
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .search-box {
+        margin-left: auto;
+    }
+
+    .user-tools .cart-link span:first-child {
+        display: none;
+    }
+
+    .page-home {
+        padding: 25px 15px;
+    }
+}
