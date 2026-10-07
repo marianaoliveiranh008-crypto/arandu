@@ -4,9 +4,15 @@
 
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $nome = trim($_POST['nome'] ?? '');
-        $cpfLimpo = trim($_POST['cpf'] ?? '');
-        $telefone = trim($_POST['telefone'] ?? '');
-        $cepLimpo = trim($_POST['cep'] ?? '');
+        $cpfLimpo   = preg_replace('/[^0-9]/', '',$_POST['cpf'] ?? '');
+        $telefone   = preg_replace('/[^0-9]/', '',$_POST['telefone'] ?? '');
+        $cepLimpo   = preg_replace('/[^0-9]/', '',$_POST['cep'] ?? '');
+        $rua = trim($_POST['rua'] ?? '');
+        $numero = trim($_POST['numero'] ?? '');
+        $complemento = trim($_POST['complemento'] ?? '');
+        $bairro = trim($_POST['bairro'] ?? '');
+        $cidade = trim($_POST['cidade'] ?? '');
+        $estado = trim($_POST['estado'] ?? '');
         $email = trim($_POST['email'] ?? '');
         $senha = trim($_POST['senha'] ?? '');
         $confirmar = trim($_POST['confirmar'] ?? '');
@@ -52,9 +58,19 @@
                 $idUsuarioCriado = $conexao->insert_id;
                 $stmtUsuario->close();
 
-                $sqlInsertEndereco = "INSERT INTO endereco (rua, numero, bairro, cidade, estado, cep, id_usuario) VALUES ('A definir', '0', 'A definir', 'Novo Hamburgo', 'RS', ?, ?)";
+                $sqlInsertEndereco = "INSERT INTO endereco (rua, numero, complemento, bairro, cidade, estado, cep, id_usuario) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
                 $stmtEndereco = $conexao->prepare($sqlInsertEndereco);
-                $stmtEndereco->bind_param("si", $cepLimpo, $idUsuarioCriado);
+                $stmtEndereco->bind_param(
+                    "sssssssi",
+                    $rua,
+                    $numero,
+                    $complemento,
+                    $bairro,
+                    $cidade,
+                    $estado,
+                    $cepLimpo,
+                    $idUsuarioCriado
+                );
                 $stmtEndereco->execute();
                 $stmtEndereco->close();
 
@@ -99,6 +115,24 @@
                 <label for="cep">CEP:</label>
                 <input type="text" id="cep" name="cep" placeholder="00000-000" required>
 
+                <label for="rua">Rua:</label>
+                <input type="text" id="rua" name="rua" placeholder="Rua / Logradouro" required>
+
+                <label for="numero">Número:</label>
+                <input type="text" id="numero" name="numero" placeholder="0000" required>
+
+                <label for="complemento">Complemento:</label>
+                <input type="text" id="complemento" name="complemento" placeholder="Complemento" required>
+
+                <label for="bairro">Bairro:</label>
+                <input type="text" id="bairro" name="bairro" placeholder="Bairro" required>
+
+                <label for="cidade">Cidade:</label>
+                <input type="text" id="cidade" name="cidade" placeholder="Cidade" required>
+
+                <label for="estado">Estado (UF):</label>
+                <input type="text" id="estado" name="estado" placeholder="UF" required>
+
                 <label for="email">E-mail:</label>
                 <input type="email" id="email" name="email" placeholder="seu@email.com" required>
 
@@ -110,6 +144,32 @@
 
                 <button type="submit">Cadastrar</button>
             </form>
+
+            <script>
+                const cep = document.getElementById("cep");
+                cep.addEventListener("blur", buscarCEP);
+
+                async function buscarCEP(){
+                    let valorCEP = cep.value.replace(/\D/g,'');
+                    if(valorCEP.length != 8){
+                        alert("CEP inválido!");
+                        return;
+                    }try{
+                        const resposta = await fetch(`https://viacep.com.br/ws/${valorCEP}/json/`);
+                        const dados = await resposta.json();
+                        if(dados.erro){
+                            alert("CEP não encontrado.");
+                            return;
+                        }
+                        document.getElementById("rua").value = dados.logradouro;
+                        document.getElementById("bairro").value = dados.bairro;
+                        document.getElementById("cidade").value = dados.localidade;
+                        document.getElementById("estado").value = dados.uf;
+                    }catch(erro){
+                        alert("Erro ao consultar a API.");
+                    }
+                }
+            </script>
 
             <p class="cadastro">
                 Já tem uma conta?

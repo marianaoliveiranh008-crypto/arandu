@@ -1,7 +1,6 @@
 <?php
+    session_start();
     require_once "config/database.php";
-
-    $mensagem = "";
 
     if($_SERVER["REQUEST_METHOD"] === "POST"){
         $email = trim($_POST['email'] ?? '');
@@ -19,20 +18,25 @@
             if($resultado->num_rows === 1){
                 $usuario = $resultado->fetch_assoc();
                 if(password_verify($senha, $usuario['senha'])){
-                    $_SESSION['usuarioId'] = $usuario['usuarioId'];
+                    $_SESSION['usuarioId'] = $usuario['id_usuario'];
                     $_SESSION['usuarioNome'] = $usuario['nome'];
                     $_SESSION['usuarioEmail'] = $usuario['email'];
                     $_SESSION['tipo_usuario'] = $usuario['tipo_usuario'];
-                    $stmt->close();
+                    $_SESSION['logado'] = true;
+                    if($usuario['tipo_usuario'] == 2){
+                        header("Location: admin/index.php");
+                    }else{
                     header("Location: index.php");
+                    }
                     exit;
+
                 }else{
-                    $mensagem = "E-mail ou senha incorretos.";
+                    echo "E-mail ou senha incorretos.";
                 }
             }else{
-                $mensagem = "Usuário não encontrado!";
+                echo "E-mail ou senha incorretos.";
             }
-            $stmt->close();
+        $stmt->close();
         }
     }
 ?>
