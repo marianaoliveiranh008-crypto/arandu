@@ -13,7 +13,7 @@ if (!isset($_SESSION['logado']) || $_SESSION['logado'] !== true) {
     <title>Área Restrita</title>
 </head>
 <body>
-    <h1>Bem-vindo, <?php echo htmlspecialchars($_SESSION['usuario_nome']); ?>!</h1>
+    <h1>Bem-vindo, <?php echo htmlspecialchars($_SESSION['usuarioNome']); ?>!</h1>
     <p>Conteúdo seguro visível apenas para usuários autenticados.</p>
     
     <a href="logout.php">Sair</a>

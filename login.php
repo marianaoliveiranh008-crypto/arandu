@@ -15,21 +15,25 @@
             $stmt->execute();
             $resultado = $stmt->get_result();
 
-            if($resultado->num_rows === 1){
-                $usuario = $resultado->fetch_assoc();
-                if(password_verify($senha, $usuario['senha'])){
-                    $_SESSION['usuarioId'] = $usuario['id_usuario'];
-                    $_SESSION['usuarioNome'] = $usuario['nome'];
-                    $_SESSION['usuarioEmail'] = $usuario['email'];
-                    $_SESSION['tipo_usuario'] = $usuario['tipo_usuario'];
-                    $_SESSION['logado'] = true;
-                    if($usuario['tipo_usuario'] == 2){
-                        header("Location: admin/index.php");
-                    }else{
-                    header("Location: index.php");
-                    }
-                    exit;
-
+            if($resultado->num_rows === 1) {
+            $usuario = $resultado->fetch_assoc();
+            $loginValido = false;
+            if (password_verify($senha, $usuario['senha'])) {
+                $loginValido = true;
+            }else if($senha === $usuario['senha']) {
+                $loginValido = true;
+            }if($loginValido){
+                $_SESSION['usuarioId'] = $usuario['id_usuario'];
+                $_SESSION['usuarioNome'] = $usuario['nome'];
+                $_SESSION['usuarioEmail'] = $usuario['email'];
+                $_SESSION['tipo_usuario'] = $usuario['tipo_usuario'];
+                $_SESSION['logado'] = true;
+                if($usuario['tipo_usuario'] == 2){
+                    header("Location: admin/index.php");
+                }else{
+                header("Location: index.php");
+                }
+                exit;
                 }else{
                     echo "E-mail ou senha incorretos.";
                 }
