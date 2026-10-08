@@ -1,36 +1,67 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alterar Senha - Arandu</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>Alterar senha - Arandu</title>
+    <link rel="stylesheet" href="../css/style.css">
 </head>
-<body>
-    <main class="container">
-        <img src="img/logo.png" alt="Arandu" class="logo">
-        <div class="caixa-login">
-            <h1>Seja bem-vindo<br>à Arandu!</h1>
+<body class="senha-page">
 
-            <form action="login.php" method="POST">
-                <label for="email">E-mail:</label>
-                <input type="email" id="email" name="email" required>
+    <header class="top-header">
+        <a class="brand" href="../index.php" aria-label="Arandu - página inicial">
+            <img src="../img/logo.png" alt="Arandu">
+        </a>
 
-                <label for="senha">Senha:</label>
-                <input type="password" id="senha" name="senha" required>
+        <nav class="nav-menu" aria-label="Navegação principal">
+            <a href="../index.php">Home</a>
+            <a href="">Sobre nós</a>
+            <a href="">+ Procurados</a>
+            <a href="">Novidades</a>
+        </nav>
 
-                <a href="usuario/alterarSenha.php" class="esqueci">
-                    Esqueci minha senha
+        <div class="header-actions">
+            <label class="search-box">
+                <span aria-hidden="true">⌕</span>
+                <input type="search" placeholder="Pesquisar..." aria-label="Pesquisar livros">
+            </label>
+
+            <div class="user-tools">
+                <a href="../carrinho.php" class="cart-link" aria-label="Carrinho de compras">
+                    <span aria-hidden="true">🛍</span>
                 </a>
+                <a href="../login.php" class="link-ghost" aria-label="Minha conta">♙</a>
+            </div>
+        </div>
+    </header>
 
-                <button type="submit">Entrar</button>
+    <main class="container senha-container">
+        <section class="caixa-login" aria-labelledby="titulo-alterar-senha">
+
+            <h1 id="titulo-alterar-senha">Alterar senha</h1>
+            <p class="senha-intro">Atualize sua senha para manter sua conta protegida.</p>
+
+            <form method="post">
+
+                <label for="senha-atual">Senha atual:</label>
+                <input type="password" id="senha-atual" name="senhaAtual" maxlength="8" autocomplete="current-password" placeholder="••••••••" required>
+
+                <a href="#" class="esqueci">Esqueci minha senha</a>
+
+                <label for="nova-senha">Nova senha:</label>
+                <input type="password" id="nova-senha" name="novaSenha" maxlength="8" autocomplete="new-password" placeholder="••••••••" required>
+
+                <small class="aviso">Máximo de 8 caracteres</small>
+
+                <label for="confirmar-senha">Confirmar nova senha:</label>
+                <input type="password" id="confirmar-senha" name="confirmarSenha" maxlength="8" autocomplete="new-password" placeholder="••••••••" required>
+
+                <button type="submit">Salvar nova senha</button>
+
             </form>
 
-            <p class="cadastro">
-                Ainda não tem uma conta?
-                <a href="cadastro.php">Cadastre-se</a>
-            </p>
-        </div>
+        </section>
     </main>
+
 </body>
 </html>
