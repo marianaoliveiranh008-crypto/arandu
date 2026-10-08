@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alterar senha - Arandu</title>
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="icon" href="img/Logotipo-Livraria.ico" type="image/x-icon">
 </head>
 <body class="senha-page">
 
@@ -46,7 +47,7 @@
                 <label for="senha-atual">Senha atual:</label>
                 <input type="password" id="senha-atual" name="senhaAtual" maxlength="8" autocomplete="current-password" placeholder="••••••••" required>
 
-                <a href="#" class="esqueci">Esqueci minha senha</a>
+                <a href="verificarCodigo.php" class="esqueci">Esqueci minha senha</a>
 
                 <label for="nova-senha">Nova senha:</label>
                 <input type="password" id="nova-senha" name="novaSenha" maxlength="8" autocomplete="new-password" placeholder="••••••••" required>

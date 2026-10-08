@@ -466,3 +466,106 @@ header {
         padding: 28px 24px;
     }
 }
+
+.verificacao-page {
+    background-color: #ffda98;
+}
+
+.verificacao-page .brand a {
+    display: block;
+}
+
+.verificacao-page .verificacao-main {
+    min-height: calc(100vh - 72px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+}
+
+.verificacao-page .caixa-verificacao {
+    width: min(100%, 380px);
+    padding: 32px;
+    border-radius: 10px;
+    background-color: #fff;
+    color: #ed5b35;
+    text-align: center;
+}
+
+.verificacao-page .caixa-verificacao h1 {
+    margin-bottom: 14px;
+    font-size: 23px;
+    line-height: 1.2;
+}
+
+.verificacao-page .descricao {
+    margin-bottom: 24px;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.verificacao-page .rotulo-codigo {
+    display: block;
+    margin-bottom: 7px;
+    color: #ed5b35;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: left;
+}
+
+.verificacao-page .campo-codigo {
+    width: 100%;
+    height: 42px;
+    margin-bottom: 14px;
+    padding: 8px 12px;
+    border: 1px solid #edc4b7;
+    border-radius: 9px;
+    background-color: #fff;
+    color: #49372f;
+    font-size: 16px;
+    text-align: center;
+}
+
+.verificacao-page .campo-codigo:focus {
+    border-color: #ed5b35;
+    outline: 2px solid rgba(237, 91, 53, 0.2);
+}
+
+.verificacao-page .dica-codigo {
+    margin-bottom: 22px;
+    color: #ed5b35;
+    font-size: 12px;
+}
+
+.verificacao-page .dica-codigo a {
+    color: #ed5b35;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.verificacao-page .verificacao-voltar {
+    display: inline-flex;
+    min-height: 38px;
+    align-items: center;
+    justify-content: center;
+    padding: 9px 18px;
+    border-radius: 9px;
+    background-color: #ffdc9d;
+    color: #ed5b35;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.verificacao-page .verificacao-voltar:hover {
+    background-color: #ffca7a;
+}
+
+@media (max-width: 400px) {
+    .verificacao-page .verificacao-main {
+        padding: 28px 16px;
+    }
+
+    .verificacao-page .caixa-verificacao {
+        padding: 28px 24px;
+    }
+}
