@@ -29,7 +29,7 @@ body {
 }
 
 .caixa-login {
-    width: 295px;
+    width: 330px;
     max-width: 100%;
     background-color: #e65e35;
     border: none;
@@ -138,6 +138,19 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     background-color: #ffffff;
     color: #ed5b35;
+}
+
+.login-page,
+.cadastro-page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.login-page .container,
+.cadastro-page .container {
+    flex: 1;
+    min-height: 0;
 }
 
 a {
@@ -496,6 +509,159 @@ header {
     margin-bottom: 14px;
     font-size: 23px;
     line-height: 1.2;
+}
+
+.login-header {
+    height: 86px;
+    justify-content: center;
+    gap: 44px;
+    padding: 0 28px;
+}
+
+.login-header .nav-menu {
+    flex: 0 1 auto;
+    justify-content: center;
+    gap: 36px;
+}
+
+.login-header .nav-menu a {
+    font-size: 17px;
+}
+
+.cadastro-page .container {
+    min-height: auto;
+    gap: 14px;
+    padding: 28px 16px 18px;
+}
+
+.cadastro-page .caixa-login {
+    width: min(100%, 720px);
+    padding: 30px 34px;
+}
+
+.cadastro-page .caixa-login h1 {
+    margin-bottom: 24px;
+    line-height: 1.2;
+}
+
+.cadastro-page .caixa-login form {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px 18px;
+}
+
+.cadastro-page .campo-cadastro {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+}
+
+.cadastro-page .campo-cadastro--wide,
+.cadastro-page .cadastro-submit {
+    grid-column: 1 / -1;
+}
+
+.cadastro-page .caixa-login label {
+    margin-bottom: 6px;
+}
+
+.cadastro-page .caixa-login input:not([type="hidden"]) {
+    height: 40px;
+    margin-bottom: 0;
+}
+
+.cadastro-page .cadastro-submit {
+    width: auto;
+    min-width: 132px;
+    height: 40px;
+    margin: 4px auto 0;
+    padding: 0 22px;
+}
+
+.cadastro-page .cadastro {
+    margin-top: 16px;
+    font-size: 12px;
+}
+
+.cadastro-links {
+    display: flex;
+    width: min(100%, 720px);
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px 24px;
+    padding-bottom: 8px;
+}
+
+.cadastro-links a {
+    color: #ed5b35;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.cadastro-links a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 900px) {
+    .login-header {
+        gap: 28px;
+    }
+
+    .login-header .nav-menu {
+        gap: 22px;
+    }
+
+    .login-header .nav-menu a {
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 650px) {
+    .login-header {
+        height: auto;
+        min-height: 92px;
+        padding: 14px;
+        gap: 12px;
+    }
+
+    .login-header .brand {
+        width: auto;
+        justify-content: center;
+    }
+
+    .login-header .brand img {
+        width: 58px;
+    }
+
+    .login-header .nav-menu {
+        order: 0;
+        flex: 0 0 100%;
+        width: 100%;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+
+    .login-header .nav-menu a {
+        font-size: 14px;
+    }
+
+    .cadastro-page .container {
+        padding: 22px 15px 16px;
+    }
+
+    .cadastro-page .caixa-login {
+        padding: 26px 22px;
+    }
+
+    .cadastro-page .caixa-login form {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 12px;
+    }
+
+    .cadastro-page .campo-cadastro--wide,
+    .cadastro-page .cadastro-submit {
+        grid-column: auto;
+    }
 }
 
 .verificacao-page .descricao {

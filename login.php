@@ -92,9 +92,22 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="icon" href="img/Logotipo-Livraria.ico" type="image/x-icon">
 </head>
-<body>
+<body class="login-page">
+    <header class="top-header login-header">
+        <a class="brand" href="index.php" aria-label="Arandu - página inicial">
+            <img src="img/logo.png" alt="Arandu">
+        </a>
+
+        <nav class="nav-menu" aria-label="Menu principal">
+            <a href="index.php">Home</a>
+            <a href="#">Sobre nós</a>
+            <a href="#">+ Procurados</a>
+            <a href="#">Novidades</a>
+        </nav>
+
+    </header>
+
     <main class="container">
-        <img src="img/logo.png" alt="Arandu" class="logo">
         <div class="caixa-login">
             <h1>Seja bem-vindo<br>à Arandu!</h1>
 

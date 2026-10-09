@@ -96,54 +96,68 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="icon" href="img/Logotipo-Livraria.ico" type="image/x-icon">
 </head>
-<body>
-    <main class="container">
-        <img src="img/logo.png" alt="Arandu" class="logo">
+<body class="cadastro-page">
+    <header class="top-header login-header">
+        <a class="brand" href="index.php" aria-label="Arandu - página inicial">
+            <img src="img/logo.png" alt="Arandu">
+        </a>
 
+        <nav class="nav-menu" aria-label="Menu principal">
+            <a href="index.php">Home</a>
+            <a href="#">Sobre nós</a>
+            <a href="#">+ Procurados</a>
+            <a href="#">Novidades</a>
+        </nav>
+    </header>
+
+    <main class="container">
         <div class="caixa-login">
             <h1>Crie sua conta<br>na Arandu!</h1>
 
             <form action="cadastro.php" method="POST">
-                <label for="nome">Nome completo:</label>
-                <input type="text" id="nome" name="nome" placeholder="Seu nome" required>
+                <div class="campo-cadastro campo-cadastro--wide">
+                    <label for="nome">Nome completo:</label>
+                    <input type="text" id="nome" name="nome" placeholder="Seu nome" required>
+                </div>
 
-                <label for="cpf">CPF:</label>
-                <input type="text" id="cpf" name="cpf" placeholder="000.000.000-00" required>
+                <div class="campo-cadastro">
+                    <label for="cpf">CPF:</label>
+                    <input type="text" id="cpf" name="cpf" placeholder="000.000.000-00" required>
+                </div>
 
-                <label for="telefone">Telefone:</label>
-                <input type="tel" id="telefone" name="telefone" placeholder="(00) 00000-0000" required>
+                <div class="campo-cadastro">
+                    <label for="telefone">Telefone:</label>
+                    <input type="tel" id="telefone" name="telefone" placeholder="(00) 00000-0000" required>
+                </div>
 
-                <label for="cep">CEP:</label>
-                <input type="text" id="cep" name="cep" placeholder="00000-000" required>
+                <div class="campo-cadastro">
+                    <label for="cep">CEP:</label>
+                    <input type="text" id="cep" name="cep" placeholder="00000-000" required>
+                </div>
 
-                <label for="rua">Rua:</label>
-                <input type="text" id="rua" name="rua" placeholder="Rua / Logradouro" required>
+                <div class="campo-cadastro campo-cadastro--wide">
+                    <label for="email">E-mail:</label>
+                    <input type="email" id="email" name="email" placeholder="seu@email.com" required>
+                </div>
 
-                <label for="numero">Número:</label>
-                <input type="text" id="numero" name="numero" placeholder="0000" required>
+                <div class="campo-cadastro">
+                    <label for="senha">Senha:</label>
+                    <input type="password" id="senha" name="senha" placeholder="••••••••" required>
+                </div>
 
-                <label for="complemento">Complemento:</label>
-                <input type="text" id="complemento" name="complemento" placeholder="Complemento" required>
+                <div class="campo-cadastro">
+                    <label for="confirmar">Confirmar senha:</label>
+                    <input type="password" id="confirmar" name="confirmar" placeholder="••••••••" required>
+                </div>
 
-                <label for="bairro">Bairro:</label>
-                <input type="text" id="bairro" name="bairro" placeholder="Bairro" required>
+                <input type="hidden" id="rua" name="rua">
+                <input type="hidden" id="numero" name="numero" value="">
+                <input type="hidden" id="complemento" name="complemento" value="">
+                <input type="hidden" id="bairro" name="bairro">
+                <input type="hidden" id="cidade" name="cidade">
+                <input type="hidden" id="estado" name="estado">
 
-                <label for="cidade">Cidade:</label>
-                <input type="text" id="cidade" name="cidade" placeholder="Cidade" required>
-
-                <label for="estado">Estado (UF):</label>
-                <input type="text" id="estado" name="estado" placeholder="UF" required>
-
-                <label for="email">E-mail:</label>
-                <input type="email" id="email" name="email" placeholder="seu@email.com" required>
-
-                <label for="senha">Senha:</label>
-                <input type="password" id="senha" name="senha" placeholder="••••••••" required>
-
-                <label for="confirmar">Confirmar senha:</label>
-                <input type="password" id="confirmar" name="confirmar" placeholder="••••••••" required>
-
-                <button type="submit">Cadastrar</button>
+                <button class="cadastro-submit" type="submit">Cadastrar</button>
             </form>
 
             <script>
@@ -177,6 +191,12 @@
                 <a href="login.php">Entrar</a>
             </p>
         </div>
+
+        <nav class="cadastro-links" aria-label="Links institucionais">
+            <a href="#">Termos de uso</a>
+            <a href="#">Política de privacidade</a>
+            <a href="#">Contato</a>
+        </nav>
     </main>
 </body>
 </html>

@@ -10,12 +10,10 @@
 </head>
 
 <body class="verificacao-page">
-    <header class="top-header">
-        <div class="brand">
-            <a href="index.php" aria-label="Arandu - página inicial">
-                <img src="img/logo.png" alt="Arandu">
-            </a>
-        </div>
+    <header class="top-header login-header">
+        <a class="brand" href="index.php" aria-label="Arandu - página inicial">
+            <img src="img/logo.png" alt="Arandu">
+        </a>
 
         <nav class="nav-menu" aria-label="Menu principal">
             <a href="index.php">Home</a>
@@ -24,20 +22,6 @@
             <a href="#">Novidades</a>
         </nav>
 
-        <div class="header-actions">
-            <label class="search-box" aria-label="Pesquisar livro">
-                <span aria-hidden="true">⌕</span>
-                <input type="search" placeholder="Pesquisar..." aria-label="Pesquisar livro">
-            </label>
-
-            <div class="user-tools">
-                <a href="login.php" class="link-ghost">Entrar</a>
-                <a href="carrinho.php" class="cart-link" aria-label="Carrinho de compras">
-                    <span aria-hidden="true">&</span>
-                    <span class="cart-count"></span>
-                </a>
-            </div>
-        </div>
     </header>
 
     <main class="verificacao-main">

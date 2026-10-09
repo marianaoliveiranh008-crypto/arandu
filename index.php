@@ -49,37 +49,37 @@
                 <article class="livro">
                     <img src="https://m.media-amazon.com/images/I/81t7altQZxL._SL1500_.jpg"alt="Capitães de Areia">
                     <h3>Capitães de Areia</h3>
-                    <a href="#">Ver detalhes</a>
+                    <a href="#">R$24,99</a>
                 </article>
 
                 <article class="livro">
                     <img src=" https://m.media-amazon.com/images/I/71OL9RU2tJL._SL1360_.jpg " alt="Memórias Póstumas de Brás Cubas">
                     <h3>Memórias Póstumas de Brás Cubas</h3>
-                    <a href="#">Ver detalhes</a>
+                    <a href="#">R$69,90</a>
                 </article>
 
                 <article class="livro">
                     <img src=" https://m.media-amazon.com/images/I/71p3cRkpytL._SL1500_.jpg " alt="Iracema">
                     <h3>Iracema</h3>
-                    <a href="#">Ver detalhes</a>
+                    <a href="#">R$59,90</a>
                 </article>
 
                 <article class="livro">
                     <img src="https://m.media-amazon.com/images/I/61TaHURu27L._SL1000_.jpg " alt="A Hora da Estrela">
                     <h3>A Hora da Estrela</h3>
-                    <a href="#">Ver detalhes</a>
+                    <a href="#">R$44,90</a>
                 </article>
 
                 <article class="livro">
                     <img src="https://m.media-amazon.com/images/I/61j0riyfENL._SL1500_.jpg " alt="Oração para Desaparecer">
                     <h3>Oração para Desaparecer</h3>
-                    <a href="#">Ver detalhes</a>
+                    <a href="#">R$74,90</a>
                 </article>
 
                 <article class="livro">
                     <img src="https://m.media-amazon.com/images/I/71FT8rYeZaL._SL1000_.jpg " alt="Agua viva">
                     <h3>Agua viva</h3>
-                    <a href="#">Ver detalhes</a>
+                    <a href="#"></a>
                 </article>
 
                 <article class="livro">
