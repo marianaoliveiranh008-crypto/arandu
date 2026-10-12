@@ -23,7 +23,7 @@
         <div class="header-actions">
             <label class="search-box" aria-label="Pesquisar livro">
                 <span aria-hidden="true">⌕</span>
-                <input type="search" placeholder="Pesquisar..." aria-label="Pesquisar livro">
+                <input type="search" id="inputPesquisa" placeholder="Pesquisar..." aria-label="Pesquisar livro">
             </label>
 
             <div class="user-tools">
