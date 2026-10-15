@@ -1,11 +1,3 @@
-<?php
-session_start();
-
-if (!isset($_SESSION['logado']) || $_SESSION['logado'] !== true) {
-    header("Location: arandu/login.php");
-    exit;
-}
-?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -13,9 +5,9 @@ if (!isset($_SESSION['logado']) || $_SESSION['logado'] !== true) {
     <title>Área Restrita</title>
 </head>
 <body>
-    <h1>Bem-vindo, <?php echo htmlspecialchars($_SESSION['usuarioNome']); ?>!</h1>
+    <h1>Bem-vindo!</h1>
     <p>Conteúdo seguro visível apenas para usuários autenticados.</p>
     
-    <a href="logout.php">Sair</a>
+    <a href="../logout.php">Sair</a>
 </body>
 </html>
