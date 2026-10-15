@@ -17,7 +17,7 @@
 
         <nav class="carrinho-nav" aria-label="Menu principal">
             <a href="index.php">Home</a>
-            <a href="#">Sobre nós</a>
+            <a href="sobreNos.php">Sobre nós</a>
             <a href="#">+ Procurados</a>
             <a href="#">Novidades</a>
         </nav>

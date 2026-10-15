@@ -16,7 +16,7 @@
 
         <nav class="nav-menu" aria-label="Navegação principal">
             <a href="../index.php">Home</a>
-            <a href="">Sobre nós</a>
+            <a href="../sobreNos.php">Sobre nós</a>
             <a href="">+ Procurados</a>
             <a href="">Novidades</a>
         </nav>

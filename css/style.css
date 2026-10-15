@@ -741,6 +741,131 @@ header {
     font-size: 17px;
 }
 
+.sobre-page {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    background-color: #ffda98;
+}
+
+.sobre-container {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    padding: 48px 24px;
+}
+
+.sobre-box {
+    display: grid;
+    width: min(100%, 980px);
+    grid-template-columns: 1.1fr 0.9fr;
+    border-radius: 8px;
+    background-color: #fff;
+}
+
+.sobre-texto,
+.sobre-contatos {
+    padding: 42px;
+}
+
+.sobre-texto {
+    align-self: center;
+}
+
+.sobre-eyebrow {
+    margin-bottom: 12px;
+    color: #b84b2e;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.sobre-texto h1 {
+    max-width: 430px;
+    margin-bottom: 20px;
+    color: #ed5b35;
+    font-size: 30px;
+    line-height: 1.2;
+}
+
+.sobre-texto > p:not(.sobre-eyebrow) {
+    max-width: 470px;
+    margin-bottom: 14px;
+    color: #5d504a;
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+.sobre-contatos {
+    border-left: 1px solid #f1dfd7;
+}
+
+.sobre-contatos h2 {
+    margin-bottom: 8px;
+    color: #ed5b35;
+    font-size: 21px;
+}
+
+.contato-aviso {
+    margin-bottom: 24px;
+    color: #8b7c73;
+    font-size: 12px;
+}
+
+.sobre-contatos dl {
+    display: grid;
+    gap: 18px;
+}
+
+.sobre-contatos dt {
+    margin-bottom: 4px;
+    color: #8b7c73;
+    font-size: 15px;
+    font-weight: 800;
+}
+
+.sobre-contatos dd {
+    color: #49372f;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.sobre-contatos a {
+    color: #49372f;
+    overflow-wrap: anywhere;
+}
+
+.sobre-contatos a:hover {
+    color: #ed5b35;
+    text-decoration: underline;
+}
+
+@media (max-width: 650px) {
+    .sobre-container {
+        padding: 28px 16px;
+    }
+
+    .sobre-box {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .sobre-texto,
+    .sobre-contatos {
+        padding: 28px 24px;
+    }
+
+    .sobre-texto h1 {
+        font-size: 26px;
+    }
+
+    .sobre-contatos {
+        border-top: 1px solid #f1dfd7;
+        border-left: 0;
+    }
+}
 .usuarios-page .nav-menu .ativo {
     font-weight: 700;
 }
