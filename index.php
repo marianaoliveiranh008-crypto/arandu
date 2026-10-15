@@ -27,10 +27,15 @@
             </label>
 
             <div class="user-tools">
-                <a href="login.php" class="link-ghost">Entrar</a>
-                <a href="carrinho.php" class="cart-link" aria-label="Carrinho de compras">
+                <a href="carrinho.php" class="header-button cart-link" aria-label="Carrinho de compras">
                     <span aria-hidden="true">🛍</span>
+                    <span></span>
                     <span class="cart-count">0</span>
+                </a>
+                <a href="login.php" class="header-button login-link">Entrar</a>
+                <a href="admin/usuarios/index.php" class="header-button admin-link">
+                    <span aria-hidden="true">👤</span>
+                    <span></span>
                 </a>
             </div>
         </div>
