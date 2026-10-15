@@ -952,3 +952,345 @@ header {
         padding: 28px 24px;
     }
 }
+body.carrinho-page {
+    min-height: 100vh;
+    background-color: #ffda98;
+    color: #49372f;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.carrinho-page a {
+    text-decoration: none;
+}
+
+.carrinho-page .cabecalho {
+    display: flex;
+    width: 100%;
+    min-height: 86px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 28px;
+    margin: 0;
+    padding: 0 6.5%;
+    background-color: #fff;
+}
+
+.carrinho-page .logo {
+    flex: 0 0 70px;
+}
+
+.carrinho-page .logo img {
+    display: block;
+    width: 65px;
+    height: auto;
+    margin: 0;
+    object-fit: contain;
+}
+
+.carrinho-page .carrinho-nav {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+}
+
+.carrinho-page .carrinho-nav a {
+    color: #ed5b35;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.carrinho-page .icones {
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    gap: 18px;
+}
+
+.carrinho-page .icones a {
+    display: inline-flex;
+    width: 34px;
+    height: 38px;
+    align-items: center;
+    justify-content: center;
+    color: #ed5b35;
+    font-size: 28px;
+    line-height: 1;
+}
+
+.carrinho-page .conteudo {
+    min-height: calc(100vh - 86px);
+    padding: 40px 24px 56px;
+    background-color: #ffda98;
+}
+
+.carrinho-page .carrinho {
+    width: min(100%, 900px);
+    min-height: 0;
+    margin: 0 auto;
+    padding: 28px;
+    border-radius: 8px;
+    background-color: #fff;
+    color: #49372f;
+}
+
+.carrinho-page .carrinho h1 {
+    margin-bottom: 22px;
+    color: #ed5b35;
+    font-size: 24px;
+    text-align: left;
+}
+
+.carrinho-page .livro {
+    display: grid;
+    width: auto;
+    height: auto;
+    min-height: 142px;
+    grid-template-columns: 76px minmax(0, 1fr);
+    align-items: center;
+    gap: 18px;
+    flex-shrink: 1;
+    margin: 0 0 14px;
+    padding: 16px;
+    border: 1px solid #f1dfd7;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: none;
+    color: #49372f;
+    text-align: left;
+}
+
+.carrinho-page .livro img {
+    display: block;
+    width: 72px;
+    height: 108px;
+    margin: 0;
+    border-radius: 3px;
+    object-fit: cover;
+}
+
+.carrinho-page .informacoes {
+    display: grid;
+    min-width: 0;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 6px 18px;
+}
+
+.carrinho-page .informacoes h2,
+.carrinho-page .autor {
+    grid-column: 1 / -1;
+}
+
+.carrinho-page .informacoes h2 {
+    color: #49372f;
+    font-size: 16px;
+}
+
+.carrinho-page .autor {
+    margin-bottom: 0;
+    color: #75665f;
+    font-size: 13px;
+}
+
+.carrinho-page .quantidade {
+    display: inline-flex;
+    width: fit-content;
+    height: auto;
+    min-height: 34px;
+    align-items: center;
+    margin-bottom: 0;
+    border: 1px solid #edc4b7;
+    border-radius: 6px;
+    background: #fff;
+}
+
+.carrinho-page .quantidade button {
+    width: 34px;
+    height: 32px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: #ed5b35;
+    font-size: 18px;
+}
+
+.carrinho-page .quantidade span {
+    min-width: 24px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.carrinho-page .preco {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 14px;
+}
+
+.carrinho-page .preco span {
+    color: #49372f;
+    font-size: 16px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.carrinho-page .excluir {
+    padding: 7px 10px;
+    border: 0;
+    border-radius: 6px;
+    background-color: #fff0ed;
+    color: #b53d32;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.carrinho-page .resumo {
+    display: grid;
+    gap: 10px;
+    margin: 22px 0 0;
+    padding-top: 18px;
+    border-top: 1px solid #f1dfd7;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.carrinho-page .resumo p {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.carrinho-page .resumo strong {
+    color: #49372f;
+}
+
+.carrinho-page .resumo-total {
+    margin: 0;
+    padding-top: 10px;
+    border-top: 1px solid #f1dfd7;
+    color: #ed5b35;
+    font-size: 16px;
+}
+
+.carrinho-page .resumo-total strong {
+    color: #ed5b35;
+}
+
+.carrinho-page .botoes {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.carrinho-page .botoes button,
+.carrinho-page .botoes a {
+    display: inline-flex;
+    min-height: 40px;
+    align-items: center;
+    justify-content: center;
+    padding: 0 16px;
+    border: 1px solid #ed5b35;
+    border-radius: 7px;
+    background-color: #fff;
+    color: #ed5b35;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.carrinho-page .botoes a {
+    background-color: #ed5b35;
+    color: #fff;
+}
+
+.carrinho-page .botoes button:hover,
+.carrinho-page .excluir:hover {
+    background-color: #fff1d7;
+}
+
+.carrinho-page .botoes a:hover {
+    background-color: #ce4e2b;
+}
+
+@media (max-width: 900px) {
+    .carrinho-page .cabecalho {
+        flex-wrap: wrap;
+        gap: 16px;
+        padding: 14px 24px;
+    }
+
+    .carrinho-page .carrinho-nav {
+        order: 3;
+        flex: 1 0 100%;
+        flex-wrap: wrap;
+        gap: 12px 22px;
+    }
+
+    .carrinho-page .conteudo {
+        min-height: calc(100vh - 86px);
+        padding: 28px 18px 40px;
+    }
+}
+
+@media (max-width: 520px) {
+    .carrinho-page .cabecalho {
+        gap: 12px;
+        padding: 12px 16px;
+    }
+
+    .carrinho-page .logo {
+        flex-basis: 54px;
+    }
+
+    .carrinho-page .logo img {
+        width: 54px;
+    }
+
+    .carrinho-page .icones {
+        gap: 12px;
+    }
+
+    .carrinho-page .carrinho-nav {
+        gap: 10px 16px;
+    }
+
+    .carrinho-page .conteudo {
+        padding: 20px 12px 30px;
+    }
+
+    .carrinho-page .carrinho {
+        padding: 20px 14px;
+    }
+
+    .carrinho-page .livro {
+        grid-template-columns: 60px minmax(0, 1fr);
+        gap: 12px;
+        padding: 12px 10px;
+    }
+
+    .carrinho-page .livro img {
+        width: 56px;
+        height: 84px;
+    }
+
+    .carrinho-page .informacoes {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .carrinho-page .preco {
+        justify-content: space-between;
+    }
+
+    .carrinho-page .botoes {
+        flex-direction: column;
+    }
+
+    .carrinho-page .botoes button,
+    .carrinho-page .botoes a {
+        width: 100%;
+    }
+}
