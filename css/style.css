@@ -1426,3 +1426,297 @@ body.carrinho-page {
     max-width: 300px;
     padding-right: 5px;
 }
+
+.finalizar-compra-page .caixa-finalizar {
+    width: min(100%, 700px);
+    padding: 32px;
+    border-radius: 9px;
+    background-color: #e65e35;
+    color: #fff;
+}
+
+.finalizar-compra-page .conteudo {
+    display: block;
+}
+
+.finalizar-compra-page .cadastro-links {
+    width: min(100%, 700px);
+    margin: 16px auto 0;
+    justify-content: center;
+}
+
+.finalizar-compra-page .caixa-finalizar h1 {
+    margin-bottom: 28px;
+    color: #fff;
+    font-size: 24px;
+    text-align: center;
+}
+
+.finalizar-compra-page .secao-finalizar {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+.finalizar-compra-page .secao-finalizar h2,
+.finalizar-compra-page .opcoes-pagamento legend {
+    margin-bottom: 14px;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.finalizar-compra-page .endereco-entrega {
+    margin-bottom: 12px;
+    font-size: 13px;
+    font-style: normal;
+    line-height: 1.45;
+}
+
+.finalizar-compra-page .botao-alterar-endereco {
+    min-height: 38px;
+    padding: 0 14px;
+    border: 0;
+    border-radius: 7px;
+    background-color: #ffda9b;
+    color: #e65e35;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.finalizar-compra-page .botao-alterar-endereco:hover {
+    background-color: #ffca7a;
+}
+
+.finalizar-compra-page .opcoes-pagamento {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 28px;
+}
+
+.finalizar-compra-page .opcoes-pagamento legend {
+    width: 100%;
+}
+
+.finalizar-compra-page .opcao-pagamento {
+    display: flex;
+    flex: 1 1 180px;
+    min-height: 46px;
+    align-items: center;
+    gap: 12px;
+    padding: 0 14px;
+    border: 1px solid rgba(255, 255, 255, 0.55);
+    border-radius: 7px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.finalizar-compra-page .opcao-pagamento input {
+    width: 18px;
+    height: 18px;
+    margin: 0;
+    accent-color: #ffda9b;
+    cursor: pointer;
+}
+
+@media (max-width: 520px) {
+    .finalizar-compra-page .caixa-finalizar {
+        padding: 24px 18px;
+    }
+}
+
+.perfil-page {
+    min-height: 100vh;
+    background-color: #ffda9b;
+    color: #ed5b35;
+}
+
+.perfil-page .perfil-atalhos {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.perfil-page .perfil-atalhos a {
+    color: #ed5b35;
+    font-size: 30px;
+    line-height: 1;
+}
+
+.perfil-page .login-header {
+    min-height: 86px;
+    justify-content: space-between;
+    gap: 32px;
+    padding: 0 6.5%;
+}
+
+.perfil-page .login-header .brand {
+    flex: 0 0 74px;
+}
+
+.perfil-page .login-header .nav-menu {
+    flex: 1;
+    justify-content: center;
+}
+
+.perfil-page .perfil-atalhos {
+    flex: 0 0 auto;
+}
+
+.perfil-conteudo {
+    display: flex;
+    min-height: calc(100vh - 72px);
+    justify-content: center;
+    align-items: flex-start;
+    padding: 32px 16px;
+}
+
+.perfil-cartao {
+    width: min(100%, 420px);
+    padding: 22px;
+    border-radius: 9px;
+    background-color: #fff;
+}
+
+.perfil-cartao h1,
+.perfil-cartao h2 {
+    color: #ed5b35;
+}
+
+.perfil-cartao h1 {
+    margin-bottom: 20px;
+    font-size: 22px;
+    text-align: center;
+}
+
+.perfil-dados {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.perfil-dados strong {
+    font-weight: 700;
+}
+
+.perfil-avatar {
+    display: inline-flex;
+    width: 72px;
+    height: 72px;
+    flex: 0 0 72px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: #e65e35;
+    color: #fff;
+    font-size: 52px;
+}
+
+.perfil-secao {
+    margin-top: 16px;
+}
+
+.perfil-secao h2 {
+    margin-bottom: 8px;
+    font-size: 20px;
+}
+
+.perfil-endereco {
+    margin-bottom: 10px;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.perfil-adicionar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 6px;
+    color: #ed5b35;
+    font-size: 13px;
+}
+
+.perfil-mais {
+    display: inline-flex;
+    width: 27px;
+    height: 27px;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 8px;
+    border-radius: 8px;
+    background-color: #ffda9b;
+    font-size: 18px;
+}
+
+.perfil-seguranca {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.perfil-seguranca h2 {
+    margin-bottom: 4px;
+}
+
+.perfil-seguranca a {
+    color: #ed5b35;
+    font-size: 13px;
+    line-height: 1.6;
+    text-decoration: underline;
+}
+
+.perfil-acoes {
+    display: flex;
+    gap: 10px;
+    margin-top: 28px;
+}
+
+.perfil-acoes button,
+.perfil-acoes a {
+    display: inline-flex;
+    min-height: 36px;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    border-radius: 9px;
+    background-color: #ffda9b;
+    color: #ed5b35;
+    cursor: pointer;
+    font: inherit;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+@media (max-width: 650px) {
+    .perfil-page .login-header {
+        min-height: 0;
+        flex-wrap: wrap;
+        gap: 12px;
+        padding: 12px 16px;
+    }
+
+    .perfil-page .login-header .brand {
+        flex: 0 0 58px;
+        justify-content: flex-start;
+    }
+
+    .perfil-page .login-header .brand img {
+        width: 58px;
+    }
+
+    .perfil-page .login-header .nav-menu {
+        order: 3;
+        flex: 1 0 100%;
+        width: 100%;
+        gap: 10px 16px;
+    }
+
+    .perfil-page .perfil-atalhos {
+        margin-left: auto;
+    }
+}
