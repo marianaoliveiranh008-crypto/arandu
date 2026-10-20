@@ -1419,3 +1419,10 @@ body.carrinho-page {
         width: 100%;
     }
 }
+
+.descricao-scroll {
+    max-height: 80px;
+    overflow-y: auto;
+    max-width: 300px;
+    padding-right: 5px;
+}

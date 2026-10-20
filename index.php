@@ -33,7 +33,7 @@
                     <span class="cart-count">0</span>
                 </a>
                 <a href="login.php" class="header-button login-link">Entrar</a>
-                <a href="admin/usuarios/index.php" class="header-button admin-link">
+                <a href="usuario/perfil.php" class="header-button admin-link">
                     <span aria-hidden="true">👤</span>
                     <span></span>
                 </a>

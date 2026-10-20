@@ -2,11 +2,23 @@
     session_start();
     require_once "../../config/database.php";
 
-    if(isset($_POST['busca'])){
-        $pesquisa=$_POST['busca'] ?? '';
-    }
+    $pesquisa=$_POST['busca'] ?? '';
 
-    $bancodedados = "SELECT * FROM usuario WHERE nome";
+    if(!empty($pesquisa)){
+        $palavra = mysqli_real_escape_string($conexao, $pesquisa);
+        $bancodedados = "SELECT DISTINCT l.*, a.nome_aut 
+                         FROM livro l
+                         LEFT JOIN liv_aut la ON l.id_liv = la.id_liv
+                         LEFT JOIN autor a ON la.id_aut = a.id_aut
+                         WHERE l.titulo_liv LIKE '%$palavra%' OR a.nome_aut LIKE '%$palavra%'";
+    }else{
+        $bancodedados = "SELECT l.*, GROUP_CONCAT(a.nome_aut SEPARATOR ', ') AS nome_aut 
+                         FROM livro l
+                         LEFT JOIN liv_aut la ON l.id_liv = la.id_liv
+                         LEFT JOIN autor a ON la.id_aut = a.id_aut
+                         GROUP BY l.id_liv";
+    }
+    
     $dados = mysqli_query($conexao, $bancodedados);
     
 ?>
@@ -15,7 +27,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Usuários - Arandu</title>
+    <title>Lista de Livros - Arandu</title>
     <link rel="stylesheet" href="../../css/style.css?v=2">
 </head>
 <body class="usuarios-page">
@@ -25,10 +37,10 @@
         </a>
 
         <nav class="nav-menu" aria-label="Navegação administrativa">
-            <a href="../produtos/index.php">Livros</a>
+            <a href="../produtos/indexLivros.php">Livros</a>
             <a href="../../compras/historico.php">Pedidos</a>
-            <a class="ativo" href="index.php" aria-current="page">Clientes</a>
-            <a href="../produtos/index.php">Estoque</a>
+            <a class="ativo" href="../usuarios/listaUsuarios.php" aria-current="page">Clientes</a>
+            <a href="../produtos/listaLivros.php">Estoque</a>
         </nav>
 
         <nav class="usuarios-atalhos" aria-label="Atalhos">
@@ -49,37 +61,39 @@
             <button type="submit" aria-label="Pesquisar">
                 <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="m16 16 5 5" /></svg>
             </button>
-            <input type="search" name="busca" placeholder="Buscar pedido ou cliente..." aria-label="Buscar pedido ou cliente">
+            <input type="search" name="busca" placeholder="Buscar nome ou autor..." aria-label="Buscar nome ou autor">
         </form>
 
         <div class="usuarios-table-scroll">
             <table class="usuarios-table">
                 <thead>
                     <tr>
-                        <th scope="col">Nome</th>
-                        <th scope="col">E-mail</th>
-                        <th scope="col">Telefone</th>
-                        <th scope="col">Cadastro</th>
-                        <th scope="col">Ações</th>
+                        <th>ID</th>
+                        <th>ISBN</th>
+                        <th>Título</th>
+                        <th>Autor</th>
+                        <th>Estoque</th>
+                        <th>Status</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
                         while($linha = mysqli_fetch_assoc($dados)){
-                            $id = $linha['id_usuario'];
-                            $nome = $linha['nome'];
-                            $email = $linha['email'];
-                            $telefone = $linha['telefone'];
-                            $cpf = $linha['cpf_usuario'];
-                            $tipoUsuario = $linha['tipo_usuario'];
-                            $dataCadastro = $linha['data_cadastro'];
+                            $id = $linha['id_liv'];
+                            $isbn = $linha['isbn'];
+                            $titulo = $linha['titulo_liv'];
+                            $autor = $linha['nome_aut'];
+                            $estoque = $linha['quanti_estoq'];
+
+                            $status = ($estoque>0) ? "Disponível" : "Esgotado";
 
                             echo "<tr>
-                                    <td>$nome</td>
-                                    <td>$email</td>
-                                    <td>$telefone</td>
-                                    <td>$dataCadastro</td>
-                                    <td><a class=\"perfil-link\" href=\"editar.php?id=$id\">Ver perfil</a></td>
+                                    <td>$id</td>
+                                    <td>$isbn</td>
+                                    <td>$titulo</td>
+                                    <td>$autor</td>
+                                    <td>$estoque</td>
+                                    <td>$status</td>
                                 </tr>";
                         }
                     ?>
