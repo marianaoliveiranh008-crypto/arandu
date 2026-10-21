@@ -42,7 +42,7 @@
             <a href="../produtos/indexLivros.php">Livros</a>
             <a href="../../compras/historico.php">Pedidos</a>
             <a class="ativo" href="../usuarios/listaUsuarios.php" aria-current="page">Clientes</a>
-            <a href="../produtos/listaLivros.php">Estoque</a>
+            <a href="../produtos/estoqueLivros.php">Estoque</a>
         </nav>
 
         <nav class="usuarios-atalhos" aria-label="Atalhos">
@@ -87,6 +87,7 @@
                         <th>Estoque</th>
                         <th>Imagem</th>
                         <th>Preço</th>
+                        <th>Ações</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -118,6 +119,7 @@
                                     <td>$estoque</td>
                                     <td>$imagem</td>
                                     <td>$preco</td>
+                                    <td><a class=\"perfil-link\" href=\"editarLivro.php?id=$id\">Editar informações</a></td>
                                 </tr>";
                         }
                     ?>

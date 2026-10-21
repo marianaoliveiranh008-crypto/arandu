@@ -48,7 +48,7 @@
             <a href="../produtos/indexLivros.php">Livros</a>
             <a href="../../compras/historico.php">Pedidos</a>
             <a class="ativo" href="../usuarios/listaUsuarios.php" aria-current="page">Clientes</a>
-            <a href="../produtos/listaLivros.php">Estoque</a>
+            <a href="../produtos/estoqueLivros.php">Estoque</a>
         </nav>
 
         <nav class="usuarios-atalhos" aria-label="Atalhos">
@@ -67,7 +67,7 @@
     <main class="usuarios-content">
         <h1>Editar Informações do Livro</h1>
 
-        <form action="listaLivros.php" method="POST">
+        <form action="indexLivros.php" method="POST">
             <input type="hidden" name="id_liv" value="<?= $id_livro ?>">
 
             <div>

@@ -1,3 +1,12 @@
+<?php
+    session_start();
+    $totalItensCarrinho = 0;
+    if (isset($_SESSION['carrinho'])) {
+        foreach ($_SESSION['carrinho'] as $item) {
+            $totalItensCarrinho += $item['quantidade'];
+        }
+    }
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -52,15 +61,31 @@
 
             <div class="livros">
                 <article class="livro">
-                    <a href="compras/detalhes.php"><img src="https://m.media-amazon.com/images/I/81t7altQZxL._SL1500_.jpg"alt="Capitães de Areia"></a>
+                    <a href="compras/detalhes.php"><img src="https://m.media-amazon.com/images/I/81t7altQZxL._SL1500_.jpg" alt="Capitães de Areia"></a>
                     <h3>Capitães de Areia</h3>
-                    <a href="compras/detalhes.php">R$24,99</a>
+                    <form action="carrinho.php" method="POST">
+                        <input type="hidden" name="acao" value="adicionar">
+                        <input type="hidden" name="id_livro" value="CapitaesDeAreia">
+                        <input type="hidden" name="nome" value="Capitães de Areia">
+                        <input type="hidden" name="preco" value="24.99">
+                        <input type="hidden" name="imagem" value="https://m.media-amazon.com/images/I/81t7altQZxL._SL1500_.jpg">
+                        <input type="hidden" name="autor" value="Jorge Amado">
+                        <button type="submit" style="background:none; border:none; color:inherit; cursor:pointer; font:inherit;">R$ 24,99</button>
+                    </form>
                 </article>
 
                 <article class="livro">
-                    <a href="compras/detalhes.php"><img src=" https://m.media-amazon.com/images/I/71OL9RU2tJL._SL1360_.jpg " alt="Memórias Póstumas de Brás Cubas"></a>
+                    <a href="compras/detalhes.php"><img src="https://m.media-amazon.com/images/I/71OL9RU2tJL._SL1360_.jpg" alt="Memórias Póstumas de Brás Cubas"></a>
                     <h3>Memórias Póstumas de Brás Cubas</h3>
-                    <a href="compras/detalhes.php">R$69,90</a>
+                    <form action="carrinho.php" method="POST">
+                        <input type="hidden" name="acao" value="adicionar">
+                        <input type="hidden" name="id_livro" value="MemoriasPostumasDeBrasCubas">
+                        <input type="hidden" name="nome" value="Memórias Póstumas de Brás Cubas">
+                        <input type="hidden" name="preco" value="69,90">
+                        <input type="hidden" name="imagem" value="https://m.media-amazon.com/images/I/71OL9RU2tJL._SL1360_.jpg">
+                        <input type="hidden" name="autor" value="Machado de Assis">
+                        <button type="submit" style="background:none; border:none; color:inherit; cursor:pointer; font:inherit;">R$ 24,99</button>
+                    </form>
                 </article>
 
                 <article class="livro">

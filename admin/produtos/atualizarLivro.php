@@ -87,10 +87,10 @@
             $stmtInsRel->close();
         }
 
-        header("Location: listaLivros.php");
+        header("Location: estoqueLivros.php");
         exit;
     }else{
-        header("Location: listaLivros.php");
+        header("Location: estoqueLivros.php");
         exit;
     }
 ?>

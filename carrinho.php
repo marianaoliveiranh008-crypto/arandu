@@ -1,3 +1,64 @@
+<?php
+    session_start();
+    if(isset($_SESSION['carrinho'])){
+        $_SESSION['carrinho'] = [];
+    }
+
+    if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['acao']) && $_POST['acao'] === 'adicionar'){
+        $id = trim($_POST['id_livro']);
+        $nome = trim($_POST['nome']);
+        $preco = $_POST['preco'];
+        $imagem = trim($_POST['imagem']);
+        $autor = trim($_POST['autor']);
+
+        if(isset($_SESSION['carrinho'][$id])){
+            $_SESSION['carrinho'][$id]['quantidade'] += 1;
+        }else{
+            $_SESSION['carrinho'][$id] = [
+                'nome'=>$nome,
+                'preco'=>$preco,
+                'imagem'=>$imagem,
+                'autor'=>$autor,
+                'quantidade'=>1
+            ];
+        }
+
+        header ("Location: carrinho.php");
+        exit;
+    }
+
+    if(isset($_GET['acao']) && isset($_GET['id'])){
+        $id = $_GET['id'];
+        $acao = $_GET['acao'];
+
+        if(isset($_SESSION['carrinho'][$id])){
+            if($acao === 'aumentar'){
+                $_SESSION['carrinho'][$id]['quantidade'] += 1;
+            }elseif($acao === 'diminuir'){
+                $_SESSION['carrinho'][$id]['quantidade'] += 1;
+                
+                if ($_SESSION['carrinho'][$id]['quantidade'] <= 0) {
+                unset($_SESSION['carrinho'][$id]);
+                }
+            }elseif($acao === 'remover'){
+                unset($_SESSION['carrinho'][$id]);
+            }
+        }
+        header("Location: carrinho.php");
+        exit;
+    }
+
+    $subtotal = 0;
+    $totalItens = 0;
+
+    foreach($_SESSION['carrinho'] as $item) {
+        $subtotal += $item['preco'] * $item['quantidade'];
+        $totalItens += $item['quantidade'];
+    }
+    ?>
+?>
+
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -32,58 +93,46 @@
         <section class="carrinho">
             <h1>Meu carrinho</h1>
 
-            <div class="livro">
-                <img src="https://m.media-amazon.com/images/I/71bWGcFrLCL._SL1500_.jpg" alt="Capa do livro A Teus Pés">
-
-                <div class="informacoes">
-                    <h2>A Teus Pés</h2>
-                    <p class="autor">Por: Ana Cristina Cesar</p>
-
-                    <div class="quantidade">
-                        <button type="button" aria-label="Diminuir quantidade de A Teus Pés">-</button>
-                        <span>1</span>
-                        <button type="button" aria-label="Aumentar quantidade de A Teus Pés">+</button>
-                    </div>
-
-                    <div class="preco">
-                        <span>R$50,00</span>
-                        <button class="excluir" type="button" aria-label="Remover A Teus Pés do carrinho">Excluir</button>
-                    </div>
+           <?php if (empty($_SESSION['carrinho'])): ?>
+                <div class="carrinho-vazio" style="padding: 20px 0;">
+                    <p>Seu carrinho está vazio no momento.</p>
+                    <a href="index.php" style="text-decoration: underline;">Voltar às compras</a>
                 </div>
-            </div>
+            <?php else: ?>
+                <?php foreach ($_SESSION['carrinho'] as $id => $item): ?>
+                    <div class="livro">
+                        <img src="<?= htmlspecialchars($item['imagem']) ?>" alt="Capa do livro <?= htmlspecialchars($item['nome']) ?>">
 
-            <div class="livro">
-                <img src="https://m.media-amazon.com/images/I/816Udvs9O7L._SL1500_.jpg" alt="Capa do livro Tudo é Rio">
+                        <div class="informacoes">
+                            <h2><?= htmlspecialchars($item['nome']) ?></h2>
+                            <p class="autor">Por: <?= htmlspecialchars($item['autor']) ?></p>
 
-                <div class="informacoes">
-                    <h2>Tudo é Rio</h2>
-                    <p class="autor">Por: Carla Madeira</p>
+                            <div class="quantidade">
+                                <a href="carrinho.php?acao=diminuir&id=<?= urlencode($id) ?>" style="text-decoration:none;" aria-label="Diminuir quantidade">-</a>
+                                <span><?= $item['quantidade'] ?></span>
+                                <a href="carrinho.php?acao=aumentar&id=<?= urlencode($id) ?>" style="text-decoration:none;" aria-label="Aumentar quantidade">+</a>
+                            </div>
 
-                    <div class="quantidade">
-                        <button type="button" aria-label="Diminuir quantidade de Tudo é Rio">-</button>
-                        <span>2</span>
-                        <button type="button" aria-label="Aumentar quantidade de Tudo é Rio">+</button>
+                            <div class="preco">
+                                <span>R$ <?= number_format($item['preco'] * $item['quantidade'], 2, ',', '.') ?></span>
+                                <a href="carrinho.php?acao=remover&id=<?= urlencode($id) ?>" class="excluir" style="text-decoration:none;" aria-label="Remover item">Excluir</a>
+                            </div>
+                        </div>
                     </div>
+                <?php endforeach; ?>
 
-                    <div class="preco">
-                        <span>R$39,99</span>
-                        <button class="excluir" type="button" aria-label="Remover Tudo é Rio do carrinho">Excluir</button>
-                    </div>
+                <div class="resumo">
+                    <p><span>Subtotal</span><strong>R$ <?= number_format($subtotal, 2, ',', '.') ?></strong></p>
+                    <p><span>Frete</span><strong>A calcular</strong></p>
+                    <p class="resumo-total"><span>Total</span><strong>R$ <?= number_format($subtotal, 2, ',', '.') ?></strong></p>
                 </div>
-            </div>
 
-            <div class="resumo">
-                <p><span>Subtotal</span><strong>R$129,98</strong></p>
-                <p><span>Frete</span><strong>A calcular</strong></p>
-                <p class="resumo-total"><span>Total</span><strong>A calcular</strong></p>
-            </div>
-
-            <div class="botoes">
-                <button type="button">Calcular frete</button>
-                <a href="finalizarCompra.php">Finalizar compra</a>
-            </div>
+                <div class="botoes">
+                    <button type="button">Calcular frete</button>
+                    <a href="finalizarCompra.php">Finalizar compra</a>
+                </div>
+            <?php endif; ?>
         </section>
     </main>
-
 </body>
 </html>

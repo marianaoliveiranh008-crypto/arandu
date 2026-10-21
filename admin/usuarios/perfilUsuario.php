@@ -45,7 +45,7 @@
             <a href="../produtos/indexLivros.php">Livros</a>
             <a href="../../compras/historico.php">Pedidos</a>
             <a class="ativo" href="../usuarios/listaUsuarios.php" aria-current="page">Clientes</a>
-            <a href="../produtos/listaLivros.php">Estoque</a>
+            <a href="../produtos/estoqueLivros.php">Estoque</a>
         </nav>
 
         <nav class="usuarios-atalhos" aria-label="Atalhos">

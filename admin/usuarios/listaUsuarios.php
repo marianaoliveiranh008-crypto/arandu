@@ -32,7 +32,7 @@
             <a href="../produtos/indexLivros.php">Livros</a>
             <a href="../../compras/historico.php">Pedidos</a>
             <a class="ativo" href="../usuarios/listaUsuarios.php" aria-current="page">Clientes</a>
-            <a href="../produtos/listaLivros.php">Estoque</a>
+            <a href="../produtos/estoqueLivros.php">Estoque</a>
         </nav>
 
         <nav class="usuarios-atalhos" aria-label="Atalhos">
@@ -53,7 +53,7 @@
             <button type="submit" aria-label="Pesquisar">
                 <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="m16 16 5 5" /></svg>
             </button>
-            <input type="search" name="busca" placeholder="Buscar pedido ou cliente..." aria-label="Buscar pedido ou cliente">
+            <input type="search" name="busca" placeholder="Buscar nome do cliente..." aria-label="Buscar pedido ou cliente">
         </form>
 
         <div class="usuarios-table-scroll">
