@@ -117,7 +117,7 @@
                                     <td>$anoPublicacao</td>
                                     <td>$numeroPaginas</td>
                                     <td>$estoque</td>
-                                    <td>$imagem</td>
+                                    <td>$exibirImagem</td>
                                     <td>$preco</td>
                                     <td><a class=\"perfil-link\" href=\"editarLivro.php?id=$id\">Editar informações</a></td>
                                 </tr>";

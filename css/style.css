@@ -650,8 +650,79 @@ header {
 }
 
 .usuarios-table-scroll {
-    width: min(100%, 520px);
+    width: 100%;
     overflow-x: auto;
+}
+
+.usuarios-table-scroll table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+}
+
+.usuarios-table-scroll th:nth-child(1),
+.usuarios-table-scroll td:nth-child(1) {
+    width: 4%;
+}
+
+.usuarios-table-scroll th:nth-child(2),
+.usuarios-table-scroll td:nth-child(2) {
+    width: 7%;
+}
+
+.usuarios-table-scroll th:nth-child(3),
+.usuarios-table-scroll td:nth-child(3) {
+    width: 9%;
+}
+
+.usuarios-table-scroll th:nth-child(4),
+.usuarios-table-scroll td:nth-child(4) {
+    width: 8%;
+}
+
+.usuarios-table-scroll th:nth-child(5),
+.usuarios-table-scroll td:nth-child(5) {
+    width: 8%;
+}
+
+.usuarios-table-scroll th:nth-child(6),
+.usuarios-table-scroll td:nth-child(6) {
+    width: 20%;
+}
+
+.usuarios-table-scroll th:nth-child(7),
+.usuarios-table-scroll td:nth-child(7) {
+    width: 9%;
+}
+
+.usuarios-table-scroll th:nth-child(8),
+.usuarios-table-scroll td:nth-child(8) {
+    width: 7%;
+}
+
+.usuarios-table-scroll th:nth-child(9),
+.usuarios-table-scroll td:nth-child(9) {
+    width: 6%;
+}
+
+.usuarios-table-scroll th:nth-child(10),
+.usuarios-table-scroll td:nth-child(10) {
+    width: 9%;
+}
+
+.usuarios-table-scroll th:nth-child(11),
+.usuarios-table-scroll td:nth-child(11) {
+    width: 5%;
+}
+
+.usuarios-table-scroll th:nth-child(12),
+.usuarios-table-scroll td:nth-child(12) {
+    width: 8%;
+}
+
+.usuarios-table-scroll td:nth-child(6) {
+    overflow-wrap: break-word;
+    white-space: normal;
 }
 
 .usuarios-table {

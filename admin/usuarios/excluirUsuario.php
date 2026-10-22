@@ -29,10 +29,11 @@
 
         }catch(Exception $e){
             $conexao->rollback();
-            $_SESSION['erro'] = "Erro ao excluir cliente: " . $e->getMessage();
-        }
+            $_SESSION['erro'] = "Erro ao excluir cliente: ".$e->getMessage();
+        
+    }
     }
 
-    header("Location: index.php");
+    header("Location: listaUsuarios.php");
     exit;
 ?>
