@@ -30,11 +30,6 @@
         </nav>
 
         <div class="header-actions">
-            <label class="search-box" aria-label="Pesquisar livro">
-                <span aria-hidden="true">⌕</span>
-                <input type="search" id="inputPesquisa" placeholder="Pesquisar..." aria-label="Pesquisar livro">
-            </label>
-
             <div class="user-tools">
                 <a href="carrinho.php" class="header-button cart-link" aria-label="Carrinho de compras">
                     <span aria-hidden="true">🛍</span>
