@@ -6,7 +6,7 @@
 
     if(!empty($pesquisa)){
         $palavra = mysqli_real_escape_string($conexao, $pesquisa);
-        $bancodedados = "SELECT DISTINCT l.*, a.nome_aut 
+        $bancodedados = "SELECT DISTINCT l.*, a.nome_aut, ed.nome_edi
                          FROM livro l
                          LEFT JOIN editora ed ON l.id_edi = ed.id_edi
                          LEFT JOIN liv_aut la ON l.id_liv = la.id_liv

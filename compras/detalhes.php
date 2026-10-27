@@ -1,3 +1,29 @@
+<?php
+    session_start();
+    require_once "../config/database.php";
+
+    if(isset($_GET['id'])){
+        $id_livro = $_GET['id'];
+
+        $sqli = "SELECT l.*, a.nome_aut, GROUP_CONCAT(ed.nome_edi SEPARATOR ', ') AS nome_aut, ed.nome_edi
+                FROM livro l 
+                LEFT JOIN editora ed ON l.id_edi = ed.id_edi 
+                LEFT JOIN liv_aut la ON l.id_liv = la.id_liv 
+                LEFT JOIN autor a ON la.id_aut = a.id_aut 
+                WHERE l.id_liv = ?
+                GROUP BY l.id_liv";
+        $stmt = $conexao->prepare($sqli);
+        $stmt->bind_param("i", $id_livro);
+        $stmt->execute();
+        $resultado = $stmt->get_result();
+
+        if($resultado->num_rows>0){
+            $livro = $resultado->fetch_assoc();
+        }else{
+            die("Livro não encontrado!");
+        }
+    }
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -37,29 +63,35 @@
         <article class="detalhes-card">
             <img
                 class="detalhes-capa"
-                src="https://m.media-amazon.com/images/I/81t7altQZxL._SL1500_.jpg"alt="Capa do livro Capitães de Areia">
+                src="<?= htmlspecialchars($livro['imagem'] ?? '') ?>"
+                alt="Capa do livro <?= htmlspecialchars($livro['titulo_liv'] ?? '') ?>">
 
             <div class="detalhes-conteudo">
-                <h1>Capitães de Areia</h1>
-                <p class="detalhes-autor">Por: Jorge Amado</p>
+                <h1><?= htmlspecialchars($livro['titulo_liv'] ?? '') ?></h1>
+                <p class="detalhes-autor">Por: <?= htmlspecialchars($livro['autor'] ?? '') ?></p>
 
                 <p class="detalhes-descricao">
-                    Nas ruas de Salvador, um grupo de meninos abandonados enfrenta a pobreza,
-                    a violência e a luta diária pela sobrevivência. Conhecidos como Capitães da
-                    Areia, eles encontram amizade e coragem enquanto tentam construir o próprio
-                    destino. Um dos romances mais marcantes de Jorge Amado, que retrata a infância
-                    e as desigualdades sociais no Brasil.
+                    <?= nl2br(htmlspecialchars($livro['descricao'] ?? 'Descrição não disponível.')) ?>
                 </p>
 
-                <dl class="detalhes-metadados">
-                    <div><dt>Editora:</dt><dd>Companhia das Letras</dd></div>
-                    <div><dt>Categoria:</dt><dd>Romance brasileiro</dd></div>
-                    <div><dt>Publicado em:</dt><dd>1937</dd></div>
-                </dl>
+                <div class="detalhes-metadados">
+                    <div>Editora: <?= htmlspecialchars($livro['nome_edi'] ?? 'Não informada') ?></div>
+                    <div>Categoria: <?= htmlspecialchars($livro['nome_cat'] ?? 'Não informada') ?></div>
+                    <div>Publicado em: <?= htmlspecialchars($livro['ano_public'] ?? 'Data não informada') ?></div>
+                </div>
 
                 <div class="detalhes-compra">
-                    <p class="detalhes-preco"><span>R$</span> 24,99</p>
-                    <a href="../carrinho.php" class="detalhes-comprar">Adicionar ao carrinho</a>
+                    <p class="detalhes-preco"><span>R$</span> <?= number_format($livro['preco'], 2, ',', '.') ?></p>
+                
+                    <form action="../carrinho.php" method="POST">
+                        <input type="hidden" name="acao" value="adicionar">
+                        <input type="hidden" name="id_livro" value="<?= htmlspecialchars($livro['id'] ?? '') ?>">
+                        <input type="hidden" name="nome" value="<?= htmlspecialchars($livro['titulo_liv'] ?? '') ?>">
+                        <input type="hidden" name="preco" value="<?= htmlspecialchars($livro['preco'] ?? '') ?>">
+                        <input type="hidden" name="imagem" value="<?= htmlspecialchars($livro['imagem'] ?? '') ?>">
+                        <input type="hidden" name="autor" value="<?= htmlspecialchars($livro['autor'] ?? '') ?>">
+                        <button type="submit" class="detalhes-comprar" style="border:none; cursor:pointer;">Adicionar ao carrinho</button>
+                    </form>
                 </div>
             </div>
         </article>

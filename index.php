@@ -56,7 +56,7 @@
 
             <div class="livros">
                 <article class="livro">
-                    <a href="compras/detalhes.php"><img src="https://m.media-amazon.com/images/I/81t7altQZxL._SL1500_.jpg" alt="Capitães de Areia"></a>
+                    <a href="compras/detalhes.php?id=1"><img src="https://m.media-amazon.com/images/I/81t7altQZxL._SL1500_.jpg" alt="Capitães de Areia"></a>
                     <h3>Capitães de Areia</h3>
                     <form action="carrinho.php" method="POST">
                         <input type="hidden" name="acao" value="adicionar">
@@ -70,7 +70,7 @@
                 </article>
 
                 <article class="livro">
-                    <a href="compras/detalhes.php"><img src="https://m.media-amazon.com/images/I/71OL9RU2tJL._SL1360_.jpg" alt="Memórias Póstumas de Brás Cubas"></a>
+                    <a href="compras/detalhes.php?id=2"><img src="https://m.media-amazon.com/images/I/71OL9RU2tJL._SL1360_.jpg" alt="Memórias Póstumas de Brás Cubas"></a>
                     <h3>Memórias Póstumas de Brás Cubas</h3>
                     <form action="carrinho.php" method="POST">
                         <input type="hidden" name="acao" value="adicionar">
@@ -84,7 +84,7 @@
                 </article>
 
                 <article class="livro">
-                    <a href="compras/detalhes.php"><img src="https://m.media-amazon.com/images/I/71p3cRkpytL._SL1500_.jpg" alt="Iracema: Cinco Minutos"></a>
+                    <a href="compras/detalhes.php?id=3"><img src="https://m.media-amazon.com/images/I/71p3cRkpytL._SL1500_.jpg" alt="Iracema: Cinco Minutos"></a>
                     <h3>Iracema: Cinco Minutos</h3>
                     <form action="carrinho.php" method="POST">
                         <input type="hidden" name="acao" value="adicionar">
@@ -98,7 +98,7 @@
                 </article>
 
                 <article class="livro">
-                    <a href="compras/detalhes.php"><img src="https://m.media-amazon.com/images/I/61TaHURu27L._SL1000_.jpg" alt="A Hora da Estrela"></a>
+                    <a href="compras/detalhes.php?id=4"><img src="https://m.media-amazon.com/images/I/61TaHURu27L._SL1000_.jpg" alt="A Hora da Estrela"></a>
                     <h3>A Hora da Estrela</h3>
                     <form action="carrinho.php" method="POST">
                         <input type="hidden" name="acao" value="adicionar">
