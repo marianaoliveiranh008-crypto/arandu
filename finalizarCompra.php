@@ -14,11 +14,11 @@
             </a>
         </div>
 
-        <nav class="carrinho-nav" aria-label="Menu principal">
+        <nav class="nav-menu" aria-label="Menu principal">
             <a href="index.php">Home</a>
             <a href="sobreNos.php">Sobre nós</a>
-            <a href="#">+ Procurados</a>
-            <a href="#">Novidades</a>
+            <a href="maisProcurados.php">+ Procurados</a>
+            <a href="novidades.php">Novidades</a>
         </nav>
 
         <div class="icones" aria-label="Atalhos da conta">
@@ -40,6 +40,32 @@
                 </address>
                 <button class="botao-alterar-endereco" type="button">Alterar endereço</button>
             </section>
+
+                        <script>
+                const cep = document.getElementById("cep");
+                cep.addEventListener("blur", buscarCEP);
+
+                async function buscarCEP(){
+                    let valorCEP = cep.value.replace(/\D/g,'');
+                    if(valorCEP.length != 8){
+                        alert("CEP inválido!");
+                        return;
+                    }try{
+                        const resposta = await fetch(`https://viacep.com.br/ws/${valorCEP}/json/`);
+                        const dados = await resposta.json();
+                        if(dados.erro){
+                            alert("CEP não encontrado.");
+                            return;
+                        }
+                        document.getElementById("rua").value = dados.logradouro;
+                        document.getElementById("bairro").value = dados.bairro;
+                        document.getElementById("cidade").value = dados.localidade;
+                        document.getElementById("estado").value = dados.uf;
+                    }catch(erro){
+                        alert("Erro ao consultar a API.");
+                    }
+                }
+            </script>
 
             <fieldset class="secao-finalizar opcoes-pagamento">
                 <legend>Formas de pagamento</legend>

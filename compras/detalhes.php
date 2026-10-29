@@ -5,11 +5,15 @@
     if(isset($_GET['id'])){
         $id_livro = $_GET['id'];
 
-        $sqli = "SELECT l.*, a.nome_aut, GROUP_CONCAT(ed.nome_edi SEPARATOR ', ') AS nome_aut, ed.nome_edi
-                FROM livro l 
-                LEFT JOIN editora ed ON l.id_edi = ed.id_edi 
+        $sqli = "SELECT l.*, ed.nome_edi,
+                GROUP_CONCAT(DISTINCT c.nome_cat SEPARATOR ', ') AS nome_cat, 
+                GROUP_CONCAT(DISTINCT a.nome_aut SEPARATOR ', ') AS autor
+                FROM livro l
+                LEFT JOIN editora ed ON l.id_edi = ed.id_edi
+                LEFT JOIN liv_cat lc ON l.id_liv = lc.id_liv
+                LEFT JOIN categoria c ON lc.id_cat = c.id_cat
                 LEFT JOIN liv_aut la ON l.id_liv = la.id_liv 
-                LEFT JOIN autor a ON la.id_aut = a.id_aut 
+                LEFT JOIN autor a ON la.id_aut = a.id_aut
                 WHERE l.id_liv = ?
                 GROUP BY l.id_liv";
         $stmt = $conexao->prepare($sqli);
@@ -29,7 +33,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Capitães de Areia | Arandu</title>
+    <title>Livro</title>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="icon" href="../img/Logotipo-Livraria.ico" type="image/x-icon">
 </head>
@@ -85,7 +89,7 @@
                 
                     <form action="../carrinho.php" method="POST">
                         <input type="hidden" name="acao" value="adicionar">
-                        <input type="hidden" name="id_livro" value="<?= htmlspecialchars($livro['id'] ?? '') ?>">
+                        <input type="hidden" name="id_livro" value="<?= htmlspecialchars($livro['id_liv'] ?? '') ?>">
                         <input type="hidden" name="nome" value="<?= htmlspecialchars($livro['titulo_liv'] ?? '') ?>">
                         <input type="hidden" name="preco" value="<?= htmlspecialchars($livro['preco'] ?? '') ?>">
                         <input type="hidden" name="imagem" value="<?= htmlspecialchars($livro['imagem'] ?? '') ?>">

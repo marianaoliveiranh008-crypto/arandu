@@ -1,25 +1,40 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Sobre nós - Arandu</title>
-	<link rel="stylesheet" href="css/style.css?v=5">
-	<link rel="icon" href="img/Logotipo-Livraria.ico" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobre nós</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="img/Logotipo-Livraria.ico" type="image/x-icon">
 </head>
 <body class="sobre-page">
-	<header class="top-header login-header">
-		<a class="brand" href="index.php" aria-label="Arandu - página inicial">
+    <header class="top-header login-header">
+        <a class="brand" href="index.php" aria-label="Arandu - página inicial">
 			<img src="img/logo.png" alt="Arandu">
 		</a>
 
-		<nav class="nav-menu" aria-label="Menu principal">
-			<a href="index.php">Home</a>
-			<a href="sobreNos.php" aria-current="page">Sobre nós</a>
-			<a href="#">+ Procurados</a>
-			<a href="#">Novidades</a>
-		</nav>
-	</header>
+        <nav class="nav-menu" aria-label="Menu principal">
+            <a href="index.php">Home</a>
+            <a href="sobreNos.php">Sobre nós</a>
+            <a href="maisProcurados.php">+ Procurados</a>
+            <a href="novidades.php">Novidades</a>
+        </nav>
+
+        <div class="header-actions">
+            <div class="user-tools">
+                <a href="carrinho.php" class="header-button cart-link" aria-label="Carrinho de compras">
+                    <span aria-hidden="true">🛍</span>
+                    <span></span>
+                    <span class="cart-count">0</span>
+                </a>
+                <a href="login.php" class="header-button login-link">Entrar</a>
+                <a href="usuario/perfil.php" class="header-button admin-link">
+                    <span aria-hidden="true">👤</span>
+                    <span></span>
+                </a>
+            </div>
+        </div>
+    </header>
 
 	<main class="sobre-container">
 		<section class="sobre-box" aria-labelledby="sobre-titulo">

@@ -7,12 +7,6 @@
         $cpfLimpo   = preg_replace('/[^0-9]/', '',$_POST['cpf'] ?? '');
         $telefone   = preg_replace('/[^0-9]/', '',$_POST['telefone'] ?? '');
         $cepLimpo   = preg_replace('/[^0-9]/', '',$_POST['cep'] ?? '');
-        $rua = trim($_POST['rua'] ?? '');
-        $numero = trim($_POST['numero'] ?? '');
-        $complemento = trim($_POST['complemento'] ?? '');
-        $bairro = trim($_POST['bairro'] ?? '');
-        $cidade = trim($_POST['cidade'] ?? '');
-        $estado = trim($_POST['estado'] ?? '');
         $email = trim($_POST['email'] ?? '');
         $senha = trim($_POST['senha'] ?? '');
         $confirmar = trim($_POST['confirmar'] ?? '');
@@ -58,16 +52,10 @@
                 $idUsuarioCriado = $conexao->insert_id;
                 $stmtUsuario->close();
 
-                $sqlInsertEndereco = "INSERT INTO endereco (rua, numero, complemento, bairro, cidade, estado, cep, id_usuario) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                $sqlInsertEndereco = "INSERT INTO endereco (cep, id_usuario) VALUES (?, ?)";
                 $stmtEndereco = $conexao->prepare($sqlInsertEndereco);
                 $stmtEndereco->bind_param(
-                    "sssssssi",
-                    $rua,
-                    $numero,
-                    $complemento,
-                    $bairro,
-                    $cidade,
-                    $estado,
+                    "si",
                     $cepLimpo,
                     $idUsuarioCriado
                 );
@@ -76,16 +64,42 @@
 
                 $conexao->commit();
 
-                $_SESSION['sucesso'] = "Cadastro realizado com sucesso!";
-                header("Location: index.php");
-                exit;
-            }catch(Exception $e){
-                $conexao->rollback();
-                echo "Erro ao realizar o cadastro. Tente novamente.";
+                $_SESSION['usuario_id'] = $idUsuarioCriado;
+                    $_SESSION['usuario_nome'] = $nome;
+
+                    if(isset($_SESSION['produto_pendente'])){
+                        $produto = $_SESSION['produto_pendente'];
+                        $id_livro = $produto['id_livro'];
+
+                        if(isset($_SESSION['carrinho'][$id_livro])){
+                            $_SESSION['carrinho'][$id_livro]['quantidade'] += 1;
+                        }else{
+                            $_SESSION['carrinho'][$id_livro] = [
+                                'nome'       => $produto['nome'],
+                                'preco'      => $produto['preco'],
+                                'imagem'     => $produto['imagem'],
+                                'autor'      => $produto['autor'],
+                                'quantidade' => 1
+                            ];
+                        }
+
+                        unset($_SESSION['produto_pendente']);
+                    }
+
+                    $url_destino = $_SESSION['url_retorno'] ?? 'detalhes.php';
+                    unset($_SESSION['url_retorno']);
+
+                    $_SESSION['sucesso'] = "Conta criada com sucesso!";
+                    header("Location: " . $url_destino);
+                    exit;
+
+                }catch(Exception $e){
+                    $conexao->rollback();
+                    echo "Erro ao realizar o cadastro. Tente novamente.";
+                }
             }
         }
     }
-}
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -159,32 +173,6 @@
 
                 <button class="cadastro-submit" type="submit">Cadastrar</button>
             </form>
-
-            <script>
-                const cep = document.getElementById("cep");
-                cep.addEventListener("blur", buscarCEP);
-
-                async function buscarCEP(){
-                    let valorCEP = cep.value.replace(/\D/g,'');
-                    if(valorCEP.length != 8){
-                        alert("CEP inválido!");
-                        return;
-                    }try{
-                        const resposta = await fetch(`https://viacep.com.br/ws/${valorCEP}/json/`);
-                        const dados = await resposta.json();
-                        if(dados.erro){
-                            alert("CEP não encontrado.");
-                            return;
-                        }
-                        document.getElementById("rua").value = dados.logradouro;
-                        document.getElementById("bairro").value = dados.bairro;
-                        document.getElementById("cidade").value = dados.localidade;
-                        document.getElementById("estado").value = dados.uf;
-                    }catch(erro){
-                        alert("Erro ao consultar a API.");
-                    }
-                }
-            </script>
 
             <p class="cadastro">
                 Já tem uma conta?

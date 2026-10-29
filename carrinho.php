@@ -1,10 +1,26 @@
 <?php
     session_start();
-    if(isset($_SESSION['carrinho'])){
+
+    if(!isset($_SESSION['carrinho'])){
         $_SESSION['carrinho'] = [];
     }
 
     if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['acao']) && $_POST['acao'] === 'adicionar'){
+        if(!isset($_SESSION['usuario_id'])){    
+            $_SESSION['produto_pendente']=[
+                $id = trim($_POST['id_livro']),
+                $nome = trim($_POST['nome']),
+                $preco = $_POST['preco'],
+                $imagem = trim($_POST['imagem']),
+                $autor = trim($_POST['autor'])
+            ];
+            
+            $_SESSION['url_retorno'] = $_SERVER['HTTP_REFERER'] ?? 'detalhes.php';
+            
+            header("Location: login.php");
+            exit;
+        }
+
         $id = trim($_POST['id_livro']);
         $nome = trim($_POST['nome']);
         $preco = $_POST['preco'];
@@ -35,7 +51,7 @@
             if($acao === 'aumentar'){
                 $_SESSION['carrinho'][$id]['quantidade'] += 1;
             }elseif($acao === 'diminuir'){
-                $_SESSION['carrinho'][$id]['quantidade'] += 1;
+                $_SESSION['carrinho'][$id]['quantidade'] -= 1;
                 
                 if ($_SESSION['carrinho'][$id]['quantidade'] <= 0) {
                 unset($_SESSION['carrinho'][$id]);
@@ -51,13 +67,11 @@
     $subtotal = 0;
     $totalItens = 0;
 
-    foreach($_SESSION['carrinho'] as $item) {
+    foreach($_SESSION['carrinho'] as $item){
         $subtotal += $item['preco'] * $item['quantidade'];
         $totalItens += $item['quantidade'];
     }
     ?>
-?>
-
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -76,11 +90,11 @@
             </a>
         </div>
 
-        <nav class="carrinho-nav" aria-label="Menu principal">
+        <nav class="nav-menu" aria-label="Menu principal">
             <a href="index.php">Home</a>
             <a href="sobreNos.php">Sobre nós</a>
-            <a href="#">+ Procurados</a>
-            <a href="#">Novidades</a>
+            <a href="maisProcurados.php">+ Procurados</a>
+            <a href="novidades.php">Novidades</a>
         </nav>
 
         <div class="icones" aria-label="Atalhos da conta">

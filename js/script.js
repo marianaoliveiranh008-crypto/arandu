@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const livros = document.querySelectorAll('.livro');
     const categorias = document.querySelectorAll('.categoria');
 
-    if (!inputPesquisa) return;
+    if(!inputPesquisa)return;
 
     inputPesquisa.addEventListener('input', (event) => {
         const termo = event.target.value.toLowerCase().trim();
@@ -32,9 +32,9 @@ document.addEventListener('DOMContentLoaded', () => {
         livros.forEach((livro) => {
             const titulo = livro.querySelector('h3').textContent.toLowerCase();
 
-            if (titulo.includes(termo)) {
+            if(titulo.includes(termo)){
                 livro.style.display = '';
-            } else {
+            }else{
                 livro.style.display = 'none';
             }
         });
@@ -42,9 +42,9 @@ document.addEventListener('DOMContentLoaded', () => {
         categorias.forEach((categoria) => {
             const livrosVisiveis = categoria.querySelectorAll('.livro:not([style*="display: none"])');
 
-            if (livrosVisiveis.length === 0) {
+            if(livrosVisiveis.length === 0){
                 categoria.style.display = 'none';
-            } else {
+            }else{
                 categoria.style.display = '';
             }
         });
