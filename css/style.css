@@ -302,21 +302,26 @@ header {
 
 .livro {
     width: 170px;
-    height: 260px;
+    min-height: 290px;
     background-color: white;
     border-radius: 10px;
     padding: 16px 12px 10px;
     text-align: center;
     flex-shrink: 0;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .livro img {
     width: 120px;
-    height: 180px;
+    height: 160px;
     object-fit: cover;
     margin: 0 auto 8px;
     border-radius: 6px;
+    flex-shrink: 0;
 }
 
 .livro h3 {
@@ -325,6 +330,7 @@ header {
     line-height: 15px;
     min-height: 30px;
     margin-bottom: 8px;
+    width: 100%;
 }
 
 .livro a {
@@ -2151,4 +2157,43 @@ body.carrinho-page {
     .pedido-status li {
         white-space: normal;
     }
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    width: 165px;
+    height: 24px;
+    background-color: #ffdc9c;
+    border-radius: 7px;
+    overflow: hidden;
+}
+
+.search-box input {
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    padding: 0 8px;
+    font-size: 10px;
+    color: #f15b35;
+}
+
+.search-box input::placeholder {
+    color: #e99a72;
+}
+
+.search-box button {
+    height: 100%;
+    width: 30px;
+    border: none;
+    background: transparent;
+    color: #f15b35;
+    font-size: 15px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    order: -1;
 }

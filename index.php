@@ -29,12 +29,17 @@
             <a href="novidades.php">Novidades</a>
         </nav>
 
+        <div class="search-box">
+            <input type="text" placeholder="Pesquisar...">
+            <button type="submit">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+        </div>
+
         <div class="header-actions">
             <div class="user-tools">
                 <a href="carrinho.php" class="header-button cart-link" aria-label="Carrinho de compras">
                     <span aria-hidden="true">🛍</span>
-                    <span></span>
-                    <span class="cart-count">0</span>
                 </a>
                 <a href="login.php" class="header-button login-link">Entrar</a>
                 <a href="usuario/perfil.php" class="header-button admin-link">
@@ -527,7 +532,8 @@
                         <input type="hidden" name="autor" value="Antonio Schimeneck">
                         <button type="submit" style="background:none; border:none; color:inherit; cursor:pointer; font:inherit;">R$ 41,90</button>
                     </form>
-
+                </article>
+                
                 <article class="livro">
                     <a href="compras/detalhes.php?id=36"><img src="https://m.media-amazon.com/images/I/81C7tRvveSL._SL1500_.jpg"  alt="A verdade em preto e branco"></a>
                     <h3>A verdade em preto e branco</h3>
@@ -540,7 +546,6 @@
                         <input type="hidden" name="autor" value="Antonio Schimeneck">
                         <button type="submit" style="background:none; border:none; color:inherit; cursor:pointer; font:inherit;">R$ 40,00</button>
                     </form>
-                </article>
                 </article>
             <button class="seta seta-direita" type="button" aria-label="Próximo">›</button>
         </section>
@@ -685,73 +690,6 @@
 
         <section class="categoria">
             <div class="titulo">
-                <h2>Literatura infantil</h2>
-                <span>›</span>
-            </div>
-
-            <button class="seta seta-esquerda" type="button" aria-label="Anterior">‹</button>
-
-            <div class="livros">
-                <article class="livro">
-                    <a href="compras/detalhes.php?id=17"><img src="https://m.media-amazon.com/images/I/910wNGmLT4L._SL1500_.jpg"  alt="Amoras"></a>
-                    <h3>Amoras</h3>
-                    <form action="carrinho.php" method="POST">
-                        <input type="hidden" name="acao" value="adicionar">
-                        <input type="hidden" name="id_livro" value="Amoras">
-                        <input type="hidden" name="nome" value="Amoras">
-                        <input type="hidden" name="preco" value="54,90">
-                        <input type="hidden" name="imagem" value="https://m.media-amazon.com/images/I/910wNGmLT4L._SL1500_.jpg">
-                        <input type="hidden" name="autor" value="Emicida">
-                        <button type="submit" style="background:none; border:none; color:inherit; cursor:pointer; font:inherit;">R$ 54,90</button>
-                    </form>
-                </article>
-
-                <article class="livro">
-                    <a href="compras/detalhes.php?id=18"><img src="https://m.media-amazon.com/images/I/71Z98sh5RuL._SL1300_.jpg"  alt="Menina Bonita do Laço de Fita"></a>
-                    <h3>Menina Bonita do Laço de Fita</h3>
-                    <form action="carrinho.php" method="POST">
-                        <input type="hidden" name="acao" value="adicionar">
-                        <input type="hidden" name="id_livro" value="Menina Bonita do Laço de Fita">
-                        <input type="hidden" name="nome" value="Menina Bonita do Laço de Fita">
-                        <input type="hidden" name="preco" value="34,99">
-                        <input type="hidden" name="imagem" value="https://m.media-amazon.com/images/I/71Z98sh5RuL._SL1300_.jpg">
-                        <input type="hidden" name="autor" value="Ana Maria Machado">
-                        <button type="submit" style="background:none; border:none; color:inherit; cursor:pointer; font:inherit;">R$ 34,99</button>
-                    </form>
-                </article>
-
-                <article class="livro">
-                    <a href="compras/detalhes.php?id=19"><img src="https://m.media-amazon.com/images/I/A1fbkGex+bL._SL1500_.jpg"  alt="Chapeuzinho Amarelo"></a>
-                    <h3>Chapeuzinho Amarelo</h3>
-                    <form action="carrinho.php" method="POST">
-                        <input type="hidden" name="acao" value="adicionar">
-                        <input type="hidden" name="id_livro" value="Chapeuzinho Amarelo">
-                        <input type="hidden" name="nome" value="Chapeuzinho Amarelo">
-                        <input type="hidden" name="preco" value="41,90">
-                        <input type="hidden" name="imagem" value="https://m.media-amazon.com/images/I/A1fbkGex+bL._SL1500_.jpg">
-                        <input type="hidden" name="autor" value="Chico Buarque">
-                        <button type="submit" style="background:none; border:none; color:inherit; cursor:pointer; font:inherit;">R$ 41,90</button>
-                    </form>
-                </article>
-
-                <article class="livro">
-                    <a href="compras/detalhes.php?id=20"><img src="https://m.media-amazon.com/images/I/91u1X7IttSL._SL1500_.jpg"  alt="Ou Isto Ou Aquilo"></a>
-                    <h3>Ou Isto Ou Aquilo</h3>
-                    <form action="carrinho.php" method="POST">
-                        <input type="hidden" name="acao" value="adicionar">
-                        <input type="hidden" name="id_livro" value="Ou Isto Ou Aquilo">
-                        <input type="hidden" name="nome" value="Ou Isto Ou Aquilo">
-                        <input type="hidden" name="preco" value="38,70">
-                        <input type="hidden" name="imagem" value="https://m.media-amazon.com/images/I/91u1X7IttSL._SL1500_.jpg">
-                        <input type="hidden" name="autor" value="Emicida">
-                        <button type="submit" style="background:none; border:none; color:inherit; cursor:pointer; font:inherit;">R$ 38,70</button>
-                    </form>
-                </article>
-            <button class="seta seta-direita" type="button" aria-label="Próximo">›</button>
-        </section>
-
-        <section class="categoria">
-            <div class="titulo">
                 <h2>Não Ficção</h2>
                 <span>›</span>
             </div>
@@ -826,6 +764,73 @@
                         <input type="hidden" name="imagem" value="https://m.media-amazon.com/images/I/91sOa8t-JuL._SL1500_.jpg">
                         <input type="hidden" name="autor" value="Ullisses Campbell">
                         <button type="submit" style="background:none; border:none; color:inherit; cursor:pointer; font:inherit;">R$ 58,90</button>
+                    </form>
+                </article>
+            <button class="seta seta-direita" type="button" aria-label="Próximo">›</button>
+        </section>
+
+        <section class="categoria">
+            <div class="titulo">
+                <h2>Literatura infantil</h2>
+                <span>›</span>
+            </div>
+
+            <button class="seta seta-esquerda" type="button" aria-label="Anterior">‹</button>
+
+            <div class="livros">
+                <article class="livro">
+                    <a href="compras/detalhes.php?id=17"><img src="https://m.media-amazon.com/images/I/910wNGmLT4L._SL1500_.jpg"  alt="Amoras"></a>
+                    <h3>Amoras</h3>
+                    <form action="carrinho.php" method="POST">
+                        <input type="hidden" name="acao" value="adicionar">
+                        <input type="hidden" name="id_livro" value="Amoras">
+                        <input type="hidden" name="nome" value="Amoras">
+                        <input type="hidden" name="preco" value="54,90">
+                        <input type="hidden" name="imagem" value="https://m.media-amazon.com/images/I/910wNGmLT4L._SL1500_.jpg">
+                        <input type="hidden" name="autor" value="Emicida">
+                        <button type="submit" style="background:none; border:none; color:inherit; cursor:pointer; font:inherit;">R$ 54,90</button>
+                    </form>
+                </article>
+
+                <article class="livro">
+                    <a href="compras/detalhes.php?id=18"><img src="https://m.media-amazon.com/images/I/71Z98sh5RuL._SL1300_.jpg"  alt="Menina Bonita do Laço de Fita"></a>
+                    <h3>Menina Bonita do Laço de Fita</h3>
+                    <form action="carrinho.php" method="POST">
+                        <input type="hidden" name="acao" value="adicionar">
+                        <input type="hidden" name="id_livro" value="Menina Bonita do Laço de Fita">
+                        <input type="hidden" name="nome" value="Menina Bonita do Laço de Fita">
+                        <input type="hidden" name="preco" value="34,99">
+                        <input type="hidden" name="imagem" value="https://m.media-amazon.com/images/I/71Z98sh5RuL._SL1300_.jpg">
+                        <input type="hidden" name="autor" value="Ana Maria Machado">
+                        <button type="submit" style="background:none; border:none; color:inherit; cursor:pointer; font:inherit;">R$ 34,99</button>
+                    </form>
+                </article>
+
+                <article class="livro">
+                    <a href="compras/detalhes.php?id=19"><img src="https://m.media-amazon.com/images/I/A1fbkGex+bL._SL1500_.jpg"  alt="Chapeuzinho Amarelo"></a>
+                    <h3>Chapeuzinho Amarelo</h3>
+                    <form action="carrinho.php" method="POST">
+                        <input type="hidden" name="acao" value="adicionar">
+                        <input type="hidden" name="id_livro" value="Chapeuzinho Amarelo">
+                        <input type="hidden" name="nome" value="Chapeuzinho Amarelo">
+                        <input type="hidden" name="preco" value="41,90">
+                        <input type="hidden" name="imagem" value="https://m.media-amazon.com/images/I/A1fbkGex+bL._SL1500_.jpg">
+                        <input type="hidden" name="autor" value="Chico Buarque">
+                        <button type="submit" style="background:none; border:none; color:inherit; cursor:pointer; font:inherit;">R$ 41,90</button>
+                    </form>
+                </article>
+
+                <article class="livro">
+                    <a href="compras/detalhes.php?id=20"><img src="https://m.media-amazon.com/images/I/91u1X7IttSL._SL1500_.jpg"  alt="Ou Isto Ou Aquilo"></a>
+                    <h3>Ou Isto Ou Aquilo</h3>
+                    <form action="carrinho.php" method="POST">
+                        <input type="hidden" name="acao" value="adicionar">
+                        <input type="hidden" name="id_livro" value="Ou Isto Ou Aquilo">
+                        <input type="hidden" name="nome" value="Ou Isto Ou Aquilo">
+                        <input type="hidden" name="preco" value="38,70">
+                        <input type="hidden" name="imagem" value="https://m.media-amazon.com/images/I/91u1X7IttSL._SL1500_.jpg">
+                        <input type="hidden" name="autor" value="Emicida">
+                        <button type="submit" style="background:none; border:none; color:inherit; cursor:pointer; font:inherit;">R$ 38,70</button>
                     </form>
                 </article>
             <button class="seta seta-direita" type="button" aria-label="Próximo">›</button>
@@ -952,7 +957,6 @@
             <button class="seta seta-direita" type="button" aria-label="Próximo">›</button>
         </section>
     </main>
-
     <script src="js/script.js"></script>
 </body>
 </html>

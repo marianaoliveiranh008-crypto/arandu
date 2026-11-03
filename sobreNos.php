@@ -24,8 +24,6 @@
             <div class="user-tools">
                 <a href="carrinho.php" class="header-button cart-link" aria-label="Carrinho de compras">
                     <span aria-hidden="true">🛍</span>
-                    <span></span>
-                    <span class="cart-count">0</span>
                 </a>
                 <a href="login.php" class="header-button login-link">Entrar</a>
                 <a href="usuario/perfil.php" class="header-button admin-link">
