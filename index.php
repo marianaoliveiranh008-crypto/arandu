@@ -32,7 +32,7 @@
         <div class="search-box">
             <input type="text" placeholder="Pesquisar...">
             <button type="submit">
-                <i class="fa-solid fa-magnifying-glass"></i>
+                <span class="search-icon" aria-hidden="true"></span>
             </button>
         </div>
 
