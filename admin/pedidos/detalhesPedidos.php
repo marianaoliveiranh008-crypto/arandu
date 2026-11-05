@@ -10,7 +10,7 @@
 <body class="admin-page admin-pedidos-page">
     <header class="cabecalho">
         <a class="marca" href="../index.php" aria-label="Arandu - página inicial">
-            <img src="../img/logo.png" alt="Arandu">
+            <img src="../../img/logo.png" alt="Arandu">
         </a>
 
         <nav class="menu" aria-label="Navegação administrativa">
@@ -21,6 +21,18 @@
         </nav>
 
         <nav class="atalhos" aria-label="Atalhos">
+            <a href="../../index.php" aria-label="Início" title="Início">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="m3 10 9-7 9 7" />
+                    <path d="M5 9v12h14V9M9 21v-7h6v7" />
+                </svg>
+            </a>
+            <a href="#" aria-label="Notificações" title="Notificações">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9" />
+                    <path d="M10 21h4" />
+                </svg>
+            </a>
             <a href="../usuario/perfil.php" aria-label="Perfil" title="Perfil">
                 <svg viewBox="0 0 24 24" aria-hidden="true">
                     <circle cx="12" cy="8" r="4" />
