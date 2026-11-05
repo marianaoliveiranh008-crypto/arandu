@@ -40,14 +40,14 @@
 <body class="detalhes-page">
     <header class="top-header">
         <div class="brand">
-            <img src="img/logo.png" alt="Arandu">
+            <img src="../img/logo.png" alt="Arandu">
         </div>
 
         <nav class="nav-menu" aria-label="Menu principal">
-            <a href="index.php">Home</a>
-            <a href="sobreNos.php">Sobre nós</a>
-            <a href="maisProcurados.php">+ Procurados</a>
-            <a href="novidades.php">Novidades</a>
+            <a href="../index.php">Home</a>
+            <a href="../sobreNos.php">Sobre nós</a>
+            <a href="../maisProcurados.php">+ Procurados</a>
+            <a href="../novidades.php">Novidades</a>
         </nav>
 
         <div class="search-box">

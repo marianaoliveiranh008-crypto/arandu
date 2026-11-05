@@ -24,9 +24,9 @@
     }
     
     $sqlEnd = "SELECT e.rua, e.numero, e.complemento, e.bairro, e.cidade, e.estado, e.cep 
-            FROM usuario u 
-            LEFT JOIN endereco e ON u.id_usuario = e.id_usuario 
-            WHERE u.id_usuario = ?";
+                FROM usuario u 
+                LEFT JOIN endereco e ON u.id_usuario = e.id_usuario 
+                WHERE u.id_usuario = ?";
             
     $stmtEnd = $conexao->prepare($sqlEnd);
     $stmtEnd->bind_param("i", $id_usuario);
@@ -90,7 +90,7 @@
     <link rel="icon" href="img/Logotipo-Livraria.ico" type="image/x-icon">
 </head>
 <body class="carrinho-page finalizar-compra-page">
-     <header class="top-header">
+    <header class="top-header">
         <div class="brand">
             <img src="img/logo.png" alt="Arandu">
         </div>
@@ -102,23 +102,18 @@
             <a href="novidades.php">Novidades</a>
         </nav>
 
-        <div class="search-box">
-            <input type="text" placeholder="Pesquisar...">
-            <button type="submit">
-                <i class="fa-solid fa-magnifying-glass"></i>
-            </button>
-        </div>
-
         <div class="header-actions">
-            <div class="user-tools">
-                <a href="carrinho.php" class="header-button cart-link" aria-label="Carrinho de compras">
-                    <span aria-hidden="true">🛍</span>
-                </a>
-                <a href="login.php" class="header-button login-link">Entrar</a>
-                <a href="usuario/perfil.php" class="header-button admin-link">
-                    <span aria-hidden="true">👤</span>
-                    <span></span>
-                </a>
+            <div class="header-actions">
+                <div class="user-tools">
+                    <a href="carrinho.php" class="header-button cart-link" aria-label="Carrinho de compras">
+                        <span aria-hidden="true">🛍</span>
+                    </a>
+                    <a href="login.php" class="header-button login-link">Entrar</a>
+                    <a href="usuario/perfil.php" class="header-button admin-link">
+                        <span aria-hidden="true">👤</span>
+                        <span></span>
+                    </a>
+                </div>
             </div>
         </div>
     </header>

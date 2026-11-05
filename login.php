@@ -21,7 +21,7 @@
         if(empty($email) || empty($senha)){
             echo "Preencha todos os campos";
         }else{
-            $sql = "SELECT id_usuario, nome, email, senha,  tipo_usuario, email FROM usuario WHERE email = ?";
+            $sql = "SELECT id_usuario, nome, email, senha,  tipo_usuario FROM usuario WHERE email = ?";
             $stmt = $conexao->prepare($sql);
             $stmt->bind_param("s", $email);
             $stmt->execute();
@@ -30,13 +30,10 @@
             if($resultado->num_rows === 1) {
             $usuario = $resultado->fetch_assoc();
             $loginValido = false;
-            if (password_verify($senha, $usuario['senha']) || $senha === $usuario['senha']) {
+            if(password_verify($senha, $usuario['senha']) || $senha === $usuario['senha']) {
                 $loginValido = true;
-                $senhaHash = password_hash(
-                $senha,
-                PASSWORD_DEFAULT
-                );
-            }if($loginValido){
+            }
+            if($loginValido){
                 $_SESSION['usuarioId'] = $usuario['id_usuario'];
                 $_SESSION['usuarioNome'] = $usuario['nome'];
                 $_SESSION['usuarioEmail'] = $usuario['email'];
@@ -64,7 +61,7 @@
                 }
                 $stmtCar->close();
 
-                if(isset($_SESSION['produto_pendente'])){
+                if(isset($_SESSION['produto_pendente']) && isset($_SESSION['produto_pendente']['id_liv'])){
                     $id_livro = $_SESSION['produto_pendente']['id_liv'];
                     $quantidade = 1;
                     $sqlItem = "SELECT id_carit, quantidade_car FROM carrinho_item WHERE id_car = ? AND id_liv = ?";
@@ -92,26 +89,25 @@
                     }
                     $stmtItem->close();
                     unset($_SESSION['produto_pendente']);
-            }
-            $url_destino = $_SESSION['url_retorno'] ?? 'index.php';
-            unset($_SESSION['url_retorno']);
+                }
+                $url_destino = $_SESSION['url_retorno'] ?? 'index.php';
+                unset($_SESSION['url_retorno']);
 
-            if($usuario['tipo_usuario'] == 2){
-                header("Location: admin/index.php");
+                if($usuario['tipo_usuario'] == 2){
+                    header("Location: admin/index.php");
+                }else{
+                    header("Location: ".$url_destino);
+                }
+                exit;
             }else{
-                header("Location: ".$url_destino);
+                echo "E-mail ou senha incorretos.";
             }
-            exit;
-
         }else{
             echo "E-mail ou senha incorretos.";
         }
-    }else{
-        echo "E-mail ou senha incorretos.";
+        $stmt->close();
+        }
     }
-    $stmt->close();
-}
-}
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -123,7 +119,7 @@
     <link rel="icon" href="img/Logotipo-Livraria.ico" type="image/x-icon">
 </head>
 <body class="login-page">
-     <header class="top-header">
+    <header class="top-header">
         <div class="brand">
             <img src="img/logo.png" alt="Arandu">
         </div>
@@ -135,23 +131,18 @@
             <a href="novidades.php">Novidades</a>
         </nav>
 
-        <div class="search-box">
-            <input type="text" placeholder="Pesquisar...">
-            <button type="submit">
-                <i class="fa-solid fa-magnifying-glass"></i>
-            </button>
-        </div>
-
         <div class="header-actions">
-            <div class="user-tools">
-                <a href="carrinho.php" class="header-button cart-link" aria-label="Carrinho de compras">
-                    <span aria-hidden="true">🛍</span>
-                </a>
-                <a href="login.php" class="header-button login-link">Entrar</a>
-                <a href="usuario/perfil.php" class="header-button admin-link">
-                    <span aria-hidden="true">👤</span>
-                    <span></span>
-                </a>
+            <div class="header-actions">
+                <div class="user-tools">
+                    <a href="carrinho.php" class="header-button cart-link" aria-label="Carrinho de compras">
+                        <span aria-hidden="true">🛍</span>
+                    </a>
+                    <a href="login.php" class="header-button login-link">Entrar</a>
+                    <a href="usuario/perfil.php" class="header-button admin-link">
+                        <span aria-hidden="true">👤</span>
+                        <span></span>
+                    </a>
+                </div>
             </div>
         </div>
     </header>

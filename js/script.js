@@ -31,7 +31,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         livros.forEach((livro) => {
             const titulo = livro.querySelector('h3').textContent.toLowerCase();
-
             if(titulo.includes(termo)){
                 livro.style.display = '';
             }else{

@@ -119,11 +119,9 @@
 </head>
 <body class="carrinho-page">
 
-    <header class="cabecalho">
-        <div class="logo">
-            <a href="index.php" aria-label="Arandu - página inicial">
-                <img src="img/logo.png" alt="Arandu">
-            </a>
+    <header class="top-header">
+        <div class="brand">
+            <img src="img/logo.png" alt="Arandu">
         </div>
 
         <nav class="nav-menu" aria-label="Menu principal">
@@ -133,9 +131,19 @@
             <a href="novidades.php">Novidades</a>
         </nav>
 
-        <div class="icones" aria-label="Atalhos da conta">
-            <a href="carrinho.php" title="Carrinho" aria-label="Carrinho">🛍</a>
-            <a href="login.php" title="Entrar" aria-label="Entrar">♙</a>
+        <div class="header-actions">
+            <div class="header-actions">
+                <div class="user-tools">
+                    <a href="carrinho.php" class="header-button cart-link" aria-label="Carrinho de compras">
+                        <span aria-hidden="true">🛍</span>
+                    </a>
+                    <a href="login.php" class="header-button login-link">Entrar</a>
+                    <a href="usuario/perfil.php" class="header-button admin-link">
+                        <span aria-hidden="true">👤</span>
+                        <span></span>
+                    </a>
+                </div>
+            </div>
         </div>
     </header>
 

@@ -8,30 +8,30 @@
     <link rel="icon" href="img/Logotipo-Livraria.ico" type="image/x-icon">
 </head>
 <body class="senha-page">
-
     <header class="top-header">
-        <a class="brand" href="../index.php" aria-label="Arandu - página inicial">
+        <div class="brand">
             <img src="../img/logo.png" alt="Arandu">
-        </a>
+        </div>
 
-        <nav class="nav-menu" aria-label="Navegação principal">
+        <nav class="nav-menu" aria-label="Menu principal">
             <a href="../index.php">Home</a>
             <a href="../sobreNos.php">Sobre nós</a>
-            <a href="">+ Procurados</a>
-            <a href="">Novidades</a>
+            <a href="../maisProcurados.php">+ Procurados</a>
+            <a href="../novidades.php">Novidades</a>
         </nav>
 
         <div class="header-actions">
-            <label class="search-box">
-                <span aria-hidden="true">⌕</span>
-                <input type="search" placeholder="Pesquisar..." aria-label="Pesquisar livros">
-            </label>
-
-            <div class="user-tools">
-                <a href="../carrinho.php" class="cart-link" aria-label="Carrinho de compras">
-                    <span aria-hidden="true">🛍</span>
-                </a>
-                <a href="../login.php" class="link-ghost" aria-label="Minha conta">♙</a>
+            <div class="header-actions">
+                <div class="user-tools">
+                    <a href="../carrinho.php" class="header-button cart-link" aria-label="Carrinho de compras">
+                        <span aria-hidden="true">🛍</span>
+                    </a>
+                    <a href="../login.php" class="header-button login-link">Entrar</a>
+                    <a href="perfil.php" class="header-button admin-link">
+                        <span aria-hidden="true">👤</span>
+                        <span></span>
+                    </a>
+                </div>
             </div>
         </div>
     </header>

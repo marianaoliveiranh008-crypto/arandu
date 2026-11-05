@@ -17,7 +17,7 @@
     <link rel="icon" href="img/Logotipo-Livraria.ico" type="image/x-icon">
 </head>
 <body>
-     <header class="top-header">
+    <header class="top-header">
         <div class="brand">
             <img src="img/logo.png" alt="Arandu">
         </div>
@@ -29,23 +29,23 @@
             <a href="novidades.php">Novidades</a>
         </nav>
 
-        <div class="search-box">
-            <input type="text" placeholder="Pesquisar...">
-            <button type="submit">
-                <i class="fa-solid fa-magnifying-glass"></i>
-            </button>
-        </div>
-
         <div class="header-actions">
-            <div class="user-tools">
-                <a href="carrinho.php" class="header-button cart-link" aria-label="Carrinho de compras">
-                    <span aria-hidden="true">🛍</span>
-                </a>
-                <a href="login.php" class="header-button login-link">Entrar</a>
-                <a href="usuario/perfil.php" class="header-button admin-link">
-                    <span aria-hidden="true">👤</span>
-                    <span></span>
-                </a>
+            <label class="search-box" aria-label="Pesquisar livro">
+                <span aria-hidden="true">⌕</span>
+                <input type="search" id="inputPesquisa" placeholder="Pesquisar..." aria-label="Pesquisar livro">
+            </label>
+
+            <div class="header-actions">
+                <div class="user-tools">
+                    <a href="carrinho.php" class="header-button cart-link" aria-label="Carrinho de compras">
+                        <span aria-hidden="true">🛍</span>
+                    </a>
+                    <a href="login.php" class="header-button login-link">Entrar</a>
+                    <a href="usuario/perfil.php" class="header-button admin-link">
+                        <span aria-hidden="true">👤</span>
+                        <span></span>
+                    </a>
+                </div>
             </div>
         </div>
     </header>

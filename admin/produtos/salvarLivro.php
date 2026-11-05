@@ -33,11 +33,10 @@
             $stmtEdi->close();
         }
 
-        $sqlLivro = "INSERT INTO livro (titulo_liv, isbn, preco, quanti_estoq, numero_pag, ano_public, descricao, imagem, id_edi) 
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $sqlLivro = "INSERT INTO livro (titulo_liv, isbn, preco, quanti_estoq, numero_pag, ano_public, descricao, imagem, id_edi) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         
         $stmt = $conexao->prepare($sqlLivro);
-        if ($stmt) {
+        if($stmt){
             $stmt->bind_param("ssdiiissi", $titulo, $isbn, $preco, $estoque, $paginas, $anoPublicacao, $descricao, $imagem, $id_edi);
             if($stmt->execute()){
                 $id_liv = $stmt->insert_id;
