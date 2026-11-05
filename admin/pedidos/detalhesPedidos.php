@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detalhes dos pedidos - Arandu</title>
     <link rel="stylesheet" href="../../css/style.css?v=9">
+    <link rel="icon" href="img/Logotipo-Livraria.ico" type="image/x-icon">
 </head>
 <body class="admin-page admin-pedidos-page">
     <header class="cabecalho">

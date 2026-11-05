@@ -29,6 +29,13 @@
             <a href="novidades.php">Novidades</a>
         </nav>
 
+        <div class="search-box">
+            <input type="text" placeholder="Pesquisar...">
+            <button type="submit">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+        </div>
+
         <div class="header-actions">
             <div class="user-tools">
                 <a href="carrinho.php" class="header-button cart-link" aria-label="Carrinho de compras">

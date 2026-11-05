@@ -8,10 +8,10 @@
     <link rel="icon" href="img/Logotipo-Livraria.ico" type="image/x-icon">
 </head>
 <body class="sobre-page">
-    <header class="top-header login-header">
-        <a class="brand" href="index.php" aria-label="Arandu - página inicial">
-			<img src="img/logo.png" alt="Arandu">
-		</a>
+     <header class="top-header">
+        <div class="brand">
+            <img src="img/logo.png" alt="Arandu">
+        </div>
 
         <nav class="nav-menu" aria-label="Menu principal">
             <a href="index.php">Home</a>
@@ -19,6 +19,13 @@
             <a href="maisProcurados.php">+ Procurados</a>
             <a href="novidades.php">Novidades</a>
         </nav>
+
+        <div class="search-box">
+            <input type="text" placeholder="Pesquisar...">
+            <button type="submit">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+        </div>
 
         <div class="header-actions">
             <div class="user-tools">

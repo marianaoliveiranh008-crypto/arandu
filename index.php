@@ -373,7 +373,7 @@
 
         <section class="categoria">
             <div class="titulo">
-                <h2>Thriller, Suspense e Terror</h2>
+                <h2>Thriller, suspense e terror</h2>
                 <span>›</span>
             </div>
 
@@ -690,7 +690,7 @@
 
         <section class="categoria">
             <div class="titulo">
-                <h2>Não Ficção</h2>
+                <h2>Não ficção</h2>
                 <span>›</span>
             </div>
 

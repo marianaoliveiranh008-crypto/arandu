@@ -34,6 +34,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meu perfil - Arandu</title>
     <link rel="stylesheet" href="../css/style.css?v=7">
+    <link rel="icon" href="img/Logotipo-Livraria.ico" type="image/x-icon">
 </head>
 <body class="perfil-page">
     <header class="top-header login-header">
