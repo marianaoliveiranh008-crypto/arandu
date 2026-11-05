@@ -63,7 +63,7 @@
                 <article class="livro">
                     <a href="compras/detalhes.php?id=1"><img src="https://m.media-amazon.com/images/I/81t7altQZxL._SL1500_.jpg" alt="Capitães de Areia"></a>
                     <h3>Capitães de Areia</h3>
-                    <form action="carrinho.php" method="POST">
+                    <form action="compras/detalhes.php?id=1" method="POST">
                         <input type="hidden" name="acao" value="adicionar">
                         <input type="hidden" name="id_livro" value="CapitaesDeAreia">
                         <input type="hidden" name="nome" value="Capitães de Areia">
@@ -77,7 +77,7 @@
                 <article class="livro">
                     <a href="compras/detalhes.php?id=2"><img src="https://m.media-amazon.com/images/I/71OL9RU2tJL._SL1360_.jpg" alt="Memórias Póstumas de Brás Cubas"></a>
                     <h3>Memórias Póstumas de Brás Cubas</h3>
-                    <form action="carrinho.php" method="POST">
+                    <form action="compras/detalhes.php?id=2" method="POST">
                         <input type="hidden" name="acao" value="adicionar">
                         <input type="hidden" name="id_livro" value="MemoriasPostumasDeBrasCubas">
                         <input type="hidden" name="nome" value="Memórias Póstumas de Brás Cubas">
@@ -91,7 +91,7 @@
                 <article class="livro">
                     <a href="compras/detalhes.php?id=3"><img src="https://m.media-amazon.com/images/I/71p3cRkpytL._SL1500_.jpg" alt="Iracema: Cinco Minutos"></a>
                     <h3>Iracema: Cinco Minutos</h3>
-                    <form action="carrinho.php" method="POST">
+                    <form action="compras/detalhes.php?id=3" method="POST">
                         <input type="hidden" name="acao" value="adicionar">
                         <input type="hidden" name="id_livro" value="Iracema: Cinco Minutos">
                         <input type="hidden" name="nome" value="Iracema: Cinco Minutos">
@@ -105,7 +105,7 @@
                 <article class="livro">
                     <a href="compras/detalhes.php?id=5"><img src="https://m.media-amazon.com/images/I/61TaHURu27L._SL1000_.jpg" alt="A Hora da Estrela"></a>
                     <h3>A Hora da Estrela</h3>
-                    <form action="carrinho.php" method="POST">
+                    <form action="compras/detalhes.php?id=5" method="POST">
                         <input type="hidden" name="acao" value="adicionar">
                         <input type="hidden" name="id_livro" value="AHoraDaEstrela">
                         <input type="hidden" name="nome" value="A Hora da Estrela">
@@ -119,7 +119,7 @@
                 <article class="livro">
                     <a href="compras/detalhes.php?id=6"><img src="https://m.media-amazon.com/images/I/71FT8rYeZaL._SL1000_.jpg " alt="Agua viva"></a>
                     <h3>Água viva</h3>
-                    <form action="carrinho.php" method="POST">
+                    <form action="compras/detalhes.php?id=6" method="POST">
                         <input type="hidden" name="acao" value="adicionar">
                         <input type="hidden" name="id_livro" value="AguaViva">
                         <input type="hidden" name="nome" value="Água viva">
@@ -133,7 +133,7 @@
                 <article class="livro">
                     <a href="compras/detalhes.php?id=7"><img src="https://m.media-amazon.com/images/I/61j0riyfENL._SL1500_.jpg " alt="Oração para Desaparecer"></a>
                     <h3>Oração para Desaparecer</h3>
-                    <form action="carrinho.php" method="POST">
+                    <form action="compras/detalhes.php?id=7" method="POST">
                         <input type="hidden" name="acao" value="adicionar">
                         <input type="hidden" name="id_livro" value="OraçãoParaDesaparecer">
                         <input type="hidden" name="nome" value="Oração para Desaparecer">
@@ -147,7 +147,7 @@
                 <article class="livro">
                     <a href="compras/detalhes.php?id=8"><img src="https://m.media-amazon.com/images/I/816Udvs9O7L._SL1500_.jpg " alt="Tudo é Rio"></a>
                     <h3>Tudo é Rio</h3>
-                    <form action="carrinho.php" method="POST">
+                    <form action="compras/detalhes.php?id=8" method="POST">
                         <input type="hidden" name="acao" value="adicionar">
                         <input type="hidden" name="id_livro" value="TudoErio">
                         <input type="hidden" name="nome" value="Tudo é Rio">
@@ -161,7 +161,7 @@
                 <article class="livro">
                     <a href="compras/detalhes.php?id=9"><img src="https://m.media-amazon.com/images/I/71gXpS2PAgL._SL1500_.jpg " alt="Torto Arado"></a>
                     <h3>Torto Arado</h3>
-                    <form action="carrinho.php" method="POST">
+                    <form action="compras/detalhes.php?id=9" method="POST">
                         <input type="hidden" name="acao" value="adicionar">
                         <input type="hidden" name="id_livro" value="TortoArado">
                         <input type="hidden" name="nome" value="Torto Arado">
@@ -175,7 +175,7 @@
                 <article class="livro">
                     <a href="compras/detalhes.php?id=10"><img src="https://m.media-amazon.com/images/I/71-YhujYUxS._SL1500_.jpg" alt="A Cabeça do Santo"></a>
                     <h3>A Cabeça do Santo</h3>
-                    <form action="carrinho.php" method="POST">
+                    <form action="compras/detalhes.php?id=10" method="POST">
                         <input type="hidden" name="acao" value="adicionar">
                         <input type="hidden" name="id_livro" value="ACabecaDoSanto">
                         <input type="hidden" name="nome" value="A Cabeça do Santo">
@@ -189,7 +189,7 @@
                 <article class="livro">
                     <a href="compras/detalhes.php?id=11"><img src="https://m.media-amazon.com/images/I/81p29WCHFaL._SL1500_.jpg" alt="O Avesso da Pele"></a>
                     <h3>O Avesso da Pele</h3>
-                    <form action="carrinho.php" method="POST">
+                    <form action="compras/detalhes.php?id=11" method="POST">
                         <input type="hidden" name="acao" value="adicionar">
                         <input type="hidden" name="id_livro" value="OAvessoDaPele">
                         <input type="hidden" name="nome" value="O Avesso da Pele">
@@ -203,7 +203,7 @@
                 <article class="livro">
                     <a href="compras/detalhes.php?id=13"><img src="https://m.media-amazon.com/images/I/710CrKZ5U9L._SL1500_.jpg " alt="Ainda Estou Aqui"></a>
                     <h3>Ainda Estou Aqui</h3>
-                    <form action="carrinho.php" method="POST">
+                    <form action="compras/detalhes.php?id=13" method="POST">
                         <input type="hidden" name="acao" value="adicionar">
                         <input type="hidden" name="id_livro" value="AindaEstouAqui">
                         <input type="hidden" name="nome" value="Ainda Estou Aqui">
@@ -217,7 +217,7 @@
                 <article class="livro">
                     <a href="compras/detalhes.php?id=23"><img src="https://m.media-amazon.com/images/I/81QMKBbgGWL._SL1500_.jpg" alt="O Meu Pé de Laranja Lima"></a>
                     <h3>O Meu Pé de Laranja Lima</h3>
-                    <form action="carrinho.php" method="POST">
+                    <form action="compras/detalhes.php?id=23" method="POST">
                         <input type="hidden" name="acao" value="adicionar">
                         <input type="hidden" name="id_livro" value="OMeuPedeLaranjaLima">
                         <input type="hidden" name="nome" value="O Meu Pé de Laranja Lima">
@@ -231,7 +231,7 @@
                 <article class="livro">
                     <a href="compras/detalhes.php?id=24"><img src="https://m.media-amazon.com/images/I/81PX7q67zDL._SL1500_.jpg" alt="Hoje Eu Quero Voltar Sozinho"></a>
                     <h3>Hoje Eu Quero Voltar Sozinho</h3>
-                    <form action="carrinho.php" method="POST">
+                    <form action="compras/detalhes.php?id=24" method="POST">
                         <input type="hidden" name="acao" value="adicionar">
                         <input type="hidden" name="id_livro" value="HojeEuQueroVoltarSozinho">
                         <input type="hidden" name="nome" value="Hoje Eu Quero Voltar Sozinho">
@@ -245,7 +245,7 @@
                 <article class="livro">
                     <a href="compras/detalhes.php?id=25"><img src="https://m.media-amazon.com/images/I/714yEGAjivL._SL1500_.jpg"  alt="Quinze Dias"></a>
                     <h3>Quinze Dias</h3>
-                    <form action="carrinho.php" method="POST">
+                    <form action="compras/detalhes.php?id=25" method="POST">
                         <input type="hidden" name="acao" value="adicionar">
                         <input type="hidden" name="id_livro" value="QuinzeDias">
                         <input type="hidden" name="nome" value="Quinze Dias">
@@ -259,7 +259,7 @@
                 <article class="livro">
                     <a href="compras/detalhes.php?id=37"><img src="https://m.media-amazon.com/images/I/91ADwCpigxL._SL1500_.jpg"  alt="Véspera"></a>
                     <h3>Véspera</h3>
-                    <form action="carrinho.php" method="POST">
+                    <form action="compras/detalhes.php?id=37" method="POST">
                         <input type="hidden" name="acao" value="adicionar">
                         <input type="hidden" name="id_livro" value="Véspera">
                         <input type="hidden" name="nome" value="Véspera">
@@ -273,7 +273,7 @@
                 <article class="livro">
                     <a href="compras/detalhes.php?id=38"><img src="https://m.media-amazon.com/images/I/71zDFgnh8-L._SL1500_.jpg"  alt="A natureza da mordida"></a>
                     <h3>A natureza da mordida</h3>
-                    <form action="carrinho.php" method="POST">
+                    <form action="compras/detalhes.php?id=38" method="POST">
                         <input type="hidden" name="acao" value="adicionar">
                         <input type="hidden" name="id_livro" value="A natureza da mordida">
                         <input type="hidden" name="nome" value="A natureza da mordida">
@@ -287,7 +287,7 @@
                 <article class="livro">
                     <a href="compras/detalhes.php?id=41"><img src="https://m.media-amazon.com/images/I/61x1ZHomWUL._SY466_.jpg"  alt="Dom Casmurro"></a>
                     <h3>Dom Casmurro</h3>
-                    <form action="carrinho.php" method="POST">
+                    <form action="compras/detalhes.php?id=41" method="POST">
                         <input type="hidden" name="acao" value="adicionar">
                         <input type="hidden" name="id_livro" value="Dom Casmurro">
                         <input type="hidden" name="nome" value="Dom Casmurro">
@@ -301,7 +301,7 @@
                 <article class="livro">
                     <a href="compras/detalhes.php?id=42"><img src="https://m.media-amazon.com/images/I/617dduF7b+L._SL1021_.jpg"  alt="Quincas Borba"></a>
                     <h3>Quincas Borba</h3>
-                    <form action="carrinho.php" method="POST">
+                    <form action="compras/detalhes.php?id=42" method="POST">
                         <input type="hidden" name="acao" value="adicionar">
                         <input type="hidden" name="id_livro" value="Quincas Borba">
                         <input type="hidden" name="nome" value="Quincas Borba">
@@ -315,7 +315,7 @@
                 <article class="livro">
                     <a href="compras/detalhes.php?id=43"><img src="https://m.media-amazon.com/images/I/913ySpzYczL._SL1500_.jpg"  alt="Pequena coreografia do adeus"></a>
                     <h3>Pequena coreografia do adeus</h3>
-                    <form action="carrinho.php" method="POST">
+                    <form action="compras/detalhes.php?id=43" method="POST">
                         <input type="hidden" name="acao" value="adicionar">
                         <input type="hidden" name="id_livro" value="Pequena coreografia do adeus">
                         <input type="hidden" name="nome" value="Pequena coreografia do adeus">
@@ -329,7 +329,7 @@
                 <article class="livro">
                     <a href="compras/detalhes.php?id=44"><img src="https://m.media-amazon.com/images/I/81e94f06FcL._SL1500_.jpg"  alt="Perto do coração selvagem: Edição comemorativa"></a>
                     <h3>Perto do coração selvagem: Edição comemorativa</h3>
-                    <form action="carrinho.php" method="POST">
+                    <form action="compras/detalhes.php?id=44" method="POST">
                         <input type="hidden" name="acao" value="adicionar">
                         <input type="hidden" name="id_livro" value="PertoDoCoraçãoSelvagemEdiçãoComemorativa">
                         <input type="hidden" name="nome" value="Perto do coração selvagem: Edição comemorativa">
@@ -343,7 +343,7 @@
                 <article class="livro">
                     <a href="compras/detalhes.php?id=45"><img src="https://m.media-amazon.com/images/I/71nZEvqqJjL._SL1500_.jpg"  alt="Quando"></a>
                     <h3>Quando</h3>
-                    <form action="carrinho.php" method="POST">
+                    <form action="compras/detalhes.php?id=45" method="POST">
                         <input type="hidden" name="acao" value="adicionar">
                         <input type="hidden" name="id_livro" value="Quando">
                         <input type="hidden" name="nome" value="Quando">
@@ -357,7 +357,7 @@
                 <article class="livro">
                     <a href="compras/detalhes.php?id=46"><img src="https://m.media-amazon.com/images/I/71xF7YF2BsL._SY466_.jpg"  alt="Bom Crioulo"></a>
                     <h3>Bom Crioulo</h3>
-                    <form action="carrinho.php" method="POST">
+                    <form action="compras/detalhes.php?id=46" method="POST">
                         <input type="hidden" name="acao" value="adicionar">
                         <input type="hidden" name="id_livro" value="Bom Crioulo">
                         <input type="hidden" name="nome" value="Bom Crioulo">
@@ -373,7 +373,7 @@
 
         <section class="categoria">
             <div class="titulo">
-                <h2>Thriller, suspense e terror</h2>
+                <h2>Thriller, Suspense e Terror</h2>
                 <span>›</span>
             </div>
 
@@ -383,7 +383,7 @@
                  <article class="livro">
                     <a href="compras/detalhes.php?id=15"><img src="https://m.media-amazon.com/images/I/919+LCGBrML._SL1500_.jpg"  alt="A mágica mortal: Uma aventura do Esquadrão Zero"></a>
                     <h3>A mágica mortal: Uma aventura do Esquadrão Zero</h3>
-                    <form action="carrinho.php" method="POST">
+                    <form action="compras/detalhes.php?id=15" method="POST">
                         <input type="hidden" name="acao" value="adicionar">
                         <input type="hidden" name="id_livro" value="A mágica mortal: Uma aventura do Esquadrão Zero">
                         <input type="hidden" name="nome" value="A mágica mortal: Uma aventura do Esquadrão Zero">
@@ -397,7 +397,7 @@
                 <article class="livro">
                     <a href="compras/detalhes.php?id=26"><img src="https://m.media-amazon.com/images/I/71YSm7ehYqL._SL1500_.jpg"  alt="A estranha na cama"></a>
                     <h3>A estranha na cama</h3>
-                    <form action="carrinho.php" method="POST">
+                    <form action="compras/detalhes.php?id=26" method="POST">
                         <input type="hidden" name="acao" value="adicionar">
                         <input type="hidden" name="id_livro" value="A estranha na cama">
                         <input type="hidden" name="nome" value="A estranha na cama">
@@ -411,7 +411,7 @@
                 <article class="livro">
                     <a href="compras/detalhes.php?id=27"><img src="https://m.media-amazon.com/images/I/81XqiNjr5OL._SL1500_.jpg"  alt="Suicidas"></a>
                     <h3>Suicidas</h3>
-                    <form action="carrinho.php" method="POST">
+                    <form action="compras/detalhes.php?id=27" method="POST">
                         <input type="hidden" name="acao" value="adicionar">
                         <input type="hidden" name="id_livro" value="Suicidas">
                         <input type="hidden" name="nome" value="Suicidas">
@@ -425,7 +425,7 @@
                 <article class="livro">
                     <a href="compras/detalhes.php?id=28"><img src="https://m.media-amazon.com/images/I/81WjGu5a5ZL._SL1500_.jpg"  alt="Uma família feliz"></a>
                     <h3>Uma família feliz</h3>
-                    <form action="carrinho.php" method="POST">
+                    <form action="compras/detalhes.php?id=28" method="POST">
                         <input type="hidden" name="acao" value="adicionar">
                         <input type="hidden" name="id_livro" value="Uma família feliz">
                         <input type="hidden" name="nome" value="Uma família feliz">
@@ -439,7 +439,7 @@
                 <article class="livro">
                     <a href="compras/detalhes.php?id=29"><img src="https://m.media-amazon.com/images/I/81f0UbBO-KL._SL1500_.jpg"  alt="Dias perfeitos (edição colecionador)"></a>
                     <h3>Dias perfeitos (edição colecionador)</h3>
-                    <form action="carrinho.php" method="POST">
+                    <form action="compras/detalhes.php?id=29" method="POST">
                         <input type="hidden" name="acao" value="adicionar">
                         <input type="hidden" name="id_livro" value="Dias perfeitos (edição colecionador)">
                         <input type="hidden" name="nome" value="Dias perfeitos (edição colecionador)">
@@ -453,7 +453,7 @@
                 <article class="livro">
                     <a href="compras/detalhes.php?id=31"><img src="https://m.media-amazon.com/images/I/71AeB1+8dZL._SL1500_.jpg"  alt="Jantar secreto"></a>
                     <h3>Jantar secreto</h3>
-                    <form action="carrinho.php" method="POST">
+                    <form action="compras/detalhes.php?id=31" method="POST">
                         <input type="hidden" name="acao" value="adicionar">
                         <input type="hidden" name="id_livro" value="Jantar secreto">
                         <input type="hidden" name="nome" value="Jantar secreto">
@@ -467,7 +467,7 @@
                 <article class="livro">
                     <a href="compras/detalhes.php?id=32"><img src="https://m.media-amazon.com/images/I/71nbAlbz1tL._SY466_.jpg"  alt="Uma mulher no escuro"></a>
                     <h3>Uma mulher no escuro</h3>
-                    <form action="carrinho.php" method="POST">
+                    <form action="compras/detalhes.php?id=32" method="POST">
                         <input type="hidden" name="acao" value="adicionar">
                         <input type="hidden" name="id_livro" value="Uma mulher no escuro">
                         <input type="hidden" name="nome" value="Uma mulher no escuro">
@@ -479,9 +479,9 @@
                 </article>
 
                 <article class="livro">
-                    <a href="compras/detalhes.php"><img src="https://m.media-amazon.com/images/I/61k-lrleRAL._SL1500_.jpg"  alt="Bom Dia, Verônica"></a>
+                    <a href="compras/detalhes.php?id=33"><img src="https://m.media-amazon.com/images/I/61k-lrleRAL._SL1500_.jpg"  alt="Bom Dia, Verônica"></a>
                     <h3>Bom Dia, Verônica</h3>
-                    <form action="carrinho.php" method="POST">
+                    <form action="compras/detalhes.php?id=33" method="POST">
                         <input type="hidden" name="acao" value="adicionar">
                         <input type="hidden" name="id_livro" value="Bom Dia, Verônica">
                         <input type="hidden" name="nome" value="Bom Dia, Verônica">
@@ -495,7 +495,7 @@
                 <article class="livro">
                     <a href="compras/detalhes.php?id=30"><img src="https://m.media-amazon.com/images/I/81JaIN9NExL._SL1500_.jpg"  alt="O vilarejo"></a>
                     <h3>O vilarejo</h3>
-                    <form action="carrinho.php" method="POST">
+                    <form action="compras/detalhes.php?id=30" method="POST">
                         <input type="hidden" name="acao" value="adicionar">
                         <input type="hidden" name="id_livro" value="O vilarejo">
                         <input type="hidden" name="nome" value="O vilarejo">
@@ -509,7 +509,7 @@
                 <article class="livro">
                     <a href="compras/detalhes.php?id=34"><img src="https://m.media-amazon.com/images/I/81miClxArsL._SL1500_.jpg"  alt="7 histórias de gelar o sangue"></a>
                     <h3>7 histórias de gelar o sangue</h3>
-                    <form action="carrinho.php" method="POST">
+                    <form action="compras/detalhes.php?id=34" method="POST">
                         <input type="hidden" name="acao" value="adicionar">
                         <input type="hidden" name="id_livro" value="34">
                         <input type="hidden" name="nome" value="7 histórias de gelar o sangue">
@@ -523,9 +523,9 @@
                 <article class="livro">
                     <a href="compras/detalhes.php?id=35"><img src="https://m.media-amazon.com/images/I/61-1f03P5kL._SL1000_.jpg"  alt="Mais 7 histórias de gelar o sangue"></a>
                     <h3>Mais 7 histórias de gelar o sangue</h3>
-                    <form action="carrinho.php" method="POST">
+                    <form action="compras/detalhes.php?id=35" method="POST">
                         <input type="hidden" name="acao" value="adicionar">
-                        <input type="hidden" name="id_livro" value="Mais 7 histórias de gelar o sangue">
+                        <input type="hidden" name="id_livro" value="35">
                         <input type="hidden" name="nome" value="Mais 7 histórias de gelar o sangue">
                         <input type="hidden" name="preco" value="41,90">
                         <input type="hidden" name="imagem" value="https://m.media-amazon.com/images/I/61-1f03P5kL._SL1000_.jpg">
@@ -537,9 +537,9 @@
                 <article class="livro">
                     <a href="compras/detalhes.php?id=36"><img src="https://m.media-amazon.com/images/I/81C7tRvveSL._SL1500_.jpg"  alt="A verdade em preto e branco"></a>
                     <h3>A verdade em preto e branco</h3>
-                    <form action="carrinho.php" method="POST">
+                    <form action="compras/detalhes.php?id=36" method="POST">
                         <input type="hidden" name="acao" value="adicionar">
-                        <input type="hidden" name="id_livro" value="A verdade em preto e branco">
+                        <input type="hidden" name="id_livro" value="36">
                         <input type="hidden" name="nome" value="A verdade em preto e branco">
                         <input type="hidden" name="preco" value="40,00">
                         <input type="hidden" name="imagem" value="https://m.media-amazon.com/images/I/81C7tRvveSL._SL1500_.jpg">
@@ -562,9 +562,9 @@
                 <article class="livro">
                     <a href="compras/detalhes.php?id=4"><img src="https://m.media-amazon.com/images/I/51RjYjNVpRL._SL1000_.jpg"  alt="Olhos D'Água"></a>
                     <h3>Olhos D'Água</h3>
-                    <form action="carrinho.php" method="POST">
+                    <form action="compras/detalhes.php?id=4" method="POST">
                         <input type="hidden" name="acao" value="adicionar">
-                        <input type="hidden" name="id_livro" value="Olhos D'Água">
+                        <input type="hidden" name="id_livro" value="4">
                         <input type="hidden" name="nome" value="Olhos D'Água">
                         <input type="hidden" name="preco" value="35,00">
                         <input type="hidden" name="imagem" value="https://m.media-amazon.com/images/I/51RjYjNVpRL._SL1000_.jpg">
@@ -576,9 +576,9 @@
                 <article class="livro">
                     <a href="compras/detalhes.php?id=19"><img src="https://m.media-amazon.com/images/I/A1fbkGex+bL._SL1500_.jpg"  alt="Chapeuzinho Amarelo"></a>
                     <h3>Chapeuzinho Amarelo</h3>
-                    <form action="carrinho.php" method="POST">
+                    <form action="compras/detalhes.php?id=19" method="POST">
                         <input type="hidden" name="acao" value="adicionar">
-                        <input type="hidden" name="id_livro" value="Chapeuzinho Amarelo">
+                        <input type="hidden" name="id_livro" value="19">
                         <input type="hidden" name="nome" value="Chapeuzinho Amarelo">
                         <input type="hidden" name="preco" value="41,90">
                         <input type="hidden" name="imagem" value="https://m.media-amazon.com/images/I/A1fbkGex+bL._SL1500_.jpg">
@@ -590,9 +590,9 @@
                 <article class="livro">
                     <a href="compras/detalhes.php?id=34"><img src="https://m.media-amazon.com/images/I/81miClxArsL._SL1500_.jpg"  alt="7 histórias de gelar o sangue"></a>
                     <h3>7 histórias de gelar o sangue</h3>
-                    <form action="carrinho.php" method="POST">
+                    <form action="compras/detalhes.php?id=34" method="POST">
                         <input type="hidden" name="acao" value="adicionar">
-                        <input type="hidden" name="id_livro" value="7 histórias de gelar o sangue">
+                        <input type="hidden" name="id_livro" value="34">
                         <input type="hidden" name="nome" value="7 histórias de gelar o sangue">
                         <input type="hidden" name="preco" value="20,00">
                         <input type="hidden" name="imagem" value="https://m.media-amazon.com/images/I/81miClxArsL._SL1500_.jpg">
@@ -604,9 +604,9 @@
                 <article class="livro">
                     <a href="compras/detalhes.php?id=35"><img src="https://m.media-amazon.com/images/I/61-1f03P5kL._SL1000_.jpg"  alt="Mais 7 histórias de gelar o sangue"></a>
                     <h3>Mais 7 histórias de gelar o sangue</h3>
-                    <form action="carrinho.php" method="POST">
+                    <form action="compras/detalhes.php?id=35" method="POST">
                         <input type="hidden" name="acao" value="adicionar">
-                        <input type="hidden" name="id_livro" value="Mais 7 histórias de gelar o sangue">
+                        <input type="hidden" name="id_livro" value="35">
                         <input type="hidden" name="nome" value="Mais 7 histórias de gelar o sangue">
                         <input type="hidden" name="preco" value="41,90">
                         <input type="hidden" name="imagem" value="https://m.media-amazon.com/images/I/61-1f03P5kL._SL1000_.jpg">
@@ -618,9 +618,9 @@
                 <article class="livro">
                     <a href="compras/detalhes.php?id=47"><img src="https://m.media-amazon.com/images/I/71kzs3gIwpL._SY466_.jpg"  alt="Morangos mofados"></a>
                     <h3>Morangos mofados</h3>
-                    <form action="carrinho.php" method="POST">
+                    <form action="compras/detalhes.php?id=47" method="POST">
                         <input type="hidden" name="acao" value="adicionar">
-                        <input type="hidden" name="id_livro" value="Morangos mofados">
+                        <input type="hidden" name="id_livro" value="47">
                         <input type="hidden" name="nome" value="Morangos mofados">
                         <input type="hidden" name="preco" value="59,00">
                         <input type="hidden" name="imagem" value="https://m.media-amazon.com/images/I/71kzs3gIwpL._SY466_.jpg">
@@ -632,9 +632,9 @@
                 <article class="livro">
                     <a href="compras/detalhes.php?id=6"><img src="https://m.media-amazon.com/images/I/71FT8rYeZaL._SL1000_.jpg " alt="Agua viva"></a>
                     <h3>Água viva</h3>
-                    <form action="carrinho.php" method="POST">
+                    <form action="compras/detalhes.php?id=6" method="POST">
                         <input type="hidden" name="acao" value="adicionar">
-                        <input type="hidden" name="id_livro" value="AguaViva">
+                        <input type="hidden" name="id_livro" value="6">
                         <input type="hidden" name="nome" value="Água viva">
                         <input type="hidden" name="preco" value="49,90">
                         <input type="hidden" name="imagem" value="https://m.media-amazon.com/images/I/71FT8rYeZaL._SL1000_.jpg">
@@ -646,9 +646,9 @@
                 <article class="livro">
                     <a href="compras/detalhes.php?id=43"><img src="https://m.media-amazon.com/images/I/913ySpzYczL._SL1500_.jpg"  alt="Pequena coreografia do adeus"></a>
                     <h3>Pequena coreografia do adeus</h3>
-                    <form action="carrinho.php" method="POST">
+                    <form action="compras/detalhes.php?id=43" method="POST">
                         <input type="hidden" name="acao" value="adicionar">
-                        <input type="hidden" name="id_livro" value="Pequena coreografia do adeus">
+                        <input type="hidden" name="id_livro" value="43">
                         <input type="hidden" name="nome" value="Pequena coreografia do adeus">
                         <input type="hidden" name="preco" value="45,00">
                         <input type="hidden" name="imagem" value="https://m.media-amazon.com/images/I/913ySpzYczL._SL1500_.jpg">
@@ -660,9 +660,9 @@
                 <article class="livro">
                     <a href="compras/detalhes.php?id=21"><img src="https://m.media-amazon.com/images/I/71nCJmJiXgL._SL1500_.jpg"  alt="As Mentiras que os Homens Contam"></a>
                     <h3>As Mentiras que os Homens Contam</h3>
-                    <form action="carrinho.php" method="POST">
+                    <form action="compras/detalhes.php?id=21" method="POST">
                         <input type="hidden" name="acao" value="adicionar">
-                        <input type="hidden" name="id_livro" value="As Mentiras que os Homens Contam">
+                        <input type="hidden" name="id_livro" value="21">
                         <input type="hidden" name="nome" value="As Mentiras que os Homens Contam">
                         <input type="hidden" name="preco" value="79,99">
                         <input type="hidden" name="imagem" value="https://m.media-amazon.com/images/I/71nCJmJiXgL._SL1500_.jpg">
@@ -674,9 +674,9 @@
                 <article class="livro">
                     <a href="compras/detalhes.php?id=22"><img src="https://m.media-amazon.com/images/I/81L2LaymKIL._SL1500_.jpg"  alt="As Mentiras que as Mulheres Contam"></a>
                     <h3>As Mentiras que as Mulheres Contam</h3>
-                    <form action="carrinho.php" method="POST">
+                    <form action="compras/detalhes.php?id=22" method="POST">
                         <input type="hidden" name="acao" value="adicionar">
-                        <input type="hidden" name="id_livro" value="As Mentiras que as Mulheres Contam">
+                        <input type="hidden" name="id_livro" value="22">
                         <input type="hidden" name="nome" value="As Mentiras que as Mulheres Contam">
                         <input type="hidden" name="preco" value="79,99">
                         <input type="hidden" name="imagem" value="https://m.media-amazon.com/images/I/81L2LaymKIL._SL1500_.jpg">
@@ -690,7 +690,7 @@
 
         <section class="categoria">
             <div class="titulo">
-                <h2>Não ficção</h2>
+                <h2>Não Ficção</h2>
                 <span>›</span>
             </div>
 
@@ -700,9 +700,9 @@
                 <article class="livro">
                     <a href="compras/detalhes.php?id=12"><img src="https://m.media-amazon.com/images/I/71OH6jq5QJL._SL1358_.jpg"  alt="Casa de Alvenaria - Volume 1: Osasco"></a>
                     <h3>Casa de Alvenaria - Volume 1: Osasco</h3>
-                    <form action="carrinho.php" method="POST">
+                    <form action="compras/detalhes.php?id=12" method="POST">
                         <input type="hidden" name="acao" value="adicionar">
-                        <input type="hidden" name="id_livro" value="Casa de Alvenaria - Volume 1: Osasco">
+                        <input type="hidden" name="id_livro" value="12">
                         <input type="hidden" name="nome" value="Casa de Alvenaria - Volume 1: Osasco">
                         <input type="hidden" name="preco" value="69,90">
                         <input type="hidden" name="imagem" value="https://m.media-amazon.com/images/I/71OH6jq5QJL._SL1358_.jpg">
@@ -714,9 +714,9 @@
                 <article class="livro">
                     <a href="compras/detalhes.php?id=16"><img src="https://m.media-amazon.com/images/I/61bRqcILmBL._SL1010_.jpg"  alt="Holocausto Brasileiro: Genocídio: 60 mil mortos no maior hospício do Brasil"></a>
                     <h3>Holocausto Brasileiro: Genocídio: 60 mil mortos no maior hospício do Brasil</h3>
-                    <form action="carrinho.php" method="POST">
+                    <form action="compras/detalhes.php?id=16" method="POST">
                         <input type="hidden" name="acao" value="adicionar">
-                        <input type="hidden" name="id_livro" value="Holocausto Brasileiro: Genocídio: 60 mil mortos no maior hospício do Brasil">
+                        <input type="hidden" name="id_livro" value="16">
                         <input type="hidden" name="nome" value="Holocausto Brasileiro: Genocídio: 60 mil mortos no maior hospício do Brasil">
                         <input type="hidden" name="preco" value="46,90">
                         <input type="hidden" name="imagem" value="https://m.media-amazon.com/images/I/61bRqcILmBL._SL1010_.jpg">
@@ -728,9 +728,9 @@
                 <article class="livro">
                     <a href="compras/detalhes.php?id=48"><img src="https://m.media-amazon.com/images/I/71H2cISR4JL._SL1500_.jpg"  alt="Suzane: Assassina e Manipuladora"></a>
                     <h3>Suzane: Assassina e Manipuladora</h3>
-                    <form action="carrinho.php" method="POST">
+                    <form action="compras/detalhes.php?id=48" method="POST">
                         <input type="hidden" name="acao" value="adicionar">
-                        <input type="hidden" name="id_livro" value="Suzane: Assassina e Manipuladora">
+                        <input type="hidden" name="id_livro" value="48">
                         <input type="hidden" name="nome" value="Suzane: Assassina e Manipuladora">
                         <input type="hidden" name="preco" value="58,90">
                         <input type="hidden" name="imagem" value="https://m.media-amazon.com/images/I/71H2cISR4JL._SL1500_.jpg">
@@ -742,9 +742,9 @@
                 <article class="livro">
                     <a href="compras/detalhes.php?id=49"><img src="https://m.media-amazon.com/images/I/71Uw783uI5L._SL1500_.jpg"  alt="Elize Matsunaga: A Mulher que Matou o Marido"></a>
                     <h3>Elize Matsunaga: A Mulher que Matou o Marido</h3>
-                    <form action="carrinho.php" method="POST">
+                    <form action="compras/detalhes.php?id=49" method="POST">
                         <input type="hidden" name="acao" value="adicionar">
-                        <input type="hidden" name="id_livro" value="Elize Matsunaga: A Mulher que Matou o Marido">
+                        <input type="hidden" name="id_livro" value="49">
                         <input type="hidden" name="nome" value="Elize Matsunaga: A Mulher que Matou o Marido">
                         <input type="hidden" name="preco" value="58,90">
                         <input type="hidden" name="imagem" value="https://m.media-amazon.com/images/I/71Uw783uI5L._SL1500_.jpg">
@@ -756,9 +756,9 @@
                 <article class="livro">
                     <a href="compras/detalhes.php?id=50"><img src="https://m.media-amazon.com/images/I/91sOa8t-JuL._SL1500_.jpg"  alt="Flordelis: A Pastora do Diabo"></a>
                     <h3>Flordelis: A Pastora do Diabo</h3>
-                    <form action="carrinho.php" method="POST">
+                    <form action="compras/detalhes.php?id=50" method="POST">
                         <input type="hidden" name="acao" value="adicionar">
-                        <input type="hidden" name="id_livro" value="Flordelis: A Pastora do Diabo">
+                        <input type="hidden" name="id_livro" value="50">
                         <input type="hidden" name="nome" value="Flordelis: A Pastora do Diabo">
                         <input type="hidden" name="preco" value="58,90">
                         <input type="hidden" name="imagem" value="https://m.media-amazon.com/images/I/91sOa8t-JuL._SL1500_.jpg">
@@ -781,9 +781,9 @@
                 <article class="livro">
                     <a href="compras/detalhes.php?id=17"><img src="https://m.media-amazon.com/images/I/910wNGmLT4L._SL1500_.jpg"  alt="Amoras"></a>
                     <h3>Amoras</h3>
-                    <form action="carrinho.php" method="POST">
+                    <form action="compras/detalhes.php?id=17" method="POST">
                         <input type="hidden" name="acao" value="adicionar">
-                        <input type="hidden" name="id_livro" value="Amoras">
+                        <input type="hidden" name="id_livro" value="17">
                         <input type="hidden" name="nome" value="Amoras">
                         <input type="hidden" name="preco" value="54,90">
                         <input type="hidden" name="imagem" value="https://m.media-amazon.com/images/I/910wNGmLT4L._SL1500_.jpg">
@@ -795,9 +795,9 @@
                 <article class="livro">
                     <a href="compras/detalhes.php?id=18"><img src="https://m.media-amazon.com/images/I/71Z98sh5RuL._SL1300_.jpg"  alt="Menina Bonita do Laço de Fita"></a>
                     <h3>Menina Bonita do Laço de Fita</h3>
-                    <form action="carrinho.php" method="POST">
+                    <form action="compras/detalhes.php?id=18" method="POST">
                         <input type="hidden" name="acao" value="adicionar">
-                        <input type="hidden" name="id_livro" value="Menina Bonita do Laço de Fita">
+                        <input type="hidden" name="id_livro" value="18">
                         <input type="hidden" name="nome" value="Menina Bonita do Laço de Fita">
                         <input type="hidden" name="preco" value="34,99">
                         <input type="hidden" name="imagem" value="https://m.media-amazon.com/images/I/71Z98sh5RuL._SL1300_.jpg">
@@ -809,9 +809,9 @@
                 <article class="livro">
                     <a href="compras/detalhes.php?id=19"><img src="https://m.media-amazon.com/images/I/A1fbkGex+bL._SL1500_.jpg"  alt="Chapeuzinho Amarelo"></a>
                     <h3>Chapeuzinho Amarelo</h3>
-                    <form action="carrinho.php" method="POST">
+                    <form action="compras/detalhes.php?id=19" method="POST">
                         <input type="hidden" name="acao" value="adicionar">
-                        <input type="hidden" name="id_livro" value="Chapeuzinho Amarelo">
+                        <input type="hidden" name="id_livro" value="19">
                         <input type="hidden" name="nome" value="Chapeuzinho Amarelo">
                         <input type="hidden" name="preco" value="41,90">
                         <input type="hidden" name="imagem" value="https://m.media-amazon.com/images/I/A1fbkGex+bL._SL1500_.jpg">
@@ -823,9 +823,9 @@
                 <article class="livro">
                     <a href="compras/detalhes.php?id=20"><img src="https://m.media-amazon.com/images/I/91u1X7IttSL._SL1500_.jpg"  alt="Ou Isto Ou Aquilo"></a>
                     <h3>Ou Isto Ou Aquilo</h3>
-                    <form action="carrinho.php" method="POST">
+                    <form action="compras/detalhes.php?id=20" method="POST">
                         <input type="hidden" name="acao" value="adicionar">
-                        <input type="hidden" name="id_livro" value="Ou Isto Ou Aquilo">
+                        <input type="hidden" name="id_livro" value="20">
                         <input type="hidden" name="nome" value="Ou Isto Ou Aquilo">
                         <input type="hidden" name="preco" value="38,70">
                         <input type="hidden" name="imagem" value="https://m.media-amazon.com/images/I/91u1X7IttSL._SL1500_.jpg">
@@ -848,9 +848,9 @@
                 <article class="livro">
                     <a href="compras/detalhes.php?id=28"><img src="https://m.media-amazon.com/images/I/81WjGu5a5ZL._SL1500_.jpg"  alt="Uma família feliz"></a>
                     <h3>Uma família feliz</h3>
-                    <form action="carrinho.php" method="POST">
+                    <form action="compras/detalhes.php?id=28" method="POST">
                         <input type="hidden" name="acao" value="adicionar">
-                        <input type="hidden" name="id_livro" value="Uma família feliz">
+                        <input type="hidden" name="id_livro" value="28">
                         <input type="hidden" name="nome" value="Uma família feliz">
                         <input type="hidden" name="preco" value="47,90">
                         <input type="hidden" name="imagem" value="https://m.media-amazon.com/images/I/81WjGu5a5ZL._SL1500_.jpg">
@@ -860,11 +860,11 @@
                 </article>
 
                 <article class="livro">
-                    <a href="compras/detalhes.php"><img src="https://m.media-amazon.com/images/I/61k-lrleRAL._SL1500_.jpg"  alt="Bom Dia, Verônica"></a>
+                    <a href="compras/detalhes.php?id=33"><img src="https://m.media-amazon.com/images/I/61k-lrleRAL._SL1500_.jpg"  alt="Bom Dia, Verônica"></a>
                     <h3>Bom Dia, Verônica</h3>
-                    <form action="carrinho.php" method="POST">
+                    <form action="compras/detalhes.php?id=33" method="POST">
                         <input type="hidden" name="acao" value="adicionar">
-                        <input type="hidden" name="id_livro" value="Bom Dia, Verônica">
+                        <input type="hidden" name="id_livro" value="33">
                         <input type="hidden" name="nome" value="Bom Dia, Verônica">
                         <input type="hidden" name="preco" value="52,50">
                         <input type="hidden" name="imagem" value="https://m.media-amazon.com/images/I/61k-lrleRAL._SL1500_.jpg">
@@ -876,9 +876,9 @@
                 <article class="livro">
                     <a href="compras/detalhes.php?id=39"><img src="https://m.media-amazon.com/images/I/71AYPfbv2BL._SL1500_.jpg"  alt="Morte e vida severina"></a>
                     <h3>Morte e vida severina</h3>
-                    <form action="carrinho.php" method="POST">
+                    <form action="compras/detalhes.php?id=39" method="POST">
                         <input type="hidden" name="acao" value="adicionar">
-                        <input type="hidden" name="id_livro" value="Morte e vida severina">
+                        <input type="hidden" name="id_livro" value="39">
                         <input type="hidden" name="nome" value="Morte e vida severina">
                         <input type="hidden" name="preco" value="49,00">
                         <input type="hidden" name="imagem" value="https://m.media-amazon.com/images/I/71AYPfbv2BL._SL1500_.jpg">
@@ -890,9 +890,9 @@
                 <article class="livro">
                     <a href="compras/detalhes.php?id=40"><img src="https://m.media-amazon.com/images/I/81Pp8Zed8IL._SL1500_.jpg"  alt="Eles não usam black-tie"></a>
                     <h3>Eles não usam black-tie</h3>
-                    <form action="carrinho.php" method="POST">
+                    <form action="compras/detalhes.php?id=40" method="POST">
                         <input type="hidden" name="acao" value="adicionar">
-                        <input type="hidden" name="id_livro" value="Eles não usam black-tie">
+                        <input type="hidden" name="id_livro" value="40">
                         <input type="hidden" name="nome" value="Eles não usam black-tie">
                         <input type="hidden" name="preco" value="41,99">
                         <input type="hidden" name="imagem" value="https://m.media-amazon.com/images/I/81Pp8Zed8IL._SL1500_.jpg">
@@ -915,9 +915,9 @@
                 <article class="livro">
                     <a href="compras/detalhes.php?id=14"><img src="https://m.media-amazon.com/images/I/71bWGcFrLCL._SL1500_.jpg"  alt="A Teus Pés"></a>
                     <h3>A Teus Pés</h3>
-                    <form action="carrinho.php" method="POST">
+                    <form action="compras/detalhes.php?id=14" method="POST">
                         <input type="hidden" name="acao" value="adicionar">
-                        <input type="hidden" name="id_livro" value="A Teus Pés">
+                        <input type="hidden" name="id_livro" value="14">
                         <input type="hidden" name="nome" value="A Teus Pés">
                         <input type="hidden" name="preco" value="29,90">
                         <input type="hidden" name="imagem" value="https://m.media-amazon.com/images/I/71bWGcFrLCL._SL1500_.jpg">
@@ -929,9 +929,9 @@
                 <article class="livro">
                     <a href="compras/detalhes.php?id=17"><img src="https://m.media-amazon.com/images/I/910wNGmLT4L._SL1500_.jpg"  alt="Amoras"></a>
                     <h3>Amoras</h3>
-                    <form action="carrinho.php" method="POST">
+                    <form action="compras/detalhes.php?id=17" method="POST">
                         <input type="hidden" name="acao" value="adicionar">
-                        <input type="hidden" name="id_livro" value="Amoras">
+                        <input type="hidden" name="id_livro" value="17">
                         <input type="hidden" name="nome" value="Amoras">
                         <input type="hidden" name="preco" value="54,90">
                         <input type="hidden" name="imagem" value="https://m.media-amazon.com/images/I/910wNGmLT4L._SL1500_.jpg">
@@ -943,9 +943,9 @@
                 <article class="livro">
                     <a href="compras/detalhes.php?id=20"><img src="https://m.media-amazon.com/images/I/91u1X7IttSL._SL1500_.jpg"  alt="Ou Isto Ou Aquilo"></a>
                     <h3>Ou Isto Ou Aquilo</h3>
-                    <form action="carrinho.php" method="POST">
+                    <form action="compras/detalhes.php?id=20" method="POST">
                         <input type="hidden" name="acao" value="adicionar">
-                        <input type="hidden" name="id_livro" value="Ou Isto Ou Aquilo">
+                        <input type="hidden" name="id_livro" value="20">
                         <input type="hidden" name="nome" value="Ou Isto Ou Aquilo">
                         <input type="hidden" name="preco" value="38,70">
                         <input type="hidden" name="imagem" value="https://m.media-amazon.com/images/I/91u1X7IttSL._SL1500_.jpg">

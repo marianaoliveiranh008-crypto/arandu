@@ -185,7 +185,6 @@
                 </div>
 
                 <div class="botoes">
-                    <button type="submit">Calcular frete</button>
                     <a href="finalizarCompra.php">Finalizar compra</a>
                 </div>
             <?php endif; ?>

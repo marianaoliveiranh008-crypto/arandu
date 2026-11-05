@@ -21,7 +21,7 @@
         if(empty($email) || empty($senha)){
             echo "Preencha todos os campos";
         }else{
-            $sql = "SELECT id_usuario, nome, email, senha,  tipo_usuario, email_verificado FROM usuario WHERE email = ?";
+            $sql = "SELECT id_usuario, nome, email, senha,  tipo_usuario, email FROM usuario WHERE email = ?";
             $stmt = $conexao->prepare($sql);
             $stmt->bind_param("s", $email);
             $stmt->execute();
