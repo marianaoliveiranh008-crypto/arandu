@@ -1,77 +1,112 @@
 <?php
     session_start();
-
-    if(!isset($_SESSION['carrinho'])){
-        $_SESSION['carrinho'] = [];
-    }
+    require_once 'config/database.php';
 
     if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['acao']) && $_POST['acao'] === 'adicionar'){
-        if(!isset($_SESSION['usuario_id'])){    
-            $_SESSION['produto_pendente']=[
-                $id = trim($_POST['id_livro']),
-                $nome = trim($_POST['nome']),
-                $preco = $_POST['preco'],
-                $imagem = trim($_POST['imagem']),
-                $autor = trim($_POST['autor'])
-            ];
-            
-            $_SESSION['url_retorno'] = $_SERVER['HTTP_REFERER'] ?? 'detalhes.php';
-            
-            header("Location: login.php");
+        $id_livro = $_POST['id_livro'] ?? null;
+        if($id_livro){
+            if(!isset($_SESSION['logado']) || $_SESSION['logado'] !== true){    
+                $_SESSION['produto_pendente']=[
+                    $id = trim($_POST['id_livro']),
+                    $nome = trim($_POST['nome']),
+                    $preco = $_POST['preco'],
+                    $imagem = trim($_POST['imagem']),
+                    $autor = trim($_POST['autor'])
+                ];
+                
+                $_SESSION['url_retorno'] = $_SERVER['HTTP_REFERER'] ?? 'detalhes.php';
+                
+                header("Location: login.php");
+                exit;
+            }
+
+            $id = trim($_POST['id_livro']);
+            $nome = trim($_POST['nome']);
+            $preco = $_POST['preco'];
+            $imagem = trim($_POST['imagem']);
+            $autor = trim($_POST['autor']);
+
+            if(isset($_SESSION['carrinho'][$id])){
+                $_SESSION['carrinho'][$id]['quantidade'] += 1;
+            }else{
+                $_SESSION['carrinho'][$id] = [
+                    'nome'=>$nome,
+                    'preco'=>$preco,
+                    'imagem'=>$imagem,
+                    'autor'=>$autor,
+                    'quantidade'=>1
+                ];
+            }
+
+            header ("Location: carrinho.php");
+            exit;
+        }
+    }
+
+        if(isset($_GET['acao']) && isset($_GET['id'])){
+            $id = $_GET['id'];
+            $acao = $_GET['acao'];
+
+            if(isset($_SESSION['carrinho'][$id])){
+                if($acao === 'aumentar'){
+                    $_SESSION['carrinho'][$id]['quantidade'] += 1;
+                }elseif($acao === 'diminuir'){
+                    $_SESSION['carrinho'][$id]['quantidade'] -= 1;
+                    
+                    if ($_SESSION['carrinho'][$id]['quantidade'] <= 0) {
+                    unset($_SESSION['carrinho'][$id]);
+                    }
+                }elseif($acao === 'remover'){
+                    unset($_SESSION['carrinho'][$id]);
+                }
+            }
+            header("Location: carrinho.php");
             exit;
         }
 
-        $id = trim($_POST['id_livro']);
-        $nome = trim($_POST['nome']);
-        $preco = $_POST['preco'];
-        $imagem = trim($_POST['imagem']);
-        $autor = trim($_POST['autor']);
+        $subtotal = 0;
+        $totalItens = 0;
 
-        if(isset($_SESSION['carrinho'][$id])){
-            $_SESSION['carrinho'][$id]['quantidade'] += 1;
-        }else{
-            $_SESSION['carrinho'][$id] = [
-                'nome'=>$nome,
-                'preco'=>$preco,
-                'imagem'=>$imagem,
-                'autor'=>$autor,
-                'quantidade'=>1
-            ];
+        if(isset($_SESSION['carrinho']) && !empty($_SESSION['carrinho'])){
+        foreach($_SESSION['carrinho'] as $item){
+            $subtotal += ($item['preco'] * $item['quantidade']);
+            $totalItens += $item['quantidade'];
         }
-
-        header ("Location: carrinho.php");
-        exit;
     }
 
-    if(isset($_GET['acao']) && isset($_GET['id'])){
-        $id = $_GET['id'];
-        $acao = $_GET['acao'];
+    $valorFrete = 0.00;
+    $cepDestino = '';
 
-        if(isset($_SESSION['carrinho'][$id])){
-            if($acao === 'aumentar'){
-                $_SESSION['carrinho'][$id]['quantidade'] += 1;
-            }elseif($acao === 'diminuir'){
-                $_SESSION['carrinho'][$id]['quantidade'] -= 1;
-                
-                if ($_SESSION['carrinho'][$id]['quantidade'] <= 0) {
-                unset($_SESSION['carrinho'][$id]);
-                }
-            }elseif($acao === 'remover'){
-                unset($_SESSION['carrinho'][$id]);
+    if(isset($_SESSION['logado']) && $_SESSION['logado'] === true){
+        $id_usuario = $_SESSION['usuarioId'] ?? $_SESSION['usuario_id'] ?? null;
+
+        if($id_usuario){
+            $sqlCep = "SELECT cep FROM endereco WHERE id_usuario = ? LIMIT 1";
+            $stmtCep = $conexao->prepare($sqlCep);
+            $stmtCep->bind_param("i", $id_usuario);
+            $stmtCep->execute();
+            $resultadoCep = $stmtCep->get_result();
+
+            if($resultadoCep->num_rows > 0){
+                $rowEnd = $resultadoCep->fetch_assoc();
+                $cepDestino = preg_replace('/[^0-9]/', '', $rowEnd['cep']);
             }
+            $stmtCep->close();
         }
-        header("Location: carrinho.php");
-        exit;
+    }
+    if(!empty($cepDestino) && strlen($cepDestino) === 8 && $subtotal > 0){
+        $primeiroDigito = intval(substr($cepDestino, 0, 1));
+        if($primeiroDigito >= 8){
+            $valorFrete = 10.00;
+        }elseif($primeiroDigito >= 0 && $primeiroDigito <= 3){
+            $valorFrete = 20.00;
+        }else{
+            $valorFrete = 30.00;
+        }
     }
 
-    $subtotal = 0;
-    $totalItens = 0;
-
-    foreach($_SESSION['carrinho'] as $item){
-        $subtotal += $item['preco'] * $item['quantidade'];
-        $totalItens += $item['quantidade'];
-    }
-    ?>
+    $totalGeral = $subtotal + $valorFrete; 
+?>
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -137,12 +172,19 @@
 
                 <div class="resumo">
                     <p><span>Subtotal</span><strong>R$ <?= number_format($subtotal, 2, ',', '.') ?></strong></p>
-                    <p><span>Frete</span><strong>A calcular</strong></p>
-                    <p class="resumo-total"><span>Total</span><strong>R$ <?= number_format($subtotal, 2, ',', '.') ?></strong></p>
+                    <p>
+                        <span>Frete 
+                            <?php if(!empty($cepDestino)): ?>
+                                <small>(CEP: <?= htmlspecialchars($cepDestino) ?>)</small>
+                            <?php endif; ?>
+                        </span>
+                        <strong><?= $valorFrete > 0 ? 'R$ '.number_format($valorFrete, 2, ',', '.') : 'A calcular' ?></strong>
+                    </p>
+                    <p class="resumo-total"><span>Total</span><strong>R$ <?= number_format($totalGeral, 2, ',', '.') ?></strong></p>
                 </div>
 
                 <div class="botoes">
-                    <button type="button">Calcular frete</button>
+                    <button type="submit">Calcular frete</button>
                     <a href="finalizarCompra.php">Finalizar compra</a>
                 </div>
             <?php endif; ?>

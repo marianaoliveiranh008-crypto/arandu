@@ -1,3 +1,32 @@
+<?php
+    session_start();
+    require_once "../config/database.php";
+
+    $id_usuario = $_GET['id_usuario'] ?? $_GET['id'] ?? 2;
+
+    $sql = "SELECT u.nome, u.email, u.telefone, e.rua, e.numero, e.bairro, e.cidade
+    FROM usuario u
+    LEFT JOIN endereco e ON u.id_usuario = e.id_usuario
+    WHERE u.id_usuario = ?";
+            
+    $stmt = $conexao->prepare($sql);
+
+    if($stmt){
+    $stmt->bind_param("i", $id_usuario);
+    $stmt->execute();
+    
+    $result = $stmt->get_result();
+    $cliente = $result->fetch_assoc();
+
+    $stmt->close();
+    }else{
+        die("Erro no prepare da consulta: ".$conexao->error);
+    }
+
+    if(!$id_usuario){
+        die("Usuário não encontrado.");
+    }
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>

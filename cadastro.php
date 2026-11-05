@@ -2,16 +2,34 @@
     session_start();
     require_once 'config/database.php';
 
+    if(isset($_GET['id'])){
+        $_SESSION['produto_pendente'] = [
+            'id_liv' => $_GET['id']
+        ];
+        $_SESSION['url_retorno'] = 'carrinho.php';
+    }elseif(isset($_GET['id_liv'])){
+        $_SESSION['produto_pendente'] = [
+            'id_liv' => $_GET['id_liv']
+        ];
+        $_SESSION['url_retorno'] = 'carrinho.php';
+    }
+    
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $nome = trim($_POST['nome'] ?? '');
         $cpfLimpo   = preg_replace('/[^0-9]/', '',$_POST['cpf'] ?? '');
         $telefone   = preg_replace('/[^0-9]/', '',$_POST['telefone'] ?? '');
+        $rua = trim($_POST['rua'] ?? '');
+        $numero = trim($_POST['numero'] ?? '');
+        $complemento = trim($_POST['complemento'] ?? '');
+        $bairro = trim($_POST['bairro'] ?? '');
+        $cidade = trim($_POST['cidade'] ?? '');
+        $estado = trim($_POST['estado'] ?? '');
         $cepLimpo   = preg_replace('/[^0-9]/', '',$_POST['cep'] ?? '');
         $email = trim($_POST['email'] ?? '');
         $senha = trim($_POST['senha'] ?? '');
         $confirmar = trim($_POST['confirmar'] ?? '');
 
-        if(empty($nome) || empty($cpfLimpo) || empty($telefone) || empty($cepLimpo) || empty($email) || empty($senha) || empty($confirmar)) {
+        if(empty($nome) || empty($cpfLimpo) || empty($telefone) || empty($cepLimpo) || empty($email) || empty($senha) || empty($confirmar)){
             echo "Por favor, preencha todos os campos corretamente.";
         }elseif($senha !== $confirmar){
             echo "As senhas não coincidem!";
@@ -37,62 +55,71 @@
 
             $conexao->begin_transaction();
 
-            try{
-                $sqlInsertUsuario = "INSERT INTO usuario (nome, email, senha, telefone, cpf_usuario) VALUES (?, ?, ?, ?, ?)";
-                $stmtUsuario = $conexao->prepare($sqlInsertUsuario);
-                $stmtUsuario->bind_param(
-                    "sssss",
-                    $nome,
-                    $email,
-                    $senhaHash,
-                    $telefone,
-                    $cpfLimpo
-                );
-                $stmtUsuario->execute();
-                $idUsuarioCriado = $conexao->insert_id;
-                $stmtUsuario->close();
+                try{
+                    $sqlInsertUsuario = "INSERT INTO usuario (nome, email, senha, telefone, cpf_usuario) VALUES (?, ?, ?, ?, ?)";
+                    $stmtUsuario = $conexao->prepare($sqlInsertUsuario);
+                    $stmtUsuario->bind_param(
+                        "sssss",
+                        $nome,
+                        $email,
+                        $senhaHash,
+                        $telefone,
+                        $cpfLimpo
+                    );
+                    $stmtUsuario->execute();
+                    $idUsuarioCriado = $conexao->insert_id;
+                    $stmtUsuario->close();
 
-                $sqlInsertEndereco = "INSERT INTO endereco (cep, id_usuario) VALUES (?, ?)";
-                $stmtEndereco = $conexao->prepare($sqlInsertEndereco);
-                $stmtEndereco->bind_param(
-                    "si",
-                    $cepLimpo,
-                    $idUsuarioCriado
-                );
-                $stmtEndereco->execute();
-                $stmtEndereco->close();
+                    $sqlInsertEndereco = "INSERT INTO endereco (rua, numero, complemento, bairro, cidade, estado, cep, id_usuario) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                    $stmtEndereco = $conexao->prepare($sqlInsertEndereco);
+                    $stmtEndereco->bind_param(
+                        "sssssssi",
+                        $rua,
+                        $numero,
+                        $complemento,
+                        $bairro,
+                        $cidade,
+                        $estado,
+                        $cepLimpo,
+                        $idUsuarioCriado
+                    );
+                    $stmtEndereco->execute();
+                    $stmtEndereco->close();
 
-                $conexao->commit();
+                    $sqlCriar = "INSERT INTO carrinho (id_usuario) VALUES (?)";
+                    $stmtCriar = $conexao->prepare($sqlCriar);
+                    $stmtCriar->bind_param("i", $idUsuarioCriado);
+                    $stmtCriar->execute();
+                    $id_car = $conexao->insert_id;
+                    $stmtCriar->close();
 
-                $_SESSION['usuario_id'] = $idUsuarioCriado;
-                    $_SESSION['usuario_nome'] = $nome;
+                    if(isset($_SESSION['produto_pendente']) && isset($_SESSION['produto_pendente']['id_liv'])){
+                        $id_livro = $_SESSION['produto_pendente']['id_liv'];
+                        $quantidade = 1;
 
-                    if(isset($_SESSION['produto_pendente'])){
-                        $produto = $_SESSION['produto_pendente'];
-                        $id_livro = $produto['id_livro'];
-
-                        if(isset($_SESSION['carrinho'][$id_livro])){
-                            $_SESSION['carrinho'][$id_livro]['quantidade'] += 1;
-                        }else{
-                            $_SESSION['carrinho'][$id_livro] = [
-                                'nome'       => $produto['nome'],
-                                'preco'      => $produto['preco'],
-                                'imagem'     => $produto['imagem'],
-                                'autor'      => $produto['autor'],
-                                'quantidade' => 1
-                            ];
-                        }
+                        $sqlInsItem = "INSERT INTO carrinho_item (id_car, id_liv, quantidade_car) VALUES (?, ?, ?)";
+                        $stmtInsItem = $conexao->prepare($sqlInsItem);
+                        $stmtInsItem->bind_param("iii", $id_car, $id_livro, $quantidade);
+                        $stmtInsItem->execute();
+                        $stmtInsItem->close();
 
                         unset($_SESSION['produto_pendente']);
                     }
 
-                    $url_destino = $_SESSION['url_retorno'] ?? 'detalhes.php';
+                    $conexao->commit();
+
+                    $_SESSION['usuarioId'] = $idUsuarioCriado;
+                    $_SESSION['usuarioNome'] = $nome;
+                    $_SESSION['usuarioEmail'] = $email;
+                    $_SESSION['tipo_usuario'] = 1;
+                    $_SESSION['logado'] = true;
+
+                    $url_destino = $_SESSION['url_retorno'] ?? 'carrinho.php';
                     unset($_SESSION['url_retorno']);
 
                     $_SESSION['sucesso'] = "Conta criada com sucesso!";
-                    header("Location: " . $url_destino);
+                    header("Location: ".$url_destino);
                     exit;
-
                 }catch(Exception $e){
                     $conexao->rollback();
                     echo "Erro ao realizar o cadastro. Tente novamente.";
@@ -149,6 +176,36 @@
                     <input type="text" id="cep" name="cep" placeholder="00000-000" required>
                 </div>
 
+                <div>
+                    <label for="rua">Rua:</label>
+                    <input type="text" id="rua" name="rua" placeholder="Hipotética" required>
+                </div>
+
+                <div>
+                    <label for="numero">Número:</label>
+                    <input type="text" id="numero" name="numero" value="" placeholder="0000" required>
+                </div>
+
+                <div>
+                    <label for="complemento">Complemento:</label>
+                    <input type="text" id="complemento" name="complemento" value="" placeholder="Casa/Apartamento/Condomínio" required>
+                </div>
+
+                <div>
+                    <label for="bairro">Bairro:</label>
+                    <input type="text" id="bairro" name="bairro" placeholder="Hipotético" required>
+                </div>
+
+                <div>
+                    <label for="cidade">Cidade:</label>
+                    <input type="text" id="cidade" name="cidade" placeholder="Hipotética" required>
+                </div>
+
+                <div>
+                    <label for="estado">Estado:</label>
+                    <input type="text" id="estado" name="estado" placeholder="Hipotético" required>
+                </div>
+
                 <div class="campo-cadastro campo-cadastro--wide">
                     <label for="email">E-mail:</label>
                     <input type="email" id="email" name="email" placeholder="seu@email.com" required>
@@ -163,13 +220,6 @@
                     <label for="confirmar">Confirmar senha:</label>
                     <input type="password" id="confirmar" name="confirmar" placeholder="••••••••" required>
                 </div>
-
-                <input type="hidden" id="rua" name="rua">
-                <input type="hidden" id="numero" name="numero" value="">
-                <input type="hidden" id="complemento" name="complemento" value="">
-                <input type="hidden" id="bairro" name="bairro">
-                <input type="hidden" id="cidade" name="cidade">
-                <input type="hidden" id="estado" name="estado">
 
                 <button class="cadastro-submit" type="submit">Cadastrar</button>
             </form>
@@ -186,5 +236,31 @@
             <a href="#">Contato</a>
         </nav>
     </main>
+
+    <script>
+        const cep = document.getElementById("cep");
+        cep.addEventListener("blur", buscarCEP);
+
+        async function buscarCEP(){
+            let valorCEP = cep.value.replace(/\D/g,'');
+            if(valorCEP.length != 8){
+                alert("CEP inválido!");
+                return;
+            }try{
+                const resposta = await fetch(`https://viacep.com.br/ws/${valorCEP}/json/`);
+                const dados = await resposta.json();
+                if(dados.erro){
+                    alert("CEP não encontrado.");
+                    return;
+                }
+                document.getElementById("rua").value = dados.logradouro;
+                document.getElementById("bairro").value = dados.bairro;
+                document.getElementById("cidade").value = dados.localidade;
+                document.getElementById("estado").value = dados.uf;
+            }catch(erro){
+                alert("Erro ao consultar a API.");
+            }
+        }
+    </script>
 </body>
 </html>

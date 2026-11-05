@@ -2197,3 +2197,71 @@ body.carrinho-page {
     justify-content: center;
     order: -1;
 }
+
+.secao-finalizar h2 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.finalizar-card {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    margin-top: 12px;
+}
+
+.finalizar-capa {
+    width: 90px;
+    height: 130px;
+    object-fit: cover;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    flex-shrink: 0;
+}
+
+.finalizar-conteudo {
+    display: flex;
+    flex-direction: column;
+}
+
+.finalizar-titulo {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.finalizar-autor, 
+.finalizar-qntd {
+    font-size: 0.85rem;
+    opacity: 0.9;
+    margin-top: 2px;
+}
+
+.finalizar-preco {
+    font-size: 1rem;
+    font-weight: 700;
+    display: block;
+    margin-top: 18px;
+
+}.finalizar-total {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2); /* Linha divisória subtil */
+    padding-top: 14px;
+}
+
+.total-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.total-final {
+    font-size: 1.1rem;
+    margin-top: 4px;
+}

@@ -1,3 +1,85 @@
+<?php
+    session_start();
+    require_once "config/database.php";
+
+    if($_SERVER['REQUEST_METHOD'] === 'POST'){
+        $pagamento = $_POST['pagamento'] ?? '';
+
+        if($pagamento == 'pix'){
+            header("Location: pagamentoPix.php");
+            exit;
+        }elseif($pagamento == 'credito'){
+            header("Location: pagamentoCredito.php");
+            exit;
+        }elseif($pagamento == 'debito'){
+            header("Location: pagamentoDebito.php");
+            exit;
+        }
+    }
+
+    $id_usuario = $_SESSION['usuarioId'] ?? $_SESSION['usuario_id'] ?? $_GET['id_usuario'] ?? $_GET['id'] ?? null;
+    
+    if(!$id_usuario){
+        die("Erro: Nenhum usuário logado ou identificado.");
+    }
+    
+    $sqlEnd = "SELECT e.rua, e.numero, e.complemento, e.bairro, e.cidade, e.estado, e.cep 
+            FROM usuario u 
+            LEFT JOIN endereco e ON u.id_usuario = e.id_usuario 
+            WHERE u.id_usuario = ?";
+            
+    $stmtEnd = $conexao->prepare($sqlEnd);
+    $stmtEnd->bind_param("i", $id_usuario);
+    $stmtEnd->execute();
+    $resultadoEnd = $stmtEnd->get_result();
+    $cliente = $resultadoEnd->fetch_assoc();
+    $stmtEnd->close();
+
+    $subtotal = 0;
+    if(isset($_SESSION['carrinho']) && !empty($_SESSION['carrinho'])){
+        foreach($_SESSION['carrinho'] as $item){
+            $subtotal += ($item['preco'] * $item['quantidade']);
+        }
+    }
+    $cepDestino = '';
+    if(!empty($cliente['cep'])){
+        $cepDestino = preg_replace('/[^0-9]/', '', $cliente['cep']);
+    }
+
+    $valorFrete = 0.00;
+    if(!empty($cepDestino) && strlen($cepDestino) === 8 && $subtotal > 0){
+        $primeiroDigito = intval(substr($cepDestino, 0, 1));
+        if($primeiroDigito >= 8){
+            $valorFrete = 10.00;
+        }elseif($primeiroDigito >= 0 && $primeiroDigito <= 3){
+            $valorFrete = 20.00;
+        }else{
+            $valorFrete = 30.00;
+        }
+    }
+
+    $totalGeral = $subtotal + $valorFrete;
+
+    $id_livro = $_GET['id_livro'] ?? 1;
+
+    $sqlLivro = "SELECT l.*, ed.nome_edi,
+                GROUP_CONCAT(DISTINCT c.nome_cat SEPARATOR ', ') AS nome_cat, 
+                GROUP_CONCAT(DISTINCT a.nome_aut SEPARATOR ', ') AS autor
+                FROM livro l
+                LEFT JOIN editora ed ON l.id_edi = ed.id_edi
+                LEFT JOIN liv_cat lc ON l.id_liv = lc.id_liv
+                LEFT JOIN categoria c ON lc.id_cat = c.id_cat
+                LEFT JOIN liv_aut la ON l.id_liv = la.id_liv 
+                LEFT JOIN autor a ON la.id_aut = a.id_aut
+                WHERE l.id_liv = ?
+                GROUP BY l.id_liv";
+        $stmtLivro = $conexao->prepare($sqlLivro);
+        $stmtLivro->bind_param("i", $id_livro);
+        $stmtLivro->execute();
+        $resultadoLivro = $stmtLivro->get_result();
+        $livro = $resultadoLivro->fetch_assoc();
+        $stmtLivro->close();
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -34,63 +116,82 @@
             <section class="secao-finalizar" aria-labelledby="titulo-endereco">
                 <h2 id="titulo-endereco">Endereço de entrega</h2>
                 <address class="endereco-entrega">
-                    Rua Exemplo, 123 - Centro<br>
-                    Cidade - UF<br>
-                    CEP: 00000-000
+                    <?php if (!empty($cliente['rua'])): ?>
+                    <p><?= htmlspecialchars($cliente['rua']) ?>, 
+                    <?= htmlspecialchars($cliente['numero']) ?>,
+                    <?= htmlspecialchars($cliente['complemento']) ?></p>
+                    <p><?= htmlspecialchars($cliente['bairro']) ?>, 
+                    <?= htmlspecialchars($cliente['cidade']) ?> —
+                    <?= htmlspecialchars($cliente['estado']) ?> </p>
+                    <p>CEP: <?= htmlspecialchars($cliente['cep']) ?></p>
+                <?php else: ?>
+                    Nenhum endereço cadastrado.
+                <?php endif; ?>
                 </address>
                 <button class="botao-alterar-endereco" type="button">Alterar endereço</button>
             </section>
+            <br>
+            <form action="finalizarCompra.php" method="POST">
+                <fieldset class="secao-finalizar opcoes-pagamento">
+                    <legend>Formas de pagamento</legend>
 
-                        <script>
-                const cep = document.getElementById("cep");
-                cep.addEventListener("blur", buscarCEP);
+                    <label class="opcao-pagamento">
+                        <input type="radio" name="pagamento" value="pix" checked>
+                        <span>Pix</span>
+                    </label>
 
-                async function buscarCEP(){
-                    let valorCEP = cep.value.replace(/\D/g,'');
-                    if(valorCEP.length != 8){
-                        alert("CEP inválido!");
-                        return;
-                    }try{
-                        const resposta = await fetch(`https://viacep.com.br/ws/${valorCEP}/json/`);
-                        const dados = await resposta.json();
-                        if(dados.erro){
-                            alert("CEP não encontrado.");
-                            return;
-                        }
-                        document.getElementById("rua").value = dados.logradouro;
-                        document.getElementById("bairro").value = dados.bairro;
-                        document.getElementById("cidade").value = dados.localidade;
-                        document.getElementById("estado").value = dados.uf;
-                    }catch(erro){
-                        alert("Erro ao consultar a API.");
-                    }
-                }
-            </script>
+                    <label class="opcao-pagamento">
+                        <input type="radio" name="pagamento" value="credito">
+                        <span>Cartão de crédito</span>
+                    </label>
 
-            <fieldset class="secao-finalizar opcoes-pagamento">
-                <legend>Formas de pagamento</legend>
+                    <label class="opcao-pagamento">
+                        <input type="radio" name="pagamento" value="debito">
+                        <span>Cartão de débito</span>
+                    </label>
+                </fieldset>
+            <br>
 
-                <label class="opcao-pagamento">
-                    <input type="radio" name="pagamento" value="pix" checked>
-                    <span>Pix</span>
-                </label>
+            <section class="secao-finalizar" aria-labelledby="titulo-resumo">
+                <h2 id="titulo-resumo">Resumo do pedido</h2>
+                    <article class="finalizar-card">
+                        <img
+                            class="finalizar-capa"
+                            src="<?= htmlspecialchars($livro['imagem'] ?? '') ?>"
+                            alt="Capa do livro <?= htmlspecialchars($livro['titulo_liv'] ?? '') ?>">
 
-                <label class="opcao-pagamento">
-                    <input type="radio" name="pagamento" value="credito">
-                    <span>Cartão de crédito</span>
-                </label>
-
-                <label class="opcao-pagamento">
-                    <input type="radio" name="pagamento" value="debito">
-                    <span>Cartão de débito</span>
-                </label>
-            </fieldset>
+                        <div class="finalizar-conteudo">
+                            <h3 class="finalizar-titulo"><?= htmlspecialchars($livro['titulo_liv'] ?? '') ?></h3>
+                            <p class="finalizar-autor">Por: <?= htmlspecialchars($livro['autor'] ?? '') ?></p>
+                            <p class="finalizar-qntd">Quantidade:  <?= htmlspecialchars($livro['quantidade'] ?? '') ?></p>
+                            <span class="finalizar-preco">R$ <?= number_format($livro['preco'], 2, ',', '.') ?></span>
+                        </div>
+                    </article>
+                    <br>
+                    <div class="finalizar-total">
+                        <div class="total-row">
+                            <span>Subtotal</span>
+                            <span>R$ <?= number_format($subtotal, 2, ',', '.') ?></span>
+                        </div>
+                        <div class="total-row">
+                            <span>Frete</span>
+                            <span>R$ <?= number_format($valorFrete, 2, ',', '.') ?></span>
+                        </div>
+                        <div class="total-row total-final">
+                            <span>Total</span>
+                            <span>R$ <?= number_format($totalGeral, 2, ',', '.') ?></span>
+                        </div>
+                    </div>
+            </section>
+            <br>
+            <button class="botao-alterar-endereco" type="submit">Confirmar compra</button>
+            </form>
         </section>
          <nav class="cadastro-links" aria-label="Links institucionais">
             <a href="#">Termos de uso</a>
             <a href="#">Política de privacidade</a>
             <a href="#">Contato</a>
         </nav>
-    </main>
+    </main>    
 </body>
 </html>

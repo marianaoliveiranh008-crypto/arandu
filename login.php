@@ -2,28 +2,16 @@
     session_start();
     require_once "config/database.php";
 
-    function enviarCodigoVerificacao($email, $codigo) {
-    $apiKey = ''; 
-
-    $payload = [
-        'from' => 'Arandu <onboarding@resend.dev>',
-        'to' => [$email],
-        'subject' => 'Código de Verificação - Arandu',
-        'html' => "<p>Seu código de verificação para acessar a conta é: <strong>{$codigo}</strong></p>"
-    ];
-
-    $ch = curl_init('https://api.resend.com/emails');
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_POST, true);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
-    curl_setopt($ch, CURLOPT_HTTPHEADER, [
-        'Authorization: Bearer ' . $apiKey,
-        'Content-Type: application/json'
-    ]);
-
-    $resultado = curl_exec($ch);
-    curl_close($ch);
-    return $resultado;
+    if(isset($_GET['id'])){
+        $_SESSION['produto_pendente'] = [
+            'id_liv' => $_GET['id']
+        ];
+        $_SESSION['url_retorno'] = 'carrinho.php';
+    }elseif(isset($_GET['id_liv'])){
+        $_SESSION['produto_pendente'] = [
+            'id_liv' => $_GET['id_liv']
+        ];
+        $_SESSION['url_retorno'] = 'carrinho.php';
     }
 
     if($_SERVER["REQUEST_METHOD"] === "POST"){
@@ -49,39 +37,81 @@
                 PASSWORD_DEFAULT
                 );
             }if($loginValido){
-                if ($usuario['email_verificado'] == 0) {
-                    $codigo = str_pad(rand(0, 999999), 6, '0', STR_PAD_LEFT);
-                    $stmtUpdate = $conexao->prepare("UPDATE usuario SET codigo_verificacao = ? WHERE id_usuario = ?");
-                    $stmtUpdate->bind_param("si", $codigo, $usuario['id_usuario']);
-                    $stmtUpdate->execute();
-
-                    enviarCodigoVerificacao($usuario['email'], $codigo);
-
-                    $_SESSION['temp_usuario_id'] = $usuario['id_usuario'];
-                    header("Location: verificarCodigo.php");
-                    exit;
-                }
                 $_SESSION['usuarioId'] = $usuario['id_usuario'];
                 $_SESSION['usuarioNome'] = $usuario['nome'];
                 $_SESSION['usuarioEmail'] = $usuario['email'];
                 $_SESSION['tipo_usuario'] = $usuario['tipo_usuario'];
                 $_SESSION['logado'] = true;
 
-                if($usuario['tipo_usuario'] == 2){
-                    header("Location: admin/index.php");
+                $id_usuario = $usuario['id_usuario'];
+
+                $sqlCar = "SELECT id_car FROM carrinho WHERE id_usuario = ?";
+                $stmtCar = $conexao->prepare($sqlCar);
+                $stmtCar->bind_param("i", $id_usuario);
+                $stmtCar->execute();
+                $resultadoCar = $stmtCar->get_result();
+
+                if($resultadoCar->num_rows>0){
+                    $carrinho = $resultadoCar->fetch_assoc();
+                    $id_car = $carrinho['id_car'];
                 }else{
-                header("Location: index.php");
+                    $sqlCriar = "INSERT INTO carrinho (id_usuario) VALUES (?)";
+                    $stmtCriar = $conexao->prepare($sqlCriar);
+                    $stmtCriar->bind_param("i", $id_usuario);
+                    $stmtCriar->execute();
+                    $id_car = $conexao->insert_id;
+                    $stmtCriar->close();
                 }
-                exit;
-                }else{
-                    echo "E-mail ou senha incorretos.";
-                }
-            }else{
-                echo "E-mail ou senha incorretos.";
+                $stmtCar->close();
+
+                if(isset($_SESSION['produto_pendente'])){
+                    $id_livro = $_SESSION['produto_pendente']['id_liv'];
+                    $quantidade = 1;
+                    $sqlItem = "SELECT id_carit, quantidade_car FROM carrinho_item WHERE id_car = ? AND id_liv = ?";
+                    $stmtItem = $conexao->prepare($sqlItem);
+                    $stmtItem->bind_param("ii", $id_car, $id_livro);
+                    $stmtItem->execute();
+                    $resultadoItem = $stmtItem->get_result();
+
+                    if($resultadoItem->num_rows > 0){
+                        $rowItem = $resultadoItem->fetch_assoc();
+                        $novaQuantidade = $rowItem['quantidade_car'] + 1;
+                        $id_carit = $rowItem['id_carit'];
+
+                        $sqlUpdate = "UPDATE carrinho_item SET quantidade_car = ? WHERE id_carit = ?";
+                        $stmtUp = $conexao->prepare($sqlUpdate);
+                        $stmtUp->bind_param("ii", $novaQuantidade, $id_carit);
+                        $stmtUp->execute();
+                        $stmtUp->close();
+                    }else{
+                        $sqlIns = "INSERT INTO carrinho_item (id_car, id_liv, quantidade_car) VALUES (?, ?, ?)";
+                        $stmtIns = $conexao->prepare($sqlIns);
+                        $stmtIns->bind_param("iii", $id_car, $id_livro, $quantidade);
+                        $stmtIns->execute();
+                        $stmtIns->close();
+                    }
+                    $stmtItem->close();
+                    unset($_SESSION['produto_pendente']);
             }
-        $stmt->close();
+            $url_destino = $_SESSION['url_retorno'] ?? 'index.php';
+            unset($_SESSION['url_retorno']);
+
+            if($usuario['tipo_usuario'] == 2){
+                header("Location: admin/index.php");
+            }else{
+                header("Location: ".$url_destino);
+            }
+            exit;
+
+        }else{
+            echo "E-mail ou senha incorretos.";
         }
+    }else{
+        echo "E-mail ou senha incorretos.";
     }
+    $stmt->close();
+}
+}
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -111,7 +141,7 @@
         <div class="caixa-login">
             <h1>Seja bem-vindo<br>à Arandu!</h1>
 
-            <form action="login.php" method="POST">
+            <form method="POST">
                 <label for="email">E-mail:</label>
                 <input type="email" id="email" name="email" required>
 
