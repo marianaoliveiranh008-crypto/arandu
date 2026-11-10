@@ -1,3 +1,60 @@
+<?php
+    session_start();
+    require_once '../config/database.php';
+
+    if(!isset($_SESSION['logado']) || $_SESSION['logado'] !== true){
+        header("Location: login.php");
+        exit;
+    }
+
+    $id_usuario = $_SESSION['usuarioId'];
+
+    if($_SERVER['REQUEST_METHOD'] === 'POST'){
+        $senhaAtual = $_POST['senhaAtual'] ?? '';
+        $novaSenha = $_POST['novaSenha'] ?? '';
+        $confirmarSenha = $_POST['confirmarSenha'] ?? '';
+
+        $sqlSel = "SELECT senha FROM usuario WHERE id_usuario = ?";
+        $stmtSel = $conexao->prepare($sqlSel);
+        $stmtSel->bind_param("i", $id_usuario);
+        $stmtSel->execute();
+
+        $resultadoSel = $stmtSel->get_result();
+        $usuario = $resultadoSel->fetch_assoc();
+
+        $stmtSel->close();
+
+        if(!$usuario){
+            echo "Usuário não encontrado.";
+        }elseif(!password_verify($senhaAtual, $usuario['senha'])){
+            echo "A senha atual está incorreta.";
+        }elseif($novaSenha !== $confirmarSenha){
+            echo "A nova senha e a confirmação não coincidem";
+        }else{
+            $senhaHash = password_hash(
+                $novaSenha,
+                PASSWORD_DEFAULT
+            );
+
+        $sqlUp = "UPDATE usuario SET senha = ? WHERE id_usuario = ?";
+        $stmtUp = $conexao->prepare($sqlUp);
+        
+        if(!$stmtUp){
+            die("Erro ao preparar consulta: ".$conexao->error);
+        }
+
+        $stmtUp->bind_param("si", $senhaHash, $id_usuario);
+
+        if($stmtUp->execute()){
+            header("Location: perfil.php");
+            exit;
+        }else{
+            $erro = "Erro ao atualizar a senha: ".$stmtUp->error;
+        }
+        $stmtUp->close();
+        }
+    }
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -5,7 +62,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alterar senha - Arandu</title>
     <link rel="stylesheet" href="../css/style.css">
-    <link rel="icon" href="img/Logotipo-Livraria.ico" type="image/x-icon">
+    <link rel="icon" href="../img/Logotipo-Livraria.ico" type="image/x-icon">
 </head>
 <body class="senha-page">
     <header class="top-header">

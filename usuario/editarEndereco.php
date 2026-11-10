@@ -8,10 +8,24 @@
     }
 
     $id_usuario = $_SESSION['usuarioId'];
-    $id_end = $_GET['id'] ?? null;
+
     $endereco = ['rua' => '', 'numero' => '', 'complemento' => '', 'bairro' => '', 'cidade' => '', 'estado' => '', 'cep' => ''];
-    
-    if($_SERVER['REQUEST_METHOD'] === 'POST' && $id_end){
+
+    $sql = "SELECT * FROM endereco WHERE id_usuario = ? LIMIT 1";
+
+    $stmt = $conexao->prepare($sql);
+    $stmt->bind_param("i", $id_usuario);
+    $stmt->execute();
+
+    $resultado = $stmt->get_result();
+
+    if($resultado->num_rows === 1){
+        $endereco = $resultado->fetch_assoc();
+    }
+
+    $stmt->close();
+
+    if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $cep = $_POST['cep'] ?? '';
         $rua = $_POST['rua'] ?? '';
         $numero = $_POST['numero'] ?? '';
@@ -20,37 +34,22 @@
         $cidade = $_POST['cidade'] ?? '';
         $estado = $_POST['estado'] ?? '';
 
-        $sqlUp = "UPDATE endereco SET rua = ?, numero = ?, complemento = ?, bairro = ?, cidade = ?, estado = ? cep = ? WHERE id_end = ? AND id_usuario = ?";
+        $sqlUp = "UPDATE endereco SET rua = ?, numero = ?, complemento = ?, bairro = ?, cidade = ?, estado = ?, cep = ? WHERE id_usuario = ?";
         $stmtUp = $conexao->prepare($sqlUp);
         
-        if($stmtUp){
-            $stmtUp->bind_param("sssssssii", $rua, $numero, $complemento, $bairro, $cidade, $estado, $cep, $id_end, $id_usuario);
-            
-            if($stmtUp->execute()){
-                $stmtUp->close();
-                header("Location: perfil.php");
-                exit;
-            } else {
-                $erro = "Erro ao atualizar o endereço: " . $stmtUp->error;
-            }
-            $stmtUp->close();
+        if(!$stmtUp){
+            die("Erro ao preparar consulta: " . $conexao->error);
         }
-    }
 
-    if($id_end){
-        $sql = "SELECT * FROM endereco WHERE id_end = ? AND id_usuario = ?";
-        $stmt = $conexao->prepare($sql);
-        $stmt->bind_param("ii", $id_end, $id_usuario);
-        $stmt->execute();
-        $resultado = $stmt->get_result();
-        
-        if($resultado->num_rows === 1){
-            $endereco = $resultado->fetch_assoc();
-        }else{
+        $stmtUp->bind_param("sssssssi", $rua, $numero, $complemento, $bairro, $cidade, $estado, $cep, $id_usuario);
+            
+        if($stmtUp->execute()){
             header("Location: perfil.php");
             exit;
+        }else{
+            $erro = "Erro ao atualizar o endereço: " . $stmtUp->error;
         }
-        $stmt->close();
+        $stmtUp->close();
     }
 ?>
 <!DOCTYPE html>
@@ -95,7 +94,7 @@
         <section class="caixa-login" aria-labelledby="titulo-alterar-senha">
 
             <h1 id="titulo-alterar-senha">Editar endereço</h1>
-            <form method="post" action="perfil.php">
+            <form method="post">
                 <div class="campo-cadastro">
                     <label for="cep">CEP:</label>
                     <input type="text" id="cep" name="cep" value="<?= htmlspecialchars($endereco['cep']) ?>"placeholder="00000-000" required>

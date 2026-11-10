@@ -27,12 +27,10 @@
             $stmt->execute();
             $resultado = $stmt->get_result();
 
-            if($resultado->num_rows === 1) {
+            if($resultado->num_rows === 1){
             $usuario = $resultado->fetch_assoc();
-            $loginValido = false;
-            if(password_verify($senha, $usuario['senha']) || $senha === $usuario['senha']) {
-                $loginValido = true;
-            }
+            $loginValido = password_verify($senha, $usuario['senha']);
+
             if($loginValido){
                 $_SESSION['usuarioId'] = $usuario['id_usuario'];
                 $_SESSION['usuarioNome'] = $usuario['nome'];
@@ -87,8 +85,8 @@
                         $stmtIns->execute();
                         $stmtIns->close();
                     }
-                    $stmtItem->close();
-                    unset($_SESSION['produto_pendente']);
+                $stmtItem->close();
+                unset($_SESSION['produto_pendente']);
                 }
                 $url_destino = $_SESSION['url_retorno'] ?? 'index.php';
                 unset($_SESSION['url_retorno']);
@@ -156,7 +154,7 @@
                 <input type="email" id="email" name="email" required>
 
                 <label for="senha">Senha:</label>
-                <input type="password" id="senha" name="senha" required>
+                <input type="password" id="senha" name="senha" maxlength="8" required>
 
                 <a href="verificarCodigo.php" class="esqueci">
                     Esqueci minha senha

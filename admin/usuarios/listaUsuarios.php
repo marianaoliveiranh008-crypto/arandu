@@ -20,7 +20,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Usuários - Arandu</title>
     <link rel="stylesheet" href="../../css/style.css?v=2">
-    <link rel="icon" href="img/Logotipo-Livraria.ico" type="image/x-icon">
+    <link rel="icon" href="../../img/Logotipo-Livraria.ico" type="image/x-icon">
 </head>
 <body class="usuarios-page">
     <header class="cabecalho">

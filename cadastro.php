@@ -228,12 +228,12 @@
 
                 <div class="campo-cadastro">
                     <label for="senha">Senha:</label>
-                    <input type="password" id="senha" name="senha" placeholder="••••••••" required>
+                    <input type="password" id="senha" name="senha" placeholder="••••••••"  maxlength="8" required>
                 </div>
 
                 <div class="campo-cadastro">
                     <label for="confirmar">Confirmar senha:</label>
-                    <input type="password" id="confirmar" name="confirmar" placeholder="••••••••" required>
+                    <input type="password" id="confirmar" name="confirmar" placeholder="••••••••"  maxlength="8" required>
                 </div>
 
                 <button class="cadastro-submit" type="submit">Cadastrar</button>

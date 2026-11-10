@@ -24,9 +24,9 @@
     }
     
     $sqlEnd = "SELECT e.rua, e.numero, e.complemento, e.bairro, e.cidade, e.estado, e.cep 
-                FROM usuario u 
-                LEFT JOIN endereco e ON u.id_usuario = e.id_usuario 
-                WHERE u.id_usuario = ?";
+               FROM usuario u 
+               LEFT JOIN endereco e ON u.id_usuario = e.id_usuario 
+               WHERE u.id_usuario = ?";
             
     $stmtEnd = $conexao->prepare($sqlEnd);
     $stmtEnd->bind_param("i", $id_usuario);
@@ -172,7 +172,7 @@
                         <div class="finalizar-conteudo">
                             <h3 class="finalizar-titulo"><?= htmlspecialchars($livro['titulo_liv'] ?? '') ?></h3>
                             <p class="finalizar-autor">Por: <?= htmlspecialchars($livro['autor'] ?? '') ?></p>
-                            <p class="finalizar-qntd">Quantidade:  <?= htmlspecialchars($livro['quantidade'] ?? '') ?></p>
+                            <p class="finalizar-qntd">Quantidade: <?= htmlspecialchars($item['quantidade'] ?? '') ?></p>
                             <span class="finalizar-preco">R$ <?= number_format($livro['preco'], 2, ',', '.') ?></span>
                         </div>
                     </article>

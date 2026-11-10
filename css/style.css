@@ -1698,7 +1698,7 @@ body.carrinho-page {
     color: #ed5b35;
     font-size: 13px;
     line-height: 1.6;
-    text-decoration: underline;
+    text-decoration: none;
 }
 
 .perfil-acoes {
