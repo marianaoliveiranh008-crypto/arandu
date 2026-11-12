@@ -74,9 +74,8 @@ O sistema busca também valorizar a produção literária brasileira, reunindo d
 		</section>
 
 		<nav class="cadastro-links sobre-links" aria-label="Links institucionais">
-			<a href="#">Termos de uso</a>
-			<a href="#">Política de privacidade</a>
-			<a href="#contato-titulo">Contato</a>
+			<a href="termosDeUso.php">Termos de uso</a>
+			<a href="politicaDePrivacidade.php">Política de privacidade</a>
 		</nav>
 	</main>
 </body>

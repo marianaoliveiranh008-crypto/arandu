@@ -875,6 +875,102 @@ header {
     text-decoration: underline;
 }
 
+.termos-page {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    background-color: #ffda98;
+}
+
+.termos-page .top-header {
+    flex-shrink: 0;
+}
+
+.termos-acoes {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.termos-icone {
+    display: inline-flex;
+    width: 28px;
+    height: 34px;
+    align-items: center;
+    justify-content: center;
+    color: #ed5b35;
+}
+
+.termos-icone svg {
+    width: 30px;
+    height: 30px;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 2;
+}
+
+.termos-container {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    padding: 32px 60px 0;
+}
+
+.termos-box {
+    width: min(100%, 980px);
+    padding: 24px 54px 28px;
+    border-radius: 9px;
+    background-color: #fff;
+    color: #171717;
+}
+
+.termos-box h1 {
+    margin-bottom: 34px;
+    color: #ed5b35;
+    font-size: 30px;
+    text-align: center;
+}
+
+.termos-atualizacao {
+    margin-bottom: 17px;
+    color: #ed5b35;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.termos-conteudo {
+    font-size: 14px;
+    line-height: 1.2;
+    text-align: justify;
+}
+
+.termos-conteudo p {
+    margin-bottom: 3px;
+}
+
+.termos-conteudo ul {
+    margin-bottom: 3px;
+    padding-left: 22px;
+    list-style: disc;
+}
+
+.termos-conteudo section {
+    margin-top: 16px;
+}
+
+.termos-conteudo h2 {
+    color: #ed5b35;
+    font-size: 15px;
+}
+
+.termos-conteudo h3 {
+    margin-top: 8px;
+    color: #49372f;
+    font-size: 14px;
+}
+
 @media (max-width: 650px) {
     .sobre-container {
         padding: 28px 16px;
@@ -897,6 +993,26 @@ header {
         border-top: 1px solid #f1dfd7;
         border-left: 0;
     }
+
+    .termos-container {
+        padding: 20px 12px 0;
+    }
+
+    .termos-box {
+        padding: 20px 20px 24px;
+    }
+
+    .termos-box h1 {
+        margin-bottom: 26px;
+        font-size: 24px;
+    }
+
+    .termos-acoes {
+        width: auto;
+        margin-left: auto;
+        gap: 12px;
+    }
+
 }
 .usuarios-page .nav-menu .ativo {
     font-weight: 700;
