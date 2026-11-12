@@ -197,9 +197,8 @@
             </form>
         </section>
          <nav class="cadastro-links" aria-label="Links institucionais">
-            <a href="#">Termos de uso</a>
-            <a href="#">Política de privacidade</a>
-            <a href="#">Contato</a>
+            <a href="termosDeUso.php">Termos de uso</a>
+            <a href="politicaDePrivacidade.php">Política de privacidade</a>
         </nav>
     </main>    
 </body>

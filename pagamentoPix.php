@@ -33,7 +33,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pagamento Pix - Arandu</title>
-    <link rel="stylesheet" href="css/style.css?v=7">
+    <link rel="stylesheet" href="css/style.css">
     <link rel="icon" href="img/Logotipo-Livraria.ico" type="image/x-icon">
 </head>
 <body class="perfil-page">
@@ -66,11 +66,11 @@
     </header>
 
     <main class="perfil-conteudo">
-        <section class="perfil-cartao" aria-labelledby="titulo-dados">
+        <section class="perfil-cartao pagamento-pix-cartao" aria-labelledby="titulo-dados">
             <h1 id="titulo-dados">Chave pix</h1>
             <div class="campo-cadastro campo-cadastro--wide">
                 <label for="nome">Chave:</label>
-                <p>033.463.920-40 (Luiza de Morais Favero)</p>
+                <p class="pagamento-pix-chave">033.463.920-40 (Luiza de Morais Favero)</p>
             </div>
             <br>
             <a href="finalizarCompra.php"><button>Cancelar</button></a>

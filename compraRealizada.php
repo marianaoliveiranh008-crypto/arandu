@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agradecimento - Arandu</title>
-    <link rel="stylesheet" href="css/style.css?v=7">
+    <link rel="stylesheet" href="css/style.css">
     <link rel="icon" href="img/Logotipo-Livraria.ico" type="image/x-icon">
 </head>
-<body class="perfil-page">
+<body class="perfil-page compra-realizada-page">
      <header class="top-header">
         <div class="brand">
             <img src="img/logo.png" alt="Arandu">
@@ -19,13 +19,6 @@
             <a href="maisProcurados.php">+ Procurados</a>
             <a href="novidades.php">Novidades</a>
         </nav>
-
-        <div class="search-box">
-            <input type="text" placeholder="Pesquisar...">
-            <button type="submit">
-                <i class="fa-solid fa-magnifying-glass"></i>
-            </button>
-        </div>
 
         <div class="header-actions">
             <div class="user-tools">
@@ -41,7 +34,9 @@
         </div>
     </header>
 
-    <h1>Obrigada por comprar conosco!</h1>
-    <a href="index.php"><button>Procurar novas histórias</button></a>
+    <main class="compra-realizada-conteudo">
+        <h1>Obrigada por comprar conosco!</h1>
+        <a href="index.php"><button>Procurar novas histórias</button></a>
+    </main>
 </body>
 </html>

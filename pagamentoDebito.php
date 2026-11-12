@@ -33,7 +33,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pagamento Débito - Arandu</title>
-    <link rel="stylesheet" href="css/style.css?v=7">
+    <link rel="stylesheet" href="css/style.css">
     <link rel="icon" href="img/Logotipo-Livraria.ico" type="image/x-icon">
 </head>
 <body class="perfil-page">
@@ -66,7 +66,7 @@
     </header>
 
     <main class="perfil-conteudo">
-        <section class="perfil-cartao" aria-labelledby="titulo-dados">
+        <section class="perfil-cartao pagamento-cartao-form" aria-labelledby="titulo-dados">
             <h1 id="titulo-dados">Cartão de débito</h1>
             <div class="campo-cadastro campo-cadastro--wide">
                 <label for="parcelas">Bandeira:</label>
