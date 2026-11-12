@@ -36,13 +36,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Livro - Arandu</title>
-    <link rel="stylesheet" href="../../css/style.css?v=2">
-    <link rel="icon" href="img/Logotipo-Livraria.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../../css/style.css?v=11">
+    <link rel="icon" href="../../img/Logotipo-Livraria.ico" type="image/x-icon">
 </head>
-<body class="usuarios-page">
+<body class="admin-page usuarios-page editar-livro-page">
     <header class="cabecalho">
         <a class="marca" href="../index.php" aria-label="Arandu - página inicial">
-            <img src="../img/logo.png" alt="Arandu">
+            <img src="../../img/logo.png" alt="Arandu">
         </a>
 
         <nav class="menu" aria-label="Navegação administrativa">
@@ -53,7 +53,7 @@
         </nav>
 
         <nav class="atalhos" aria-label="Atalhos">
-            <a href="../usuario/perfil.php" aria-label="Perfil" title="Perfil">
+            <a href="../../usuario/perfil.php" aria-label="Perfil" title="Perfil">
                 <svg viewBox="0 0 24 24" aria-hidden="true">
                     <circle cx="12" cy="8" r="4" />
                     <path d="M5 21v-2a7 7 0 0 1 14 0v2" />
@@ -62,66 +62,66 @@
         </nav>
     </header>
 
-    <main class="usuarios-content">
-        <h1>Editar Informações do Livro</h1>
+    <main class="editar-livro-conteudo">
+        <section class="editar-livro-cartao" aria-labelledby="editar-livro-titulo">
+            <h1 id="editar-livro-titulo">Editar informações do livro</h1>
 
-        <form action="indexLivros.php" method="POST">
-            <input type="hidden" name="id_liv" value="<?= $id_livro ?>">
+            <form class="editar-livro-form" action="indexLivros.php" method="POST">
+                <input type="hidden" name="id_liv" value="<?= $id_livro ?>">
 
-            <div>
-                <div>
-                    <p>
-                        <strong>Título do Livro:</strong><br>
-                        <input type="text" name="titulo_liv" value="<?= htmlspecialchars($livro['titulo_liv'] ?? '') ?>" required>
+                <div class="editar-livro-campos">
+                    <p class="editar-livro-campo">
+                        <label for="titulo-liv">Título do livro</label>
+                        <input id="titulo-liv" type="text" name="titulo_liv" value="<?= htmlspecialchars($livro['titulo_liv'] ?? '') ?>" required>
                     </p>
-                    <p>
-                        <strong>ISBN:</strong><br>
-                        <input type="text" name="isbn" value="<?= htmlspecialchars($livro['isbn'] ?? '') ?>" required>
+                    <p class="editar-livro-campo">
+                        <label for="isbn">ISBN</label>
+                        <input id="isbn" type="text" name="isbn" value="<?= htmlspecialchars($livro['isbn'] ?? '') ?>" required>
                     </p>
-                    <p>
-                        <strong>Autor:</strong><br>
-                        <input type="text" name="nome_aut" value="<?= htmlspecialchars($livro['nome_aut'] ?? '') ?>">
+                    <p class="editar-livro-campo">
+                        <label for="nome-aut">Autor</label>
+                        <input id="nome-aut" type="text" name="nome_aut" value="<?= htmlspecialchars($livro['nome_aut'] ?? '') ?>">
                     </p>
-                    <p>
-                        <strong>Editora:</strong><br>
-                        <input type="text" name="nome_edi" value="<?= htmlspecialchars($livro['nome_edi'] ?? '') ?>">
+                    <p class="editar-livro-campo">
+                        <label for="nome-edi">Editora</label>
+                        <input id="nome-edi" type="text" name="nome_edi" value="<?= htmlspecialchars($livro['nome_edi'] ?? '') ?>">
                     </p>
-                    <p>
-                        <strong>Descrição:</strong><br>
-                        <textarea name="descricao" rows="4" required><?= htmlspecialchars($livro['descricao'] ?? '') ?></textarea>
+                    <p class="editar-livro-campo editar-livro-campo--wide">
+                        <label for="descricao">Descrição</label>
+                        <textarea id="descricao" name="descricao" rows="4" required><?= htmlspecialchars($livro['descricao'] ?? '') ?></textarea>
+                    </p>
+                    <p class="editar-livro-campo">
+                        <label for="preco">Preço (R$)</label>
+                        <input id="preco" type="number" step="0.01" name="preco" value="<?= htmlspecialchars($livro['preco'] ?? '0.00') ?>" required>
+                    </p>
+                    <p class="editar-livro-campo">
+                        <label for="estoque">Quantidade em estoque</label>
+                        <input id="estoque" type="number" name="quanti_estoq" value="<?= htmlspecialchars($livro['quanti_estoq'] ?? '0') ?>" required>
+                    </p>
+                    <p class="editar-livro-campo">
+                        <label for="numero-pag">Número de páginas</label>
+                        <input id="numero-pag" type="number" name="numero_pag" value="<?= htmlspecialchars($livro['numero_pag'] ?? '') ?>">
+                    </p>
+                    <p class="editar-livro-campo">
+                        <label for="ano-public">Ano de publicação</label>
+                        <input id="ano-public" type="date" name="ano_public" value="<?= htmlspecialchars($livro['ano_public'] ?? '') ?>">
+                    </p>
+                    <p class="editar-livro-campo editar-livro-campo--wide">
+                        <label for="imagem">Imagem (caminho/URL)</label>
+                        <input id="imagem" type="text" name="imagem" value="<?= htmlspecialchars($livro['imagem'] ?? '') ?>">
                     </p>
                 </div>
-                <p>
-                    <strong>Preço (R$):</strong><br>
-                    <input type="number" step="0.01" name="preco" value="<?= htmlspecialchars($livro['preco'] ?? '0.00') ?>" required>
-                </p>
-                <p>
-                    <strong>Quantidade em Estoque:</strong><br>
-                    <input type="number" name="quanti_estoq" value="<?= htmlspecialchars($livro['quanti_estoq'] ?? '0') ?>" required>
-                </p>
-                <p>
-                    <strong>Número de Páginas:</strong><br>
-                    <input type="number" name="numero_pag" value="<?= htmlspecialchars($livro['numero_pag'] ?? '') ?>">
-                </p>
-                <p>
-                    <strong>Ano de Publicação:</strong><br>
-                    <input type="date" name="ano_public" value="<?= htmlspecialchars($livro['ano_public'] ?? '') ?>">
-                </p>
-                <p>
-                    <strong>Imagem (Caminho/URL):</strong><br>
-                    <input type="text" name="imagem" value="<?= htmlspecialchars($livro['imagem'] ?? '') ?>">
-                </p>
-            </div>
 
-            <div>
-                <button type="submit">Salvar alterações</button>
-            </div>
-        </form>
+                <div class="editar-livro-acoes">
+                    <button class="editar-livro-salvar" type="submit">Salvar alterações</button>
+                </div>
+            </form>
 
-        <form action="atualizarLivro.php" method="POST">
-            <input type="hidden" name="id_liv" value="<?= $id_livro ?>">
-            <button type="submit">Excluir livro</button>
-        </form>
+            <form class="editar-livro-excluir" action="atualizarLivro.php" method="POST">
+                <input type="hidden" name="id_liv" value="<?= $id_livro ?>">
+                <button type="submit">Excluir livro</button>
+            </form>
+        </section>
     </main>
 </body>
 </html>

@@ -33,13 +33,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Usuários - Arandu</title>
-    <link rel="stylesheet" href="../../css/style.css?v=2">
-    <link rel="icon" href="img/Logotipo-Livraria.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../../css/style.css?v=11">
+    <link rel="icon" href="../../img/Logotipo-Livraria.ico" type="image/x-icon">
 </head>
-<body class="usuarios-page">
+<body class="admin-page perfil-cliente-page">
     <header class="cabecalho">
         <a class="marca" href="../index.php" aria-label="Arandu - página inicial">
-            <img src="../img/logo.png" alt="Arandu">
+            <img src="../../img/logo.png" alt="Arandu">
         </a>
 
         <nav class="menu" aria-label="Navegação administrativa">
@@ -50,7 +50,7 @@
         </nav>
 
         <nav class="atalhos" aria-label="Atalhos">
-            <a href="../usuario/perfil.php" aria-label="Perfil" title="Perfil">
+            <a href="../../usuario/perfil.php" aria-label="Perfil" title="Perfil">
                 <svg viewBox="0 0 24 24" aria-hidden="true">
                     <circle cx="12" cy="8" r="4" />
                     <path d="M5 21v-2a7 7 0 0 1 14 0v2" />
@@ -59,40 +59,38 @@
         </nav>
     </header>
 
-    <main>
-        <h1>Perfil do Cliente</h1>
-        <div class="dados-cliente">
+    <main class="perfil-cliente-conteudo">
+        <section class="perfil-cliente-cartao" aria-labelledby="perfil-cliente-titulo">
+            <h1 id="perfil-cliente-titulo">Perfil do cliente</h1>
 
-                <div class="avatar">♙</div>
-
-                <div class="informacoes">
-                    <p><strong>Nome completo:</strong> <?= htmlspecialchars($cliente['nome'] ?? 'Não informado') ?></p>
-                    <p><strong>E-mail:</strong> <?= htmlspecialchars($cliente['email'] ?? 'Não informado') ?></p>
-                    <p><strong>Telefone:</strong> <?= htmlspecialchars($cliente['telefone'] ?? 'Não informado') ?></p>
+            <div class="perfil-cliente-dados">
+                <div class="perfil-cliente-avatar" aria-hidden="true">♙</div>
+                <div class="perfil-cliente-informacoes">
+                    <p><strong>Nome completo</strong><span><?= htmlspecialchars($cliente['nome'] ?? 'Não informado') ?></span></p>
+                    <p><strong>E-mail</strong><span><?= htmlspecialchars($cliente['email'] ?? 'Não informado') ?></span></p>
+                    <p><strong>Telefone</strong><span><?= htmlspecialchars($cliente['telefone'] ?? 'Não informado') ?></span></p>
                 </div>
-
             </div>
 
-            <h2>Informações de envio</h2>
+            <div class="perfil-cliente-endereco">
+                <h2>Informações de envio</h2>
+                <p>
+                    <?php if (!empty($cliente['rua'])): ?>
+                        <?= htmlspecialchars($cliente['rua']) ?>,
+                        <?= htmlspecialchars($cliente['numero']) ?> -
+                        <?= htmlspecialchars($cliente['bairro']) ?>,
+                        <?= htmlspecialchars($cliente['cidade']) ?>.
+                    <?php else: ?>
+                        Nenhum endereço cadastrado.
+                    <?php endif; ?>
+                </p>
+            </div>
 
-            <p class="endereco">
-                <strong>Endereço:</strong> 
-                <?php if (!empty($cliente['rua'])): ?>
-                    <?= htmlspecialchars($cliente['rua']) ?>, 
-                    <?= htmlspecialchars($cliente['numero']) ?> - 
-                    <?= htmlspecialchars($cliente['bairro']) ?>, 
-                    <?= htmlspecialchars($cliente['cidade']) ?>.
-                <?php else: ?>
-                    Nenhum endereço cadastrado.
-                <?php endif; ?>
-            </p>
-
+            <form class="perfil-cliente-acoes" action="excluirUsuario.php" method="POST">
+                <input type="hidden" name="id_usuario" value="<?= $id_usuario ?>">
+                <button type="submit">Excluir cliente</button>
+            </form>
         </section>
-
-        <form action="excluirUsuario.php" method="POST">
-            <input type="hidden" name="id_usuario" value="<?= $id_usuario ?>">
-            <button type="submit">Excluir cliente</button>
-        </form>
     </main>
     
 </body>

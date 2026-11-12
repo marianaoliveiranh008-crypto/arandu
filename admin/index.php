@@ -20,7 +20,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel de administração - Arandu</title>
-    <link rel="stylesheet" href="../css/style.css?v=8">
+    <link rel="stylesheet" href="../css/style.css?v=10">
     <link rel="icon" href="img/Logotipo-Livraria.ico" type="image/x-icon">
 </head>
 <body class="admin-page">
@@ -29,8 +29,15 @@
             <img src="../img/logo.png" alt="Arandu">
         </a>
 
+        <nav class="menu" aria-label="Navegação administrativa">
+            <a href="produtos/indexLivros.php">Livros</a>
+            <a href="pedidos/indexPedidos.php">Pedidos</a>
+            <a href="usuarios/listaUsuarios.php">Clientes</a>
+            <a href="produtos/estoqueLivros.php">Estoque</a>
+        </nav>
+
         <nav class="atalhos" aria-label="Atalhos">
-            <a href="" aria-label="Perfil" title="Perfil">
+            <a href="../usuario/perfil.php" aria-label="Perfil" title="Perfil">
                 <svg viewBox="0 0 24 24" aria-hidden="true">
                     <circle cx="12" cy="8" r="4" />
                     <path d="M5 21v-2a7 7 0 0 1 14 0v2" />

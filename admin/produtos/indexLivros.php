@@ -30,13 +30,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Livros - Arandu</title>
-    <link rel="stylesheet" href="../../css/style.css?v=2">
+    <link rel="stylesheet" href="../../css/style.css?v=10">
     <link rel="icon" href="img/Logotipo-Livraria.ico" type="image/x-icon">
 </head>
-<body class="usuarios-page">
+<body class="admin-page usuarios-page">
     <header class="cabecalho">
         <a class="marca" href="../index.php" aria-label="Arandu - página inicial">
-            <img src="../img/logo.png" alt="Arandu">
+            <img src="../../img/logo.png" alt="Arandu">
         </a>
 
         <nav class="menu" aria-label="Navegação administrativa">
@@ -47,7 +47,7 @@
         </nav>
 
         <nav class="atalhos" aria-label="Atalhos">
-            <a href="../usuario/perfil.php" aria-label="Perfil" title="Perfil">
+            <a href="../../usuario/perfil.php" aria-label="Perfil" title="Perfil">
                 <svg viewBox="0 0 24 24" aria-hidden="true">
                     <circle cx="12" cy="8" r="4" />
                     <path d="M5 21v-2a7 7 0 0 1 14 0v2" />
