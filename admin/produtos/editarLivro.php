@@ -4,31 +4,55 @@
 
     $id_livro = $_POST['id_livro'] ?? $_POST['id'] ?? 1;
 
-    $sql = "SELECT l.id_liv, l.isbn, l.titulo_liv, l.descricao, l.ano_public, l.numero_pag, l.quanti_estoq, l.imagem, l.preco, l.id_edi,
-                   e.nome_edi, a.id_aut, a.nome_aut
+    if($_SERVER['REQUEST_METHOD'] === 'POST'){
+        $titulo = $_POST['titulo_liv'] ?? '';
+        $isbn = $_POST['isbn'] ?? '';
+        $descricao = $_POST['descricao'] ?? '';
+        $preco = $_POST['preco'] ?? 0;
+        $estoque = $_POST['quanti_estoq'] ?? 0;
+        $paginas = !empty($_POST['numero_pag']) ? $_POST['numero_pag'] : null;
+        $ano = !empty($_POST['ano_public']) ? $_POST['ano_public'] : null;
+        $imagem = $_POST['imagem'] ?? '';
+
+        $sqlUp = "UPDATE livro SET titulo_liv = ?, isbn = ?, descricao = ?, preco = ?, quanti_estoq = ?, numero_pag = ?, ano_public = ?, imagem = ? WHERE id_liv = ?";
+        $stmtUp = $conexao->prepare($sqlUp);
+        
+        if(!$stmtUp){
+            die("Erro ao preparar consulta: " . $conexao->error);
+        }
+
+        $stmtUp->bind_param("sssdiiisi", $titulo, $isbn, $descricao, $preco, $estoque, $paginas, $ano, $imagem, $id_livro);
+            
+        if($stmtUp->execute()){
+            header("Location: indexLivros.php");
+            exit;
+        }else{
+            $erro = "Erro ao atualizar o livro: " . $stmtUp->error;
+        }
+        $stmtUp->close();
+    }
+
+    $sql = "SELECT l.id_liv, l.isbn, l.titulo_liv, l.descricao, l.ano_public, l.numero_pag, l.quanti_estoq, l.imagem, l.preco, l.id_edi, e.nome_edi, a.id_aut, a.nome_aut
             FROM livro l
             LEFT JOIN editora e ON l.id_edi = e.id_edi
             LEFT JOIN liv_aut la ON l.id_liv = la.id_liv
             LEFT JOIN autor a ON la.id_aut = a.id_aut
-            WHERE l.id_liv = ?";
+            WHERE l.id_liv = ? LIMIT 1";
             
     $stmt = $conexao->prepare($sql);
+    $stmt->bind_param("i", $id_livro);
+    $stmt->execute();
+    $resultado = $stmt->get_result();
 
-    if($stmt){
-        $stmt->bind_param("i", $id_livro);
-        $stmt->execute();
-        
-        $result = $stmt->get_result();
-        $livro = $result->fetch_assoc();
+    $livro = ['titulo_liv'=>'', 'isbn'=>'', 'nome_aut'=>'', 'nome_edi'=>'',
+              'descricao'=>'', 'preco'=>'', 'quanti_estoq'=>'', 'numero_pag'=>'',
+              'ano_public'=>'', 'imagem'=>''];
 
-        $stmt->close();
-    } else {
-        die("Erro no prepare da consulta: ".$conexao->error);
+    if($resultado->num_rows === 1){
+        $livro = $resultado->fetch_assoc();
     }
 
-    if(!$livro){
-        die("Livro não encontrado.");
-    }
+    $stmt->close();
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -45,7 +69,7 @@
             <img src="../../img/logo.png" alt="Arandu">
         </a>
 
-        <nav class="menu" aria-label="Navegação administrativa">
+        <nav class="nav-menu" aria-label="Navegação administrativa">
             <a href="../produtos/indexLivros.php">Livros</a>
             <a href="../pedidos/indexPedidos.php">Pedidos</a>
             <a href="../usuarios/listaUsuarios.php">Clientes</a>
@@ -117,10 +141,7 @@
                 </div>
             </form>
 
-            <form class="editar-livro-excluir" action="atualizarLivro.php" method="POST">
-                <input type="hidden" name="id_liv" value="<?= $id_livro ?>">
-                <button type="submit">Excluir livro</button>
-            </form>
+            <button type="submit">Excluir livro</button>
         </section>
     </main>
 </body>

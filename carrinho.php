@@ -2,10 +2,13 @@
     session_start();
     require_once 'config/database.php';
 
+    $id_usuario = $_SESSION['usuarioId'] ?? $_SESSION['usuario_id'] ?? null;
+    $logado = isset($_SESSION['logado']) && $_SESSION['logado'] === true && !empty($id_usuario);
+
     if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['acao']) && $_POST['acao'] === 'adicionar'){
         $id_livro = $_POST['id_livro'] ?? null;
         if($id_livro){
-            if(!isset($_SESSION['logado']) || $_SESSION['logado'] !== true){    
+            if(!$logado){    
                 $_SESSION['produto_pendente']=[
                     $id = trim($_POST['id_livro']),
                     $nome = trim($_POST['nome']),
@@ -13,12 +16,54 @@
                     $imagem = trim($_POST['imagem']),
                     $autor = trim($_POST['autor'])
                 ];
-                
                 $_SESSION['url_retorno'] = $_SERVER['HTTP_REFERER'] ?? 'detalhes.php';
-                
                 header("Location: login.php");
                 exit;
             }
+
+            $sqlCarrinho = "SELECT id_car FROM carrinho WHERE id_usuario=?";
+            $stmt = $conexao->prepare($sqlCarrinho);
+            $stmt->bind_param("i", $id_usuario);
+            $stmt->execute();
+            $resultadoCarrinho = $stmt->get_result();
+
+            if($resultadoCarrinho->num_rows>0){
+                $rowCarrinho = $resultadoCarrinho->fetch_assoc();
+                $id_car = $rowCarrinho['id_car'];
+            }else{
+                $sqlInsCarrinho = "INSERT INTO carrinho (id_usuario) VALUES (?)";
+                $stmtIns = $conexao->prepare($sqlInsCarrinho);
+                $stmtIns->bind_param("i", $id_usuario);
+                $stmtIns->execute();
+                $id_car = $stmtIns->insert_id;
+                $stmtIns->close();
+            }
+            $stmt->close();
+
+            $sqlVerificacao = "SELECT id_carit, quantidade_car FROM carrinho_item WHERE id_car = ? AND id_liv = ?";
+            $stmtVerificacao = $conexao->prepare($sqlVerificacao);
+            $stmtVerificacao->bind_param("ii", $id_car, $id_livro);
+            $stmtVerificacao->execute();
+            $resultadoVerificacao = $stmtVerificacao->get_result();
+
+            if($resultadoVerificacao->num_rows>0){
+                $rowItem = $resultadoVerificacao->fetch_assoc();
+                $id_carit = $rowItem['id_carit'];
+                $novaQuantidade = $rowItem['quantidade_car'] + 1;
+
+                $sqlUpItem = "UPDATE carrinho_item SET quantidade_car = ? WHERE id_carit = ?";
+                $stmtUp = $conexao->prepare("UPDATE carrinho_item SET quantidade_car = ? WHERE id_carit = ?");
+                $stmtUp->bind_param("ii", $novaQuantidade, $id_carit);
+                $stmtUp->execute();
+                $stmtUp->close();            
+            }else{
+                $sqlInsItem = "INSERT INTO carrinho_item (quantidade_car, id_liv, id_car) VALUES (1, ?, ?)";
+                $stmtInsIt = $conexao->prepare($sqlInsItem);
+                $stmtInsIt->bind_param("ii", $id_livro, $id_car);
+                $stmtInsIt->execute();
+                $stmtInsIt->close();
+            }
+            $stmtVerificacao->close();
 
             $id = trim($_POST['id_livro']);
             $nome = trim($_POST['nome']);
@@ -107,7 +152,6 @@
 
     $totalGeral = $subtotal + $valorFrete; 
 ?>
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>

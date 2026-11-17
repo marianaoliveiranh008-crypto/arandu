@@ -68,41 +68,45 @@
     <main class="perfil-conteudo">
         <section class="perfil-cartao pagamento-cartao-form" aria-labelledby="titulo-dados">
             <h1 id="titulo-dados">Cartão de crédito</h1>
-            <div class="campo-cadastro campo-cadastro--wide">
-                <label for="parcelas">Bandeira:</label>
-                <select id="parcelas" name="parcelas" required>
-                    <option value="visa">Visa</option>
-                    <option value="mastercard">Mastercard</option>
-                    <option value="elo">Elo</option>
-                </select>
-            </div>
-            <div class="campo-cadastro campo-cadastro--wide">
-                <label for="nome">Nome:</label>
-                <input type="text" id="nome" name="nome" required>
-            </div>
-            <div class="campo-cadastro campo-cadastro--wide">
-                <label for="numero-cartao">Número do cartão:</label>
-                <input type="password" id="numero-cartao" name="numero-cartao" required>
-            </div>
-            <div class="campo-cadastro campo-cadastro--wide">
-                <label for="validade">Validade:</label>
-                <input type="text" id="validade" name="validade" placeholder="MM/AA" required>
-            </div>
-            <div class="campo-cadastro campo-cadastro--wide">
-                <label for="cvv">CVV:</label>
-                <input type="text" id="cvv" name="cvv" required>
-            </div>
-            <div class="campo-cadastro campo-cadastro--wide">
-                <label for="parcelas">Parcelas:</label>
-                <select id="parcelas" name="parcelas" required>
-                    <option value="">Selecione</option>
-                    <option value="1">1x sem juros</option>
-                    <option value="2">2x sem juros</option>
-                    <option value="3">3x sem juros</option>
-                </select>
-            </div>
-            <a href="finalizarCompra.php"><button>Cancelar</button></a>
-            <a href="compraRealizada.php"><button>Finalizar</button></a>
+
+            <form action="compraRealizada.php" method="POST">
+                <input type="hidden" name="metodo_pagamento" value="credito">
+                <div class="campo-cadastro campo-cadastro--wide">
+                    <label for="parcelas">Bandeira:</label>
+                    <select id="parcelas" name="parcelas" required>
+                        <option value="visa">Visa</option>
+                        <option value="mastercard">Mastercard</option>
+                        <option value="elo">Elo</option>
+                    </select>
+                </div>
+                <div class="campo-cadastro campo-cadastro--wide">
+                    <label for="nome">Nome:</label>
+                    <input type="text" id="nome" name="nome" required>
+                </div>
+                <div class="campo-cadastro campo-cadastro--wide">
+                    <label for="numero-cartao">Número do cartão:</label>
+                    <input type="password" id="numero-cartao" name="numero-cartao" required>
+                </div>
+                <div class="campo-cadastro campo-cadastro--wide">
+                    <label for="validade">Validade:</label>
+                    <input type="text" id="validade" name="validade" placeholder="MM/AA" required>
+                </div>
+                <div class="campo-cadastro campo-cadastro--wide">
+                    <label for="cvv">CVV:</label>
+                    <input type="text" id="cvv" name="cvv" required>
+                </div>
+                <div class="campo-cadastro campo-cadastro--wide">
+                    <label for="parcelas">Parcelas:</label>
+                    <select id="parcelas" name="parcelas" required>
+                        <option value="">Selecione</option>
+                        <option value="1">1x sem juros</option>
+                        <option value="2">2x sem juros</option>
+                        <option value="3">3x sem juros</option>
+                    </select>
+                </div>
+                <a href="finalizarCompra.php"><button type="button">Cancelar</button></a>
+                <button type="submit">Finalizar</button>
+            </form>
         </section>
     </main>
 </body>

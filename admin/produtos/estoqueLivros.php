@@ -37,7 +37,7 @@
             <img src="../../img/logo.png" alt="Arandu">
         </a>
 
-        <nav class="menu" aria-label="Navegação administrativa">
+        <nav class="nav-menu" aria-label="Navegação administrativa">
             <a href="../produtos/indexLivros.php">Livros</a>
             <a href="../pedidos/indexPedidos.php">Pedidos</a>
             <a href="../usuarios/listaUsuarios.php">Clientes</a>

@@ -1,11 +1,25 @@
 <?php
     session_start();
+    require_once "config/database.php";
+
     $totalItensCarrinho = 0;
     if(isset($_SESSION['carrinho'])) {
         foreach ($_SESSION['carrinho'] as $item) {
             $totalItensCarrinho += $item['quantidade'];
         }
     }
+
+    $sqlLivro = "SELECT l.id_liv, l.titulo_liv, l.preco, l.imagem, l.ano_public,
+            GROUP_CONCAT(DISTINCT a.nome_aut SEPARATOR ', ') AS nome_aut
+            FROM livro l
+            LEFT JOIN liv_aut la ON l.id_liv = la.id_liv
+            LEFT JOIN autor a ON la.id_aut = a.id_aut
+            WHERE l.ano_public >= DATE_SUB(CURDATE(), INTERVAL 1 YEAR)
+            AND l.ano_public <= CURDATE()
+            GROUP BY l.id_liv
+            ORDER BY l.ano_public DESC";
+
+    $resultadoLivro = $conexao->query($sqlLivro);
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -59,91 +73,29 @@
 
             <button class="seta seta-esquerda" type="button" aria-label="Anterior">‹</button>
 
-
             <div class="livros">
-                <article class="livro">
-                    <a href="compras/detalhes.php?id=26"><img src="https://m.media-amazon.com/images/I/71YSm7ehYqL._SL1500_.jpg"  alt="A estranha na cama"></a>
-                    <h3>A estranha na cama</h3>
-                    <form action="carrinho.php" method="POST">
-                        <input type="hidden" name="acao" value="adicionar">
-                        <input type="hidden" name="id_livro" value="A estranha na cama">
-                        <input type="hidden" name="nome" value="A estranha na cama">
-                        <input type="hidden" name="preco" value="55,15">
-                        <input type="hidden" name="imagem" value="https://m.media-amazon.com/images/I/71YSm7ehYqL._SL1500_.jpg">
-                        <input type="hidden" name="autor" value="Raphael Montes">
-                        <button type="submit" style="background:none; border:none; color:inherit; cursor:pointer; font:inherit;">R$ 55,15</button>
-                    </form>
-                </article>
+                <?php if($resultadoLivro && $resultadoLivro->num_rows > 0):?>
+                <?php while($livro = $resultadoLivro->fetch_assoc()):?>
 
                 <article class="livro">
-                    <a href="compras/detalhes.php?id=24"><img src="https://m.media-amazon.com/images/I/81PX7q67zDL._SL1500_.jpg" alt="Hoje Eu Quero Voltar Sozinho"></a>
-                    <h3>Hoje Eu Quero Voltar Sozinho</h3>
-                    <form action="carrinho.php" method="POST">
-                        <input type="hidden" name="acao" value="adicionar">
-                        <input type="hidden" name="id_livro" value="HojeEuQueroVoltarSozinho">
-                        <input type="hidden" name="nome" value="Hoje Eu Quero Voltar Sozinho">
-                        <input type="hidden" name="preco" value="48,90">
-                        <input type="hidden" name="imagem" value="https://m.media-amazon.com/images/I/81PX7q67zDL._SL1500_.jpg">
-                        <input type="hidden" name="autor" value="Daniel Ribeiro">
-                        <button type="submit" style="background:none; border:none; color:inherit; cursor:pointer; font:inherit;">R$ 48,90</button>
-                    </form>
-                </article>
 
-                <article class="livro">
-                    <a href="compras/detalhes.php?id=45"><img src="https://m.media-amazon.com/images/I/71nZEvqqJjL._SL1500_.jpg"  alt="Quando"></a>
-                    <h3>Quando</h3>
-                    <form action="carrinho.php" method="POST">
-                        <input type="hidden" name="acao" value="adicionar">
-                        <input type="hidden" name="id_livro" value="Quando">
-                        <input type="hidden" name="nome" value="Quando">
-                        <input type="hidden" name="preco" value="60,00">
-                        <input type="hidden" name="imagem" value="https://m.media-amazon.com/images/I/71nZEvqqJjL._SL1500_.jpg">
-                        <input type="hidden" name="autor" value="Carla Madeira">
-                        <button type="submit" style="background:none; border:none; color:inherit; cursor:pointer; font:inherit;">R$ 60,00</button>
-                    </form>
-                </article>
+                    <a href="compras/detalhes.php?id=<?=$livro['id_liv']?>">
+                    <img src="<?= htmlspecialchars($livro['imagem'] ?? '')?>" alt="<?= htmlspecialchars($livro['titulo_liv'])?>"></a>
+                    <h3>"<?= htmlspecialchars($livro['titulo_liv']) ?>"</h3>
 
-                <article class="livro">
-                    <a href="compras/detalhes.php?id=29"><img src="https://m.media-amazon.com/images/I/81f0UbBO-KL._SL1500_.jpg"  alt="Dias perfeitos (edição colecionador)"></a>
-                    <h3>Dias perfeitos (edição colecionador)</h3>
-                    <form action="carrinho.php" method="POST">
+                    <form action="compras/detalhes.php?id=<?=$livro['id_liv']?>" method="POST">
                         <input type="hidden" name="acao" value="adicionar">
-                        <input type="hidden" name="id_livro" value="Dias perfeitos (edição colecionador)">
-                        <input type="hidden" name="nome" value="Dias perfeitos (edição colecionador)">
-                        <input type="hidden" name="preco" value="69,00">
-                        <input type="hidden" name="imagem" value="https://m.media-amazon.com/images/I/81f0UbBO-KL._SL1500_.jpg">
-                        <input type="hidden" name="autor" value="Raphael Montes">
-                        <button type="submit" style="background:none; border:none; color:inherit; cursor:pointer; font:inherit;">R$ 69,00</button>
+                        <input type="hidden" name="id_livro" value="<?=$livro['id_liv']?>">
+                        <input type="hidden" name="nome" value="<?=htmlspecialchars($livro['titulo_liv'])?>">
+                        <input type="hidden" name="preco" value="<?=$livro['preco']?>">
+                        <input type="hidden" name="imagem" value="<?=htmlspecialchars($livro['imagem'])?>">
+                        <input type="hidden" name="autor" value="<?=htmlspecialchars($livro['nome_aut']) ?>">
+                        <button type="submit" style="background:none; border:none; color:inherit; cursor:pointer; font:inherit;">R$ <?= number_format($livro['preco'], 2, ',', '.') ?></button>
                     </form>
-                </article>
 
-                <article class="livro">
-                    <a href="compras/detalhes.php?id=28"><img src="https://m.media-amazon.com/images/I/81WjGu5a5ZL._SL1500_.jpg"  alt="Uma família feliz"></a>
-                    <h3>Uma família feliz</h3>
-                    <form action="carrinho.php" method="POST">
-                        <input type="hidden" name="acao" value="adicionar">
-                        <input type="hidden" name="id_livro" value="Uma família feliz">
-                        <input type="hidden" name="nome" value="Uma família feliz">
-                        <input type="hidden" name="preco" value="47,90">
-                        <input type="hidden" name="imagem" value="https://m.media-amazon.com/images/I/81WjGu5a5ZL._SL1500_.jpg">
-                        <input type="hidden" name="autor" value="Raphael Montes">
-                        <button type="submit" style="background:none; border:none; color:inherit; cursor:pointer; font:inherit;">R$ 47,90</button>
-                    </form>
                 </article>
-
-                <article class="livro">
-                    <a href="compras/detalhes.php?id=25"><img src="https://m.media-amazon.com/images/I/714yEGAjivL._SL1500_.jpg"  alt="Quinze Dias"></a>
-                    <h3>Quinze Dias</h3>
-                    <form action="carrinho.php" method="POST">
-                        <input type="hidden" name="acao" value="adicionar">
-                        <input type="hidden" name="id_livro" value="QuinzeDias">
-                        <input type="hidden" name="nome" value="Quinze Dias">
-                        <input type="hidden" name="preco" value="43,90">
-                        <input type="hidden" name="imagem" value="https://m.media-amazon.com/images/I/714yEGAjivL._SL1500_.jpg">
-                        <input type="hidden" name="autor" value="Vitor Martins">
-                        <button type="submit" style="background:none; border:none; color:inherit; cursor:pointer; font:inherit;">R$ 43,90</button>
-                    </form>
-                </article>
+                <?php endwhile; ?>
+                <?php else: ?><p>Nenhuma novidade encontrada no momento.</p><?php endif; ?>
             </div>
             <button class="seta seta-direita" type="button" aria-label="Próximo">›</button>
         </section>

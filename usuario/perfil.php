@@ -110,7 +110,7 @@
             </section>
 
             <div class="perfil-acoes">
-                <a href="../editarInformacoes.php">Editar</a>
+                <a href="editarInformacoes.php">Editar</a>
                 <a href="../excluirConta.php">Excluir conta</a>
                 <a href="../logout.php">Sair</a>
             </div>

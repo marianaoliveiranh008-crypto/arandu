@@ -1,3 +1,27 @@
+<?php
+    session_start();
+    require_once "../../config/database.php";
+
+    $pesquisa = $_POST['busca'] ?? '';
+
+    $sqlPedido = "SELECT p.id_ped, p.data_pedido, p.status_pe, p.valor_total, u.nome AS nome_cliente, pg.metodo_pag
+                  FROM pedido p
+                  INNER JOIN usuario u ON p.id_usuario = u.id_usuario
+                  LEFT JOIN pagamento pg ON p.id_ped = pg.id_ped";
+
+    if(!empty($pesquisa)){
+        $palavra = mysqli_real_escape_string($conexao, $pesquisa);
+        $sqlPedido .= " WHERE u.nome LIKE '%$palavra%' OR p.id_ped LIKE '%$palavra%'";
+    }
+
+    $sqlPedido .= " ORDER BY p.data_pedido DESC";
+
+    $resultado = mysqli_query($conexao, $sqlPedido);
+
+    if(!$resultado){
+        die("Erro na consulta SQL: " . mysqli_error($conexao));
+    }
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -13,7 +37,7 @@
             <img src="../../img/logo.png" alt="Arandu">
         </a>
 
-        <nav class="menu" aria-label="Navegação administrativa">
+        <nav class="nav-menu" aria-label="Navegação administrativa">
             <a href="../produtos/indexLivros.php">Livros</a>
             <a href="../pedidos/indexPedidos.php">Pedidos</a>
             <a href="../usuarios/listaUsuarios.php">Clientes</a>
@@ -32,14 +56,18 @@
 
     <main class="admin-pedidos-lista-conteudo">
         <section class="admin-pedidos-lista" aria-labelledby="pedidos-recentes-titulo">
-            <label class="admin-pedidos-busca">
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <circle cx="11" cy="11" r="7" />
-                    <path d="m16 16 5 5" />
-                </svg>
-                <span class="admin-pedidos-busca-divisor" aria-hidden="true"></span>
-                <input type="search" placeholder="Buscar pedido ou cliente..." aria-label="Buscar pedido ou cliente">
-            </label>
+            <form method="POST" action="indexPedidos.php">
+                <label class="admin-pedidos-busca" style="cursor: pointer;">
+                    <button type="submit" style="background: none; border: none; cursor: pointer; display: flex; align-items: center;">
+                        <svg viewBox="0 0 24 24" aria-hidden="true" width="20" height="20">
+                            <circle cx="11" cy="11" r="7" />
+                            <path d="m16 16 5 5" />
+                        </svg>
+                    </button>
+                    <span class="admin-pedidos-busca-divisor" aria-hidden="true"></span>
+                    <input type="search" name="busca" value="<?= htmlspecialchars($pesquisa) ?>" placeholder="Buscar pedido ou cliente..." aria-label="Buscar pedido ou cliente">
+                </label>
+            </form>
 
             <h1 id="pedidos-recentes-titulo">Pedidos recentes:</h1>
 
@@ -57,34 +85,33 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <?php if($resultado && $resultado->num_rows > 0): ?>
+                        <?php while($pedido = $resultado->fetch_assoc()): ?>
+                        <?php
+                            $id_ped = $pedido['id_ped'];
+                            $numeroPedido = "#" . str_pad($id_ped, 3, '0', STR_PAD_LEFT);
+                            $nomeCliente = htmlspecialchars($pedido['nome_cliente']);
+                            $dataPedido = date('d/m/Y', strtotime($pedido['data_pedido']));
+                            $valorTotal = "R$ " . number_format($pedido['valor_total'], 2, ',', '.');
+                            $metodoPagamento = ucfirst(htmlspecialchars($pedido['metodo_pag'] ?? 'Não informado'));
+                            $statusPedido = htmlspecialchars($pedido['status_pe']);
+                        ?>
                         <tr>
-                            <td>#001</td>
-                            <td>Mariana E. de<br>Oliveira</td>
-                            <td>01/10/2026</td>
-                            <td>R$50,00</td>
-                            <td>Cartão de Crédito</td>
-                            <td>Pago</td>
-                            <td><a href="detalhesPedidos.php">Ver detalhes</a></td>
+                            <td><?=$numeroPedido?></td>
+                            <td><?=$nomeCliente?></td>
+                            <td><?=$dataPedido?></td>
+                            <td><?=$valorTotal?></td>
+                            <td><?=$metodoPagamento?></td>
+                            <td><?=$statusPedido?></td>
+                            <td><a href="detalhesPedidos.php?id=<?= $id_ped ?>">Ver detalhes</a></td>
                         </tr>
+                        <?php endwhile; ?>
+                        <?php else: ?>
                         <tr>
-                            <td>#002</td>
-                            <td>Luiza Favero</td>
-                            <td>30/09/2026</td>
-                            <td>R$50,00</td>
-                            <td>Cartão de Débito</td>
-                            <td>Pendente</td>
-                            <td><a href="detalhesPedidos.php">Ver detalhes</a></td>
-                        </tr>
-                        <tr>
-                            <td>#003</td>
-                            <td>Victória Kerpel</td>
-                            <td>29/09/2026</td>
-                            <td>R$129,89</td>
-                            <td>Pix</td>
-                            <td>Enviado</td>
-                            <td><a href="detalhesPedidos.php">Ver detalhes</a></td>
+                            <td colspan="7" style="text-align: center; padding: 20px;">Nenhum produto encontrado.</td>
                         </tr>
                     </tbody>
+                    <?php endif; ?>
                 </table>
             </div>
         </section>

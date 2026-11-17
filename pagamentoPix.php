@@ -73,8 +73,11 @@
                 <p class="pagamento-pix-chave">033.463.920-40 (Luiza de Morais Favero)</p>
             </div>
             <br>
-            <a href="finalizarCompra.php"><button>Cancelar</button></a>
-            <a href="compraRealizada.php"><button>Finalizar</button></a>
+            <form action="compraRealizada.php" method="POST">
+                <input type="hidden" name="metodo_pagamento" value="pix">
+                <a href="finalizarCompra.php"><button type="button">Cancelar</button></a>
+                <button type="submit">Finalizar</button>
+            </form>
         </section>
     </main>
 </body>
