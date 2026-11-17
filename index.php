@@ -1,57 +1,42 @@
 <?php
-    session_start();
-    require_once "config/database.php";
+   session_start();
+   require_once "config/database.php";
 
-    $totalItensCarrinho = 0;
-    if(isset($_SESSION['carrinho'])) {
-        foreach ($_SESSION['carrinho'] as $item) {
-            $totalItensCarrinho += $item['quantidade'];
-        }
-    }
 
-    $dadosCategoria = [];
+   $totalItensCarrinho = 0;
+   if(isset($_SESSION['carrinho'])) {
+       foreach ($_SESSION['carrinho'] as $item) {
+           $totalItensCarrinho += $item['quantidade'];
+       }
+   }
 
-    $sqlCat = "SELECT * FROM categoria ORDER BY nome_cat";
-    $resultadoCat = $conexao->query($sqlCat);
 
-    if($resultadoCat){
-        while($categoria = $resultadoCat->fetch_assoc()){
-            $id_categoria = $categoria['id_cat'];
-            $nome_categoria = $categoria['nome_cat'];
+   $sqlRomance = " SELECT DISTINCT l.* FROM livro l INNER JOIN liv_cat lc ON l.id_liv = lc.id_liv INNER JOIN categoria c ON lc.id_cat = c.id_cat WHERE c.nome_cat LIKE '%Romance%' ORDER BY l.titulo_liv";
+   $resultadoRomance = $conexao->query($sqlRomance);
 
-            $sqlLivros = "SELECT l.id_liv, l.titulo_liv, l.preco, l.imagem,
-                          GROUP_CONCAT(DISTINCT a.nome_aut SEPARATOR ', ') AS nome_aut
-                          FROM livro l
-                          INNER JOIN liv_cat lc ON l.id_liv = lc.id_liv
-                          INNER JOIN liv_aut la ON l.id_liv = la.id_liv
-                          INNER JOIN autor a ON la.id_aut = a.id_aut
-                          WHERE lc.id_cat = ?
-                          GROUP BY l.id_liv
-                          ORDER BY l.titulo_liv";
-            
-            $stmt = $conexao->prepare($sqlLivros);
-            $stmt->bind_param("i", $id_categoria);
-            $stmt->execute();
 
-            $resultadoLivros = $stmt->get_result();
+    $sqlSuspense = " SELECT DISTINCT l.* FROM livro l INNER JOIN liv_cat lc ON l.id_liv = lc.id_liv INNER JOIN categoria c ON lc.id_cat = c.id_cat WHERE c.nome_cat LIKE '%Suspense%' OR c.nome_cat LIKE '%Terror%' OR c.nome_cat LIKE '%Thriller%' OR c.nome_cat LIKE '%Horror%' ORDER BY l.titulo_liv";
+   $resultadoSuspense = $conexao->query($sqlSuspense);
 
-            $livros = [];
 
-            while($livro = $resultadoLivros->fetch_assoc()){
-                $livros[] = $livro;
-            }
+      $sqlContos = " SELECT DISTINCT l.* FROM livro l INNER JOIN liv_cat lc ON l.id_liv = lc.id_liv INNER JOIN categoria c ON lc.id_cat = c.id_cat WHERE c.nome_cat LIKE '%Conto%' OR c.nome_cat LIKE '%Cronica%' OR c.nome_cat LIKE '%Crônica%' ORDER BY l.titulo_liv";
+   $resultadoContos = $conexao->query($sqlContos);
 
-            $stmt->close();
 
-            if(!empty($livros)){
-                $dadosCategoria[] = ['nome_cat' => $nome_categoria, 'livros'=> $livros];
-            }
-        }
-    }
+        $sqlNaoficcao = " SELECT DISTINCT l.* FROM livro l INNER JOIN liv_cat lc ON l.id_liv = lc.id_liv INNER JOIN categoria c ON lc.id_cat = c.id_cat WHERE c.nome_cat IN ('Diário', 'Autobiografia', 'Testemunho Histórico', 'Jornalismo Investigativo', 'Biografia / True Crime', 'Literatura de Testemunho', 'Ensaio', 'Reflexão Socioambiental') ORDER BY l.titulo_liv";
+   $resultadoNaoficcao = $conexao->query($sqlNaoficcao);
 
-    usort($dadosCategoria, function($a, $b){
-        return count($b['livros']) <=> count($a['livros']);
-    });
+
+        $sqlliteraturainfantil = " SELECT DISTINCT l.* FROM livro l INNER JOIN liv_cat lc ON l.id_liv = lc.id_liv INNER JOIN categoria c ON lc.id_cat = c.id_cat WHERE c.nome_cat LIKE '%Infantil%' ORDER BY l.titulo_liv";
+   $resultadoLiteraturainfantil = $conexao->query($sqlliteraturainfantil);
+
+
+        $sqlDrama = " SELECT DISTINCT l.* FROM livro l INNER JOIN liv_cat lc ON l.id_liv = lc.id_liv INNER JOIN categoria c ON lc.id_cat = c.id_cat WHERE c.nome_cat LIKE '%Drama%' ORDER BY l.titulo_liv";
+   $resultadoDrama = $conexao->query($sqlDrama);
+
+
+    $sqlPoesia = " SELECT DISTINCT l.* FROM livro l INNER JOIN liv_cat lc ON l.id_liv = lc.id_liv INNER JOIN categoria c ON lc.id_cat = c.id_cat WHERE c.nome_cat LIKE '%Poesia%' ORDER BY l.titulo_liv";
+   $resultadoPoesia = $conexao->query($sqlPoesia);
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -97,39 +82,152 @@
     </header>
 
     <main class="page-home">
-        <?php foreach($dadosCategoria as $categoria): ?>
         <section class="categoria">
             <div class="titulo">
-                <h2><?htmlspecialchars($categoria['nome_cat'])?></h2>
+                <h2>Romance</h2>
                 <span>›</span>
             </div>
-
             <button class="seta seta-esquerda" type="button" aria-label="Anterior">‹</button>
-
             <div class="livros">
-                <?php foreach($categoria['livros'] as $livro): ?>
-                <article class="livro">
-
-                    <a href="compras/detalhes.php?id=<?=$livro['id_liv']?>">
-                    <img src="<?= htmlspecialchars($livro['imagem'] ?? '')?>" alt="<?= htmlspecialchars($livro['titulo_liv'])?>"></a>
-                    <h3>"<?= htmlspecialchars($livro['titulo_liv']) ?>"</h3>
-                    
-                    <form action="compras/detalhes.php?id=<?=$livro['id_liv']?>" method="POST">
-                        <input type="hidden" name="acao" value="adicionar">
-                        <input type="hidden" name="id_livro" value="<?=$livro['id_liv']?>">
-                        <input type="hidden" name="nome" value="<?=htmlspecialchars($livro['titulo_liv'])?>">
-                        <input type="hidden" name="preco" value="<?=$livro['preco']?>">
-                        <input type="hidden" name="imagem" value="<?=htmlspecialchars($livro['imagem'])?>">
-                        <input type="hidden" name="autor" value="<?=htmlspecialchars($livro['nome_aut']) ?>">
-                        <button type="submit" style="background:none; border:none; color:inherit; cursor:pointer; font:inherit;">R$ <?= number_format($livro['preco'], 2, ',', '.') ?></button>
-                    </form>
-                    
-                </article>
-                <?php endforeach; ?>
+                <?php while($livro = $resultadoRomance->fetch_assoc()){ ?>
+                    <article class="livro">
+                        <a href="compras/detalhes.php?id=<?php echo $livro['id_liv']; ?>">
+                            <img src="<?php echo $livro['imagem']; ?>" alt="<?php echo $livro['titulo_liv']; ?>">
+                        </a>
+                        <h3><?php echo $livro['titulo_liv']; ?></h3>
+                        <p>R$ <?php echo number_format($livro['preco'], 2, ',', '.'); ?></p>
+                    </article>
+                <?php } ?>
             </div>
             <button class="seta seta-direita" type="button" aria-label="Próximo">›</button>
-            <?php endforeach; ?>
         </section>
+
+
+        <section class="categoria">
+            <div class="titulo">
+                <h2>Suspense, terror e thriller</h2>
+                <span>›</span>
+            </div>
+            <button class="seta seta-esquerda" type="button" aria-label="Anterior">‹</button>
+            <div class="livros">
+                <?php while($livro = $resultadoSuspense->fetch_assoc()){ ?>
+                    <article class="livro">
+                        <a href="compras/detalhes.php?id=<?php echo $livro['id_liv']; ?>">
+                            <img src="<?php echo $livro['imagem']; ?>" alt="<?php echo $livro['titulo_liv']; ?>">
+                        </a>
+                        <h3><?php echo $livro['titulo_liv']; ?></h3>
+                        <p>R$ <?php echo number_format($livro['preco'], 2, ',', '.'); ?></p>
+                    </article>
+                <?php } ?>
+            </div>
+            <button class="seta seta-direita" type="button" aria-label="Próximo">›</button>
+        </section>
+
+
+        <section class="categoria">
+            <div class="titulo">
+                <h2>Contos e crônicas</h2>
+                <span>›</span>
+            </div>
+            <button class="seta seta-esquerda" type="button" aria-label="Anterior">‹</button>
+            <div class="livros">
+                <?php while($livro = $resultadoContos->fetch_assoc()){ ?>
+                    <article class="livro">
+                        <a href="compras/detalhes.php?id=<?php echo $livro['id_liv']; ?>">
+                            <img src="<?php echo $livro['imagem']; ?>" alt="<?php echo $livro['titulo_liv']; ?>">
+                        </a>
+                        <h3><?php echo $livro['titulo_liv']; ?></h3>
+                        <p>R$ <?php echo number_format($livro['preco'], 2, ',', '.'); ?></p>
+                    </article>
+                <?php } ?>
+            </div>
+            <button class="seta seta-direita" type="button" aria-label="Próximo">›</button>
+        </section>
+
+
+        <section class="categoria">
+            <div class="titulo">
+                <h2>Não ficção</h2>
+                <span>›</span>
+            </div>
+            <button class="seta seta-esquerda" type="button" aria-label="Anterior">‹</button>
+            <div class="livros">
+                <?php while($livro = $resultadoNaoficcao->fetch_assoc()){ ?>
+                    <article class="livro">
+                        <a href="compras/detalhes.php?id=<?php echo $livro['id_liv']; ?>">
+                            <img src="<?php echo $livro['imagem']; ?>" alt="<?php echo $livro['titulo_liv']; ?>">
+                        </a>
+                        <h3><?php echo $livro['titulo_liv']; ?></h3>
+                        <p>R$ <?php echo number_format($livro['preco'], 2, ',', '.'); ?></p>
+                    </article>
+                <?php } ?>
+            </div>
+            <button class="seta seta-direita" type="button" aria-label="Próximo">›</button>
+        </section>
+
+
+        <section class="categoria">
+            <div class="titulo">
+                <h2>Literatura infantil</h2>
+                <span>›</span>
+            </div>
+            <button class="seta seta-esquerda" type="button" aria-label="Anterior">‹</button>
+            <div class="livros">
+                <?php while($livro = $resultadoLiteraturainfantil->fetch_assoc()){ ?>
+                    <article class="livro">
+                        <a href="compras/detalhes.php?id=<?php echo $livro['id_liv']; ?>">
+                            <img src="<?php echo $livro['imagem']; ?>" alt="<?php echo $livro['titulo_liv']; ?>">
+                        </a>
+                        <h3><?php echo $livro['titulo_liv']; ?></h3>
+                        <p>R$ <?php echo number_format($livro['preco'], 2, ',', '.'); ?></p>
+                    </article>
+                <?php } ?>
+            </div>
+            <button class="seta seta-direita" type="button" aria-label="Próximo">›</button>
+        </section>
+
+
+        <section class="categoria">
+            <div class="titulo">
+                <h2>Drama</h2>
+                <span>›</span>
+            </div>
+            <button class="seta seta-esquerda" type="button" aria-label="Anterior">‹</button>
+            <div class="livros">
+                <?php while($livro = $resultadoDrama->fetch_assoc()){ ?>
+                    <article class="livro">
+                        <a href="compras/detalhes.php?id=<?php echo $livro['id_liv']; ?>">
+                            <img src="<?php echo $livro['imagem']; ?>" alt="<?php echo $livro['titulo_liv']; ?>">
+                        </a>
+                        <h3><?php echo $livro['titulo_liv']; ?></h3>
+                        <p>R$ <?php echo number_format($livro['preco'], 2, ',', '.'); ?></p>
+                    </article>
+                <?php } ?>
+            </div>
+            <button class="seta seta-direita" type="button" aria-label="Próximo">›</button>
+        </section>
+
+
+        <section class="categoria">
+            <div class="titulo">
+                <h2>Poesia</h2>
+                <span>›</span>
+            </div>
+            <button class="seta seta-esquerda" type="button" aria-label="Anterior">‹</button>
+            <div class="livros">
+                <?php while($livro = $resultadoPoesia->fetch_assoc()){ ?>
+                    <article class="livro">
+                        <a href="compras/detalhes.php?id=<?php echo $livro['id_liv']; ?>">
+                            <img src="<?php echo $livro['imagem']; ?>" alt="<?php echo $livro['titulo_liv']; ?>">
+                        </a>
+                        <h3><?php echo $livro['titulo_liv']; ?></h3>
+                        <p>R$ <?php echo number_format($livro['preco'], 2, ',', '.'); ?></p>
+                    </article>
+                <?php } ?>
+            </div>
+            <button class="seta seta-direita" type="button" aria-label="Próximo">›</button>
+        </section>
+    </main>
     <script src="js/script.js"></script>
 </body>
 </html>
