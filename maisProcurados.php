@@ -37,13 +37,11 @@
 
             <div class="header-actions">
                 <div class="user-tools">
-                    <a href="carrinho.php" class="header-button cart-link" aria-label="Carrinho de compras">
-                        <span aria-hidden="true">🛍</span>
+                    <a href="carrinho.php" aria-label="Carrinho de compras" class="carrinho-perfil-png">
+                        <img src="img/carrinho.png" alt="Arandu">
                     </a>
-                    <a href="login.php" class="header-button login-link">Entrar</a>
-                    <a href="usuario/perfil.php" class="header-button admin-link">
-                        <span aria-hidden="true">👤</span>
-                        <span></span>
+                    <a href="usuario/perfil.php" aria-label="Perfil do usuário" class="carrinho-perfil-png">
+                        <img src="img/perfil.png" alt="Arandu">
                     </a>
                 </div>
             </div>

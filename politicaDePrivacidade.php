@@ -20,19 +20,17 @@
             <a href="novidades.php">Novidades</a>
         </nav>
 
-        <div class="termos-acoes">
-            <a class="termos-icone" href="carrinho.php" aria-label="Carrinho de compras">
-                <svg viewBox="0 0 32 32" aria-hidden="true">
-                    <path d="M7 11h18l1 17H6l1-17Z"></path>
-                    <path d="M12 12V8a4 4 0 0 1 8 0v4"></path>
-                </svg>
-            </a>
-            <a class="termos-icone" href="usuario/perfil.php" aria-label="Minha conta">
-                <svg viewBox="0 0 32 32" aria-hidden="true">
-                    <circle cx="16" cy="9" r="6"></circle>
-                    <path d="M6 28v-3a10 10 0 0 1 20 0v3"></path>
-                </svg>
-            </a>
+        <div class="header-actions">
+            <div class="header-actions">
+                <div class="user-tools">
+                    <a href="carrinho.php" aria-label="Carrinho de compras" class="carrinho-perfil-png">
+                        <img src="img/carrinho.png" alt="Arandu">
+                    </a>
+                    <a href="usuario/perfil.php" aria-label="Perfil do usuário" class="carrinho-perfil-png">
+                        <img src="img/perfil.png" alt="Arandu">
+                    </a>
+                </div>
+            </div>
         </div>
     </header>
 
