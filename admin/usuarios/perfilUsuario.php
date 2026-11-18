@@ -4,10 +4,12 @@
 
     $id_usuario = $_GET['id_usuario'] ?? $_GET['id'] ?? 2;
 
-    $sql = "SELECT u.nome, u.email, u.telefone, e.rua, e.numero, e.bairro, e.cidade
-    FROM usuario u
-    LEFT JOIN endereco e ON u.id_usuario = e.id_usuario
-    WHERE u.id_usuario = ?";
+    $sql = "SELECT u.nome, u.cpf_usuario, u.email, u.telefone, e.id_end, e.rua, e.numero, e.bairro, e.cidade
+            FROM usuario u
+            LEFT JOIN endereco e ON u.id_usuario = e.id_usuario
+            WHERE u.id_usuario = ?
+            ORDER BY e.id_end DESC
+            LIMIT 1";
             
     $stmt = $conexao->prepare($sql);
 
@@ -15,12 +17,12 @@
     $stmt->bind_param("i", $id_usuario);
     $stmt->execute();
     
-    $result = $stmt->get_result();
-    $cliente = $result->fetch_assoc();
+    $resultado = $stmt->get_result();
+    $cliente = $resultado->fetch_assoc();
 
     $stmt->close();
     }else{
-        die("Erro no prepare da consulta: ".$conexao->error);
+        die("Erro no preparo da consulta: ".$conexao->error);
     }
 
     if(!$id_usuario){
@@ -32,11 +34,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Usuários - Arandu</title>
-    <link rel="stylesheet" href="../../css/style.css?v=11">
+    <title>Meu perfil - Arandu</title>
+    <link rel="stylesheet" href="../../css/style.css?v=7">
     <link rel="icon" href="../../img/Logotipo-Livraria.ico" type="image/x-icon">
 </head>
-<body class="admin-page perfil-cliente-page">
+<body class="admin-page">
     <header class="cabecalho">
         <a class="marca" href="../index.php" aria-label="Arandu - página inicial">
             <img src="../../img/logo.png" alt="Arandu">
@@ -56,39 +58,39 @@
         </nav>
     </header>
 
-    <main class="perfil-cliente-conteudo">
-        <section class="perfil-cliente-cartao" aria-labelledby="perfil-cliente-titulo">
-            <h1 id="perfil-cliente-titulo">Perfil do cliente</h1>
+    <main class="perfil-conteudo">
+        <section class="perfil-cartao" aria-labelledby="titulo-dados">
+            <h1 id="titulo-dados">Perfil do cliente</h1>
 
-            <div class="perfil-cliente-dados">
-                <div class="perfil-cliente-avatar" aria-hidden="true">♙</div>
-                <div class="perfil-cliente-informacoes">
-                    <p><strong>Nome completo</strong><span><?= htmlspecialchars($cliente['nome'] ?? 'Não informado') ?></span></p>
-                    <p><strong>E-mail</strong><span><?= htmlspecialchars($cliente['email'] ?? 'Não informado') ?></span></p>
-                    <p><strong>Telefone</strong><span><?= htmlspecialchars($cliente['telefone'] ?? 'Não informado') ?></span></p>
+            <div class="perfil-dados">
+                <span class="perfil-avatar" aria-hidden="true">♙</span>
+                <div>
+                    <p><strong>Nome completo: </strong><?= htmlspecialchars($cliente['nome'] ?? 'Não informado') ?></p>
+                    <p><strong>CPF: </strong><?= htmlspecialchars($cliente['cpf_usuario'] ?? 'Não informado') ?></p>
+                    <p><strong>E-mail: </strong><?= htmlspecialchars($cliente['email'] ?? 'Não informado') ?></p>
+                    <p><strong>Telefone: </strong><?= htmlspecialchars($cliente['telefone'] ?? 'Não informado') ?></p>
                 </div>
             </div>
 
-            <div class="perfil-cliente-endereco">
-                <h2>Informações de envio</h2>
-                <p>
+            <section class="perfil-secao" aria-labelledby="titulo-envio">
+                <h2 id="titulo-envio">Informações de envio</h2>
+                <p class="perfil-endereco">
+                    <strong>Endereço:</strong> 
                     <?php if (!empty($cliente['rua'])): ?>
-                        <?= htmlspecialchars($cliente['rua']) ?>,
-                        <?= htmlspecialchars($cliente['numero']) ?> -
-                        <?= htmlspecialchars($cliente['bairro']) ?>,
+                        <?= htmlspecialchars($cliente['rua']) ?>, 
+                        <?= htmlspecialchars($cliente['numero']) ?> - 
+                        <?= htmlspecialchars($cliente['bairro']) ?>, 
                         <?= htmlspecialchars($cliente['cidade']) ?>.
                     <?php else: ?>
                         Nenhum endereço cadastrado.
                     <?php endif; ?>
                 </p>
-            </div>
+            </section>
 
-            <form class="perfil-cliente-acoes" action="excluirUsuario.php" method="POST">
-                <input type="hidden" name="id_usuario" value="<?= $id_usuario ?>">
-                <button type="submit">Excluir cliente</button>
-            </form>
+            <div class="perfil-acoes">
+                <a href="../excluirConta.php">Excluir cliente</a>
+            </div>
         </section>
     </main>
-    
 </body>
 </html>

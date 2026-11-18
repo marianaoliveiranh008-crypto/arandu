@@ -5,6 +5,23 @@
     $id_livro = $_POST['id_livro'] ?? $_POST['id'] ?? 1;
 
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
+        if(isset($_POST['acao']) && $_POST['acao'] === 'excluir'){
+            $sqlDel = "DELETE FROM livro WHERE id_liv = ?";
+            $stmtDel = $conexao->prepare($sqlDel);
+            if($stmtDel){
+                $stmtDel->bind_param("i", $id_livro);
+                $stmtDel->execute();
+                $stmtDel->close();
+            }
+            header("Location: indexLivros.php");
+            exit;
+        }
+        if(isset($_POST['acao']) && $_POST['acao'] === 'salvar'){
+            header("Location: atualizarLivro.php");
+            exit;
+        }
+        
+        
         $titulo = $_POST['titulo_liv'] ?? '';
         $isbn = $_POST['isbn'] ?? '';
         $descricao = $_POST['descricao'] ?? '';
@@ -83,62 +100,61 @@
         </nav>
     </header>
 
-    <main class="editar-livro-conteudo">
-        <section class="editar-livro-cartao" aria-labelledby="editar-livro-titulo">
+    <main class="cadastro-livro-conteudo">
+        <section class="cadastro-livro-cartao" aria-labelledby="editar-livro-titulo">
             <h1 id="editar-livro-titulo">Editar informações do livro</h1>
 
-            <form class="editar-livro-form" action="indexLivros.php" method="POST">
+            <form class="cadastro-livro-campos" action="indexLivros.php" method="POST">
                 <input type="hidden" name="id_liv" value="<?= $id_livro ?>">
 
-                <div class="editar-livro-campos">
-                    <p class="editar-livro-campo">
+                <div class="cadastro-livro-campos">
+                    <p class="cadastro-livro-campo">
                         <label for="titulo-liv">Título do livro</label>
                         <input id="titulo-liv" type="text" name="titulo_liv" value="<?= htmlspecialchars($livro['titulo_liv'] ?? '') ?>" required>
                     </p>
-                    <p class="editar-livro-campo">
+                    <p class="cadastro-livro-campo">
                         <label for="isbn">ISBN</label>
                         <input id="isbn" type="text" name="isbn" value="<?= htmlspecialchars($livro['isbn'] ?? '') ?>" required>
                     </p>
-                    <p class="editar-livro-campo">
+                    <p class="cadastro-livro-campo">
                         <label for="nome-aut">Autor</label>
                         <input id="nome-aut" type="text" name="nome_aut" value="<?= htmlspecialchars($livro['nome_aut'] ?? '') ?>">
                     </p>
-                    <p class="editar-livro-campo">
+                    <p class="cadastro-livro-campo">
                         <label for="nome-edi">Editora</label>
                         <input id="nome-edi" type="text" name="nome_edi" value="<?= htmlspecialchars($livro['nome_edi'] ?? '') ?>">
                     </p>
-                    <p class="editar-livro-campo editar-livro-campo--wide">
+                    <p class="cadastro-livro-campo cadastro-livro-campo--wide">
                         <label for="descricao">Descrição</label>
                         <textarea id="descricao" name="descricao" rows="4" required><?= htmlspecialchars($livro['descricao'] ?? '') ?></textarea>
                     </p>
-                    <p class="editar-livro-campo">
+                    <p class="cadastro-livro-campo">
                         <label for="preco">Preço (R$)</label>
                         <input id="preco" type="number" step="0.01" name="preco" value="<?= htmlspecialchars($livro['preco'] ?? '0.00') ?>" required>
                     </p>
-                    <p class="editar-livro-campo">
+                    <p class="cadastro-livro-campo">
                         <label for="estoque">Quantidade em estoque</label>
                         <input id="estoque" type="number" name="quanti_estoq" value="<?= htmlspecialchars($livro['quanti_estoq'] ?? '0') ?>" required>
                     </p>
-                    <p class="editar-livro-campo">
+                    <p class="cadastro-livro-campo">
                         <label for="numero-pag">Número de páginas</label>
                         <input id="numero-pag" type="number" name="numero_pag" value="<?= htmlspecialchars($livro['numero_pag'] ?? '') ?>">
                     </p>
-                    <p class="editar-livro-campo">
+                    <p class="cadastro-livro-campo">
                         <label for="ano-public">Ano de publicação</label>
                         <input id="ano-public" type="date" name="ano_public" value="<?= htmlspecialchars($livro['ano_public'] ?? '') ?>">
                     </p>
-                    <p class="editar-livro-campo editar-livro-campo--wide">
+                    <p class="cadastro-livro-campo cadastro-livro-campo--wide">
                         <label for="imagem">Imagem (caminho/URL)</label>
                         <input id="imagem" type="text" name="imagem" value="<?= htmlspecialchars($livro['imagem'] ?? '') ?>">
                     </p>
                 </div>
 
-                <div class="editar-livro-acoes">
-                    <button class="editar-livro-salvar" type="submit">Salvar alterações</button>
+                <div class="cadastro-livro-acoes">
+                    <button type="submit" name="acao" value="excluir">Excluir livro</button>
+                    <button type="submit" name="acao" value="salvar">Salvar alterações</button>
                 </div>
             </form>
-
-            <button type="submit">Excluir livro</button>
         </section>
     </main>
 </body>

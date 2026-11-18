@@ -10,6 +10,10 @@
     $produtos = mysqli_fetch_all($resultadoProdutos, MYSQLI_ASSOC);
     $totalProdutos = count($produtos);
 
+    $resultadoProdutos = mysqli_query($conexao, "SELECT SUM(quanti_estoq) AS total_estoque FROM livro");
+    $dadosEstoque = mysqli_fetch_assoc($resultadoProdutos);
+    $totalEstoque = $dadosEstoque['total_estoque'] ?? 0;
+
     $resultadoClientes = mysqli_query($conexao, "SELECT * FROM usuario");
     $clientes = mysqli_fetch_all($resultadoClientes, MYSQLI_ASSOC);
     $totalClientes = count($clientes);
@@ -56,7 +60,8 @@
             <a href="produtos/indexLivros.php">
                 <article class="cartao">
                     <h2>Produtos:</h2>
-                    <p><?= htmlspecialchars($totalProdutos)?> produto(s)</p>
+                    <p><?= htmlspecialchars($totalProdutos)?> produto(s) cadastrados</p>
+                    <p><?= htmlspecialchars($totalEstoque)?> produto(s) no estoque</p>
                 </article>
             </a>
 

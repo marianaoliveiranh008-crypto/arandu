@@ -29,7 +29,7 @@
     <link rel="stylesheet" href="../css/style.css?v=7">
     <link rel="icon" href="../img/Logotipo-Livraria.ico" type="image/x-icon">
 </head>
-<body class="perfil-page">
+<body class="admin-page">
     <header class="cabecalho">
         <a class="marca" href="index.php" aria-label="Arandu - página inicial">
             <img src="../img/logo.png" alt="Arandu">

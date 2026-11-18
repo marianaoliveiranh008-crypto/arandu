@@ -7,6 +7,22 @@
         die("Erro: Pedido não especificado.");
     }
 
+    $sqlUp = "UPDATE pagamento SET status_pag = 'Aprovado' WHERE id_ped = ?";
+    $stmtUp = $conexao->prepare($sqlUp);
+    $stmtUp->bind_param("i", $id_pedido);
+    $stmtUp->execute();
+    $stmtUp->close();
+
+    if($_SERVER['REQUEST_METHOD'] === 'POST'){
+        $sqlEnvio = "UPDATE pedido SET status_pe = 'Enviado'
+                     WHERE id_ped = ?";
+        $stmtEnvio = $conexao->prepare($sqlEnvio);
+        $stmtEnvio->bind_param("i", $id_pedido);
+        $stmtEnvio->execute();$stmtEnvio->close();
+        header("Location: detalhesPedidos.php?id=" . $id_pedido);
+        exit;
+    }
+
     $sqlPedido = "SELECT p.id_ped, p.data_pedido, p.status_pe, p.valor_total, p.valor_frete,u.nome
                   AS nome_cliente, u.email
                   AS email_cliente,e.rua, e.numero, e.complemento, e.bairro, e.cidade, e.estado, e.cep, pg.metodo_pag, pg.status_pag
@@ -36,7 +52,6 @@
     $stmtItem->bind_param("i", $id_pedido);
     $stmtItem->execute();
     $resultadoItem = $stmtItem->get_result();
-    $stmtItem->close();
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -45,7 +60,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detalhes dos pedidos - Arandu</title>
     <link rel="stylesheet" href="../../css/style.css?v=9">
-    <link rel="icon" href="img/Logotipo-Livraria.ico" type="image/x-icon">
+    <link rel="icon" href="../../img/Logotipo-Livraria.ico" type="image/x-icon">
 </head>
 <body class="admin-page admin-pedidos-page">
     <header class="cabecalho">
@@ -114,15 +129,18 @@
                             <ul class="pedido-status">
                                 <?php 
                                     $statusAtual = $pedido['status_pe'];
+                                    $pagamentoAprovado = (($pedido['status_pag'] ?? '') === 'Aprovado');
                                     $statusRealizado = "Realizado";
-                                    $statusPagamento = ($pedido['status_pag'] === 'Aprovado') ? "Pagamento aprovado" : "Pagamento pendente";
-                                    $statusEnviado = ($statusAtual === 'Enviado' || $statusAtual === 'Entregue') ? "Enviado" : "Enviado";
-                                    $statusEntregue = ($statusAtual === 'Entregue') ? "✓ Entregue" : "Entregue";
+                                    $statusPagamento = $pagamentoAprovado ? "Pagamento aprovado" : "Pagamento pendente";
+                                    $foiEnviado = $pagamentoAprovado && ($statusAtual === 'Enviado' || $statusAtual === 'Entregue');
+                                    $statusEnviado = $foiEnviado ? "Enviado" : "Aguardando envio";
+                                    $foiEntregue = $pagamentoAprovado && ($statusAtual === 'Entregue');
+                                    $statusEntregue = $foiEntregue ? "Entregue" : "Entregue";
                                 ?>
                                 <li class="status-atual"><?= $statusRealizado ?></li>
-                                <li class="status-atual"><?= $statusPagamento ?></li>
-                                <li class="status-atual"><?= $statusEnviado ?></li>
-                                <li class="status-pendente"><?= $statusEntregue ?></li>
+                                <li class="<?=$pagamentoAprovado ? 'status-atual' : 'status-pendente'?>"><?= $statusPagamento ?></li>
+                                <li class="<?=$foiEnviado ? 'status-atual' : 'status-pendente'?>"><?= $statusEnviado ?></li>
+                                <li class="<?=$foiEntregue ? 'status-atual' : 'status-pendente'?>"><?= $statusEntregue ?></li>
                             </ul>
                         </section>
 
@@ -135,6 +153,10 @@
                             <h2>Total:</h2>
                             <p>R$ <?=number_format($pedido['valor_total'], 2, ',', '.')?></p>
                         </section>
+                        
+                        <form method="POST" class="perfil-acoes">
+                            <button type="submit">Enviar pedido</button>
+                        </form>
                     </div>
                 </div>
             </div>
