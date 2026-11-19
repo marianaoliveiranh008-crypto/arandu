@@ -64,7 +64,7 @@
 
             <section class="perfil-secao perfil-seguranca" aria-labelledby="titulo-seguranca">
                 <h2 id="titulo-seguranca">Segurança</h2>
-                <a class="perfil-adicionar" href="alterarSenha.php"><span class="perfil-mais" aria-hidden="true">+</span>Alterar senha</a>
+                <a class="perfil-adicionar" href="../alterarSenha.php"><span class="perfil-mais" aria-hidden="true">+</span>Alterar senha</a>
                 <a class="perfil-adicionar" href="../verificarCodigo.php"><span class="perfil-mais" aria-hidden="true">+</span>Verificação em duas etapas</a>
             </section>
 

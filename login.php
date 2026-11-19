@@ -28,85 +28,29 @@
             $resultado = $stmt->get_result();
 
             if($resultado->num_rows === 1){
-            $usuario = $resultado->fetch_assoc();
-            $loginValido = password_verify($senha, $usuario['senha']);
+                $usuario = $resultado->fetch_assoc();
+                $loginValido = password_verify($senha, $usuario['senha']);
 
-            if($loginValido){
-                $_SESSION['usuarioId'] = $usuario['id_usuario'];
-                $_SESSION['usuarioNome'] = $usuario['nome'];
-                $_SESSION['usuarioEmail'] = $usuario['email'];
-                $_SESSION['tipo_usuario'] = $usuario['tipo_usuario'];
-                $_SESSION['logado'] = true;
-
-                $id_usuario = $usuario['id_usuario'];
-
-                $sqlCar = "SELECT id_car FROM carrinho WHERE id_usuario = ?";
-                $stmtCar = $conexao->prepare($sqlCar);
-                $stmtCar->bind_param("i", $id_usuario);
-                $stmtCar->execute();
-                $resultadoCar = $stmtCar->get_result();
-
-                if($resultadoCar->num_rows>0){
-                    $carrinho = $resultadoCar->fetch_assoc();
-                    $id_car = $carrinho['id_car'];
+                if($loginValido){
+                    $codigo = rand(100000, 999999);
+                    $_SESSION['codigo_verificacao'] = $codigo;
+                    $_SESSION['usuario_temp'] = ['id_usuario' => $usuario['id_usuario'],
+                                                'nome' => $usuario['nome'],
+                                                'email' => $usuario['email'],
+                                                'tipo_usuario' => $usuario['tipo_usuario']
+                                                ];
+                    header("Location: verificarCodigo.php");
+                    exit;
                 }else{
-                    $sqlCriar = "INSERT INTO carrinho (id_usuario) VALUES (?)";
-                    $stmtCriar = $conexao->prepare($sqlCriar);
-                    $stmtCriar->bind_param("i", $id_usuario);
-                    $stmtCriar->execute();
-                    $id_car = $conexao->insert_id;
-                    $stmtCriar->close();
+                    $erro = "E-mail ou senha incorretos.";
                 }
-                $stmtCar->close();
-
-                if(isset($_SESSION['produto_pendente']) && isset($_SESSION['produto_pendente']['id_liv'])){
-                    $id_livro = $_SESSION['produto_pendente']['id_liv'];
-                    $quantidade = 1;
-                    $sqlItem = "SELECT id_carit, quantidade_car FROM carrinho_item WHERE id_car = ? AND id_liv = ?";
-                    $stmtItem = $conexao->prepare($sqlItem);
-                    $stmtItem->bind_param("ii", $id_car, $id_livro);
-                    $stmtItem->execute();
-                    $resultadoItem = $stmtItem->get_result();
-
-                    if($resultadoItem->num_rows > 0){
-                        $rowItem = $resultadoItem->fetch_assoc();
-                        $novaQuantidade = $rowItem['quantidade_car'] + 1;
-                        $id_carit = $rowItem['id_carit'];
-
-                        $sqlUpdate = "UPDATE carrinho_item SET quantidade_car = ? WHERE id_carit = ?";
-                        $stmtUp = $conexao->prepare($sqlUpdate);
-                        $stmtUp->bind_param("ii", $novaQuantidade, $id_carit);
-                        $stmtUp->execute();
-                        $stmtUp->close();
-                    }else{
-                        $sqlIns = "INSERT INTO carrinho_item (id_car, id_liv, quantidade_car) VALUES (?, ?, ?)";
-                        $stmtIns = $conexao->prepare($sqlIns);
-                        $stmtIns->bind_param("iii", $id_car, $id_livro, $quantidade);
-                        $stmtIns->execute();
-                        $stmtIns->close();
-                    }
-                $stmtItem->close();
-                unset($_SESSION['produto_pendente']);
-                }
-                $url_destino = $_SESSION['url_retorno'] ?? 'index.php';
-                unset($_SESSION['url_retorno']);
-
-                if($usuario['tipo_usuario'] == 2){
-                    header("Location: admin/index.php");
-                }else{
-                    header("Location: ".$url_destino);
-                }
-                exit;
             }else{
-                echo "E-mail ou senha incorretos.";
+                $erro = "E-mail ou senha incorretos.";
             }
-        }else{
-            echo "E-mail ou senha incorretos.";
-        }
-        $stmt->close();
         }
     }
 ?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -153,6 +97,12 @@
 
                 <label for="senha">Senha:</label>
                 <input type="password" id="senha" name="senha" maxlength="8" required>
+
+                <?php if(!empty($erro)){ ?>
+                    <p style="color:red;">
+                        <?php echo $erro; ?>
+                    </p>
+                <?php } ?>
 
                 <a href="verificarCodigo.php" class="esqueci">
                     Esqueci minha senha

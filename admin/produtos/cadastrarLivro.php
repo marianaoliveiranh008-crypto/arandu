@@ -1,6 +1,80 @@
 <?php
     session_start();
     require_once "../../config/database.php";
+
+    $erro = "";
+    if($_SERVER['REQUEST_METHOD'] === 'POST'){
+        $titulo = $_POST['titulo_liv'] ?? '';
+        $isbn = $_POST['isbn'] ?? '';
+        $descricao = $_POST['descricao'] ?? '';
+        $preco = $_POST['preco'] ?? 0;
+        $estoque = $_POST['quanti_estoq'] ?? 0;
+        $paginas = !empty($_POST['numero_pag']) ? $_POST['numero_pag'] : null;
+        $ano = !empty($_POST['ano_public']) ? $_POST['ano_public'] : null;
+        $imagem = $_POST['imagem'] ?? '';
+        $nome_editora = trim($_POST['nome_edi'] ?? '');
+        $nome_autor = trim($_POST['nome_aut'] ?? '');
+
+        $id_edi = null;
+        if(!empty($nome_editora)){
+            $stmtEdi = $conexao->prepare("SELECT id_edi FROM editora WHERE nome_edi = ?");
+            $stmtEdi->bind_param("s", $nome_editora);
+            $stmtEdi->execute();
+            $resultadoEdi = $stmtEdi->get_result();
+
+            if($rowEdi = $resultadoEdi->fetch_assoc()){
+                $id_edi = $rowEdi['id_edi'];
+            }else{
+                $stmtInsEdi = $conexao->prepare("INSERT INTO editora (nome_edi) VALUES (?)");
+                $stmtInsEdi->bind_param("s", $nome_editora);
+                $stmtInsEdi->execute();
+                $id_edi = $stmtInsEdi->insert_id;
+                $stmtInsEdi->close();
+            }
+            $stmtEdi->close();
+        }
+
+        $sqlLivro = "INSERT INTO livro (titulo_liv, isbn, preco, quanti_estoq, numero_pag, ano_public, descricao, imagem, id_edi) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        
+        $stmt = $conexao->prepare($sqlLivro);
+        if($stmt){
+            $stmt->bind_param("ssdiissii", $titulo, $isbn, $preco, $estoque, $paginas, $ano, $descricao, $imagem, $id_edi);
+
+            if($stmt->execute()){
+                $id_liv = $stmt->insert_id;
+                $stmt->close();
+
+                if(!empty($nome_autor)){
+                    $stmtAut = $conexao->prepare("SELECT id_aut FROM autor WHERE nome_aut = ?");
+                    $stmtAut->bind_param("s", $nome_autor);
+                    $stmtAut->execute();
+                    $resultadoAut = $stmtAut->get_result();
+
+                    if($rowAut = $resultadoAut->fetch_assoc()){
+                        $id_aut = $rowAut['id_aut'];
+                    }else{
+                        $stmtInsAut = $conexao->prepare("INSERT INTO autor (nome_aut) VALUES (?)");
+                        $stmtInsAut->bind_param("s", $nome_autor);
+                        $stmtInsAut->execute();
+                        $id_aut = $stmtInsAut->insert_id;
+                        $stmtInsAut->close();
+                    }
+                    $stmtAut->close();
+
+                    $stmtRel = $conexao->prepare("INSERT INTO liv_aut (id_liv, id_aut) VALUES (?, ?)");
+                    $stmtRel->bind_param("ii", $id_liv, $id_aut);
+                    $stmtRel->execute();
+                    $stmtRel->close();
+                }
+                header("Location: indexLivros.php");
+                exit;
+            }else{
+                $erro = "Erro ao cadastrar livro: ".$stmt->error;
+            }
+        }else{
+            $erro = "Erro na consulta: ".$conexao->error;
+        }
+    }
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -35,7 +109,7 @@
         <section class="cadastro-livro-cartao" aria-labelledby="cadastro-livro-titulo">
             <h1 id="cadastro-livro-titulo">Adicionar livro</h1>
 
-            <form class="cadastro-livro-form" action="indexLivros.php" method="POST">
+            <form class="cadastro-livro-form" method="POST">
                 <input type="hidden" name="id_liv" value="<?= $id_livro ?>">
                 <div class="cadastro-livro-campos">
                     <p class="cadastro-livro-campo">
@@ -79,6 +153,10 @@
                         <input id="imagem" type="text" name="imagem">
                     </p>
                 </div>
+
+                <?php if (!empty($erro)) { ?>
+                    <p style="color:red;"><?php echo $erro; ?></p>
+                <?php } ?>
 
                 <div class="cadastro-livro-acoes">
                     <button type="submit">Salvar livro</button>

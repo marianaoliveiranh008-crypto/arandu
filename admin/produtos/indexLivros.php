@@ -61,11 +61,9 @@
             <input type="search" name="busca" placeholder="Buscar nome ou autor..." aria-label="Buscar nome ou autor">
         </form>
 
-        <form action="cadastrarLivro.php" method="POST">
-            <button type="submit">+ Adicionar livro</button>
-        </form>
-
-        <br>
+        <div class="adicionar-livro-usuario">
+            <a href="cadastrarLivro.php"><button>+ Adicionar livro</button></a>
+        </div>
         
         <div class="usuarios-table-scroll">
             <table class="usuarios-table">

@@ -25,7 +25,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel de administração - Arandu</title>
     <link rel="stylesheet" href="../css/style.css?v=10">
-    <link rel="icon" href="img/Logotipo-Livraria.ico" type="image/x-icon">
+    <link rel="icon" href="../img/Logotipo-Livraria.ico" type="image/x-icon">
 </head>
 <body class="admin-page">
     <header class="cabecalho">

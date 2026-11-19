@@ -102,7 +102,7 @@
                 <label for="senha-atual">Senha atual:</label>
                 <input type="password" id="senha-atual" name="senhaAtual" maxlength="8" autocomplete="current-password" placeholder="••••••••" required>
 
-                <a href="verificarCodigo.php" class="esqueci">Esqueci minha senha</a>
+                <a href="../verificarCodigo.php" class="esqueci">Esqueci minha senha</a>
 
                 <label for="nova-senha">Nova senha:</label>
                 <input type="password" id="nova-senha" name="novaSenha" maxlength="8" autocomplete="new-password" placeholder="••••••••" required>

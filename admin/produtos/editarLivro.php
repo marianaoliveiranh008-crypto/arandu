@@ -2,52 +2,14 @@
     session_start();
     require_once "../../config/database.php";
 
-    $id_livro = $_POST['id_livro'] ?? $_POST['id'] ?? 1;
-
-    if($_SERVER['REQUEST_METHOD'] === 'POST'){
-        if(isset($_POST['acao']) && $_POST['acao'] === 'excluir'){
-            $sqlDel = "DELETE FROM livro WHERE id_liv = ?";
-            $stmtDel = $conexao->prepare($sqlDel);
-            if($stmtDel){
-                $stmtDel->bind_param("i", $id_livro);
-                $stmtDel->execute();
-                $stmtDel->close();
-            }
-            header("Location: indexLivros.php");
-            exit;
-        }
-        if(isset($_POST['acao']) && $_POST['acao'] === 'salvar'){
-            header("Location: atualizarLivro.php");
-            exit;
-        }
-        
-        
-        $titulo = $_POST['titulo_liv'] ?? '';
-        $isbn = $_POST['isbn'] ?? '';
-        $descricao = $_POST['descricao'] ?? '';
-        $preco = $_POST['preco'] ?? 0;
-        $estoque = $_POST['quanti_estoq'] ?? 0;
-        $paginas = !empty($_POST['numero_pag']) ? $_POST['numero_pag'] : null;
-        $ano = !empty($_POST['ano_public']) ? $_POST['ano_public'] : null;
-        $imagem = $_POST['imagem'] ?? '';
-
-        $sqlUp = "UPDATE livro SET titulo_liv = ?, isbn = ?, descricao = ?, preco = ?, quanti_estoq = ?, numero_pag = ?, ano_public = ?, imagem = ? WHERE id_liv = ?";
-        $stmtUp = $conexao->prepare($sqlUp);
-        
-        if(!$stmtUp){
-            die("Erro ao preparar consulta: " . $conexao->error);
-        }
-
-        $stmtUp->bind_param("sssdiiisi", $titulo, $isbn, $descricao, $preco, $estoque, $paginas, $ano, $imagem, $id_livro);
-            
-        if($stmtUp->execute()){
-            header("Location: indexLivros.php");
-            exit;
-        }else{
-            $erro = "Erro ao atualizar o livro: " . $stmtUp->error;
-        }
-        $stmtUp->close();
+    $id_livro = $_GET['id'] ?? null;
+    if(!$id_livro){
+        die("Erro: Livro não identificado.");
     }
+
+    $livro = ['titulo_liv'=>'', 'isbn'=>'', 'nome_aut'=>'', 'nome_edi'=>'',
+              'descricao'=>'', 'preco'=>'', 'quanti_estoq'=>'', 'numero_pag'=>'',
+              'ano_public'=>'', 'imagem'=>''];
 
     $sql = "SELECT l.id_liv, l.isbn, l.titulo_liv, l.descricao, l.ano_public, l.numero_pag, l.quanti_estoq, l.imagem, l.preco, l.id_edi, e.nome_edi, a.id_aut, a.nome_aut
             FROM livro l
@@ -61,15 +23,111 @@
     $stmt->execute();
     $resultado = $stmt->get_result();
 
-    $livro = ['titulo_liv'=>'', 'isbn'=>'', 'nome_aut'=>'', 'nome_edi'=>'',
-              'descricao'=>'', 'preco'=>'', 'quanti_estoq'=>'', 'numero_pag'=>'',
-              'ano_public'=>'', 'imagem'=>''];
-
     if($resultado->num_rows === 1){
         $livro = $resultado->fetch_assoc();
     }
-
     $stmt->close();
+
+    if($_SERVER['REQUEST_METHOD'] === 'POST'){
+        if(isset($_POST['acao']) && $_POST['acao'] === 'excluir'){
+            $sqlDel = "DELETE FROM livro WHERE id_liv = ?";
+            $stmtDel = $conexao->prepare($sqlDel);
+            if($stmtDel){
+                $stmtDel->bind_param("i", $id_livro);
+                $stmtDel->execute();
+                $stmtDel->close();
+            }
+            header("Location: indexLivros.php");
+            exit;
+        }
+        $titulo = $_POST['titulo_liv'] ?? '';
+        $isbn = $_POST['isbn'] ?? '';
+        $descricao = $_POST['descricao'] ?? '';
+        $preco = $_POST['preco'] ?? 0;
+        $estoque = $_POST['quanti_estoq'] ?? 0;
+        $paginas = !empty($_POST['numero_pag']) ? $_POST['numero_pag'] : null;
+        $ano = !empty($_POST['ano_public']) ? $_POST['ano_public'] : null;
+        $imagem = $_POST['imagem'] ?? '';
+        $nome_editora = trim($_POST['nome_edi'] ?? '');
+        $nome_autor = trim($_POST['nome_aut'] ?? '');
+
+        $id_edi = null;
+
+        if(!empty($nome_editora)){
+            $sqlEdi = "SELECT id_edi FROM editora WHERE nome_edi = ?";
+            $stmtEdi = $conexao->prepare($sqlEdi);
+            $stmtEdi->bind_param("s", $nome_editora);
+            $stmtEdi->execute();
+            $resultadoEdi = $stmtEdi->get_result();
+
+            if($resultadoEdi->num_rows > 0){
+                $rowEdi = $resultadoEdi->fetch_assoc();
+                $id_edi = $rowEdi['id_edi'];
+            }else{
+                $sqlEdiIns = "INSERT INTO editora (nome_edi) VALUES (?)";
+                $stmtEdiIns = $conexao->prepare($sqlEdiIns);
+                $stmtEdiIns->bind_param("s", $nome_editora);
+                $stmtEdiIns->execute();
+                $id_edi = $conexao->insert_id;
+                $stmtEdiIns->close();
+            }
+            $stmtEdi->close();
+        }
+        $sqlUp = "UPDATE livro SET titulo_liv = ?, isbn = ?, descricao = ?, preco = ?, quanti_estoq = ?, numero_pag = ?, ano_public = ?, imagem = ?, id_edi = ? WHERE id_liv = ?";
+        $stmtUp = $conexao->prepare($sqlUp);
+        
+        if(!$stmtUp){
+            die("Erro ao preparar consulta: " . $conexao->error);
+        }
+
+        $stmtUp->bind_param("sssdiiisii", $titulo, $isbn, $descricao, $preco, $estoque, $paginas, $ano, $imagem, $id_edi, $id_livro);
+        $stmtUp->execute();
+        $stmtUp->close();
+        
+        if(!empty($nome_autor)){
+            $sqlAut = "SELECT id_aut FROM autor WHERE nome_aut = ?";
+            $stmtAut = $conexao->prepare($sqlAut);
+            $stmtAut->bind_param("s", $nome_autor);
+            $stmtAut->execute();
+            $resultadoAut = $stmtAut->get_result();
+
+            if($resultadoAut->num_rows > 0){
+                $rowAut = $resultadoAut->fetch_assoc();
+                $id_aut = $rowAut['id_aut'];
+            }else{
+                $sqlAutIns = "INSERT INTO autor (nome_aut) VALUES (?)";
+                $stmtAutIns = $conexao->prepare($sqlAutIns);
+                $stmtAutIns->bind_param("s", $nome_autor);
+                $stmtAutIns->execute();
+                $id_aut = $conexao->insert_id;
+                $stmtAutIns->close();
+            }
+            $stmtAut->close();
+
+            $sqlRelac = "SELECT * FROM liv_aut WHERE id_liv = ?";
+            $stmtRelac = $conexao->prepare($sqlRelac);
+            $stmtRelac->bind_param("i", $id_livro);
+            $stmtRelac->execute();
+            $resultadoRelac = $stmtRelac->get_result();
+
+            if($resultadoRelac->num_rows > 0){
+                $sqlRelacUp = "UPDATE liv_aut SET id_aut = ? WHERE id_liv = ?";
+                $stmtRelacUp = $conexao->prepare($sqlRelacUp);
+                $stmtRelacUp->bind_param("ii", $id_aut, $id_livro);
+                $stmtRelacUp->execute();
+                $stmtRelacUp->close();
+            }else{
+                $sqlRelacIns = "INSERT INTO liv_aut (id_liv, id_aut) VALUES (?, ?)";
+                $stmtRelacIns = $conexao->prepare($sqlRelacIns);
+                $stmtRelacIns->bind_param("ii", $id_livro, $id_aut);
+                $stmtRelacIns->execute();
+                $stmtRelacIns->close();
+            }
+            $stmtRelac->close();
+        }
+        header("Location: indexLivros.php");
+            exit;
+        }
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -104,8 +162,8 @@
         <section class="cadastro-livro-cartao" aria-labelledby="editar-livro-titulo">
             <h1 id="editar-livro-titulo">Editar informações do livro</h1>
 
-            <form class="cadastro-livro-campos" action="indexLivros.php" method="POST">
-                <input type="hidden" name="id_liv" value="<?= $id_livro ?>">
+            <form class="cadastro-livro-form" method="POST">
+                <input type="hidden" name="id_livro" value="<?= $id_livro ?>">
 
                 <div class="cadastro-livro-campos">
                     <p class="cadastro-livro-campo">
@@ -142,7 +200,7 @@
                     </p>
                     <p class="cadastro-livro-campo">
                         <label for="ano-public">Ano de publicação</label>
-                        <input id="ano-public" type="date" name="ano_public" value="<?= htmlspecialchars($livro['ano_public'] ?? '') ?>">
+                        <input id="ano-public" type="date" name="ano_public" value="<?= !empty($livro['ano_public']) ? date('Y-m-d', strtotime($livro['ano_public'])) : '' ?>">
                     </p>
                     <p class="cadastro-livro-campo cadastro-livro-campo--wide">
                         <label for="imagem">Imagem (caminho/URL)</label>
