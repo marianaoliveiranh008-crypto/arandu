@@ -207,7 +207,6 @@
                         <input id="imagem" type="text" name="imagem" value="<?= htmlspecialchars($livro['imagem'] ?? '') ?>">
                     </p>
                 </div>
-
                 <div class="cadastro-livro-acoes">
                     <button type="submit" name="acao" value="excluir">Excluir livro</button>
                     <button type="submit" name="acao" value="salvar">Salvar alterações</button>

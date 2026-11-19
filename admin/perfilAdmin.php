@@ -2,6 +2,7 @@
     session_start();
     require_once "../config/database.php";
 
+    $erro = "";
     $sql = "SELECT u.nome, u.email, u.telefone
             FROM usuario u
             WHERE u.id_usuario = ?";
@@ -17,7 +18,7 @@
 
     $stmt->close();
     }else{
-        die("Erro no preparo da consulta: ".$conexao->error);
+        $erro="Erro no preparo da consulta: ".$conexao->error;
     }
 ?>
 <!DOCTYPE html>
@@ -67,6 +68,20 @@
                 <a class="perfil-adicionar" href="../alterarSenha.php"><span class="perfil-mais" aria-hidden="true">+</span>Alterar senha</a>
                 <a class="perfil-adicionar" href="../verificarCodigo.php"><span class="perfil-mais" aria-hidden="true">+</span>Verificação em duas etapas</a>
             </section>
+
+            <?php if (!empty($erro)) { ?>
+            <p
+                style="background-color: #780000;
+                        color: #ffffff;
+                        padding: 8px 12px;
+                        border-radius: 6px;
+                        text-align: center;
+                        width: max-content;
+                        max-width: 100%;
+                        margin: 10px auto;">
+                <?php echo $erro; ?>
+            </p>
+                <?php } ?>
 
             <div class="perfil-acoes">
                 <a href="../excluirConta.php">Excluir conta</a>

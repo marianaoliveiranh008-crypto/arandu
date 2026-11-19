@@ -98,15 +98,27 @@
                 <label for="senha">Senha:</label>
                 <input type="password" id="senha" name="senha" maxlength="8" required>
 
-                <?php if(!empty($erro)){ ?>
-                    <p style="color:red;">
-                        <?php echo $erro; ?>
-                    </p>
-                <?php } ?>
+                <div class="mensagem-erro">
+                   <?= htmlspecialchars($erro ?? '')?> 
+                </div>
 
                 <a href="verificarCodigo.php" class="esqueci">
                     Esqueci minha senha
                 </a>
+
+                <?php if (!empty($erro)) { ?>
+                <p
+                    style="background-color: #780000;
+                            color: #ffffff;
+                            padding: 8px 12px;
+                            border-radius: 6px;
+                            text-align: center;
+                            width: max-content;
+                            max-width: 100%;
+                            margin: 10px auto;">
+                    <?php echo $erro; ?>
+                </p>
+                <?php } ?>
 
                 <button type="submit">Entrar</button>
             </form>

@@ -39,33 +39,35 @@
         $stmt = $conexao->prepare($sqlLivro);
         if($stmt){
             $stmt->bind_param("ssdiissii", $titulo, $isbn, $preco, $estoque, $paginas, $ano, $descricao, $imagem, $id_edi);
-
-            if($stmt->execute()){
                 $id_liv = $stmt->insert_id;
                 $stmt->close();
 
-                if(!empty($nome_autor)){
-                    $stmtAut = $conexao->prepare("SELECT id_aut FROM autor WHERE nome_aut = ?");
-                    $stmtAut->bind_param("s", $nome_autor);
-                    $stmtAut->execute();
-                    $resultadoAut = $stmtAut->get_result();
+                if($stmt->execute()){
+                    $id_liv = $stmt->insert_id;
+                    $stmt->close();
 
-                    if($rowAut = $resultadoAut->fetch_assoc()){
-                        $id_aut = $rowAut['id_aut'];
-                    }else{
-                        $stmtInsAut = $conexao->prepare("INSERT INTO autor (nome_aut) VALUES (?)");
-                        $stmtInsAut->bind_param("s", $nome_autor);
-                        $stmtInsAut->execute();
-                        $id_aut = $stmtInsAut->insert_id;
-                        $stmtInsAut->close();
+                    if(!empty($nome_autor)){
+                        $stmtAut = $conexao->prepare("SELECT id_aut FROM autor WHERE nome_aut = ?");
+                        $stmtAut->bind_param("s", $nome_autor);
+                        $stmtAut->execute();
+                        $resultadoAut = $stmtAut->get_result();
+
+                        if($rowAut = $resultadoAut->fetch_assoc()){
+                            $id_aut = $rowAut['id_aut'];
+                        }else{
+                            $stmtInsAut = $conexao->prepare("INSERT INTO autor (nome_aut) VALUES (?)");
+                            $stmtInsAut->bind_param("s", $nome_autor);
+                            $stmtInsAut->execute();
+                            $id_aut = $stmtInsAut->insert_id;
+                            $stmtInsAut->close();
+                        }
+                        $stmtAut->close();
+
+                        $stmtRel = $conexao->prepare("INSERT INTO liv_aut (id_liv, id_aut) VALUES (?, ?)");
+                        $stmtRel->bind_param("ii", $id_liv, $id_aut);
+                        $stmtRel->execute();
+                        $stmtRel->close();
                     }
-                    $stmtAut->close();
-
-                    $stmtRel = $conexao->prepare("INSERT INTO liv_aut (id_liv, id_aut) VALUES (?, ?)");
-                    $stmtRel->bind_param("ii", $id_liv, $id_aut);
-                    $stmtRel->execute();
-                    $stmtRel->close();
-                }
                 header("Location: indexLivros.php");
                 exit;
             }else{
@@ -155,7 +157,17 @@
                 </div>
 
                 <?php if (!empty($erro)) { ?>
-                    <p style="color:red;"><?php echo $erro; ?></p>
+                <p
+                    style="background-color: #780000;
+                            color: #ffffff;
+                            padding: 8px 12px;
+                            border-radius: 6px;
+                            text-align: center;
+                            width: max-content;
+                            max-width: 100%;
+                            margin: 10px auto;">
+                    <?php echo $erro; ?>
+                </p>
                 <?php } ?>
 
                 <div class="cadastro-livro-acoes">

@@ -2,6 +2,7 @@
     session_start();
     require_once 'config/database.php';
 
+    $erro = "";
     if(isset($_GET['id'])){
         $_SESSION['produto_pendente'] = [
             'id_liv' => $_GET['id']
@@ -30,11 +31,11 @@
         $confirmar = trim($_POST['confirmar'] ?? '');
 
         if(empty($nome) || empty($cpfLimpo) || empty($telefone) || empty($cepLimpo) || empty($email) || empty($senha) || empty($confirmar)){
-            echo "Por favor, preencha todos os campos corretamente.";
+            $erro = "Por favor, preencha todos os campos corretamente.";
         }elseif($senha !== $confirmar){
-            echo "As senhas não coincidem!";
+            $erro = "As senhas não coincidem!";
         }elseif(strlen($senha)<6){
-            echo "A senha deve ter pelo menos 6 caracteres.";
+            $erro = "A senha deve ter pelo menos 6 caracteres.";
         }else{
             $sqlVerificar = "SELECT id_usuario FROM usuario WHERE email = ? OR cpf_usuario = ?";
             $stmtVerificar = $conexao->prepare($sqlVerificar);
@@ -43,7 +44,7 @@
             $resultadoVerificar = $stmtVerificar->get_result();
 
             if($resultadoVerificar->num_rows>0){
-                echo "E-mail ou CPF já cadastrados.";
+                $erro = "E-mail ou CPF já cadastrados.";
                 $stmtVerificar->close();
             }else{
                 $stmtVerificar->close();
@@ -122,7 +123,7 @@
                     exit;
                 }catch(Exception $e){
                     $conexao->rollback();
-                    echo "Erro ao realizar o cadastro. Tente novamente.";
+                    $erro = "Erro ao realizar o cadastro. Tente novamente.";
                 }
             }
         }
@@ -233,6 +234,20 @@
                     <input type="password" id="confirmar" name="confirmar" placeholder="••••••••"  maxlength="8" required>
                 </div>
 
+                <?php if (!empty($erro)) { ?>
+                <p
+                    style="background-color: #780000;
+                            color: #ffffff;
+                            padding: 8px 12px;
+                            border-radius: 6px;
+                            text-align: center;
+                            width: max-content;
+                            max-width: 100%;
+                            margin: 10px auto;">
+                    <?php echo $erro; ?>
+                </p>
+                <?php } ?>
+
                 <button class="cadastro-submit" type="submit">Cadastrar</button>
             </form>
 
@@ -243,9 +258,9 @@
         </div>
 
         <nav class="cadastro-links" aria-label="Links institucionais">
-            <a href="#">Termos de uso</a>
-            <a href="#">Política de privacidade</a>
-            <a href="#">Contato</a>
+            <a href="termosDeUso.php">Termos de uso</a>
+            <a href="politicaDePrivacidade.php">Política de privacidade</a>
+            <a href="sobreNos.php">Contato</a>
         </nav>
     </main>
 

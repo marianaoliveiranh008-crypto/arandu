@@ -2,6 +2,7 @@
     session_start();
     require_once '../config/database.php';
 
+    $erro = "";
     if(!isset($_SESSION['logado']) || $_SESSION['logado'] !== true){
         header("Location: login.php");
         exit;
@@ -25,11 +26,11 @@
         $stmtSel->close();
 
         if(!$usuario){
-            echo "Usuário não encontrado.";
+            $erro = "Usuário não encontrado.";
         }elseif(!password_verify($senhaAtual, $usuario['senha'])){
-            echo "A senha atual está incorreta.";
+            $erro = "A senha atual está incorreta.";
         }elseif($novaSenha !== $confirmarSenha){
-            echo "A nova senha e a confirmação não coincidem";
+            $erro =  "A nova senha e a confirmação não coincidem";
         }else{
             $senhaHash = password_hash(
                 $novaSenha,
@@ -111,6 +112,20 @@
 
                 <label for="confirmar-senha">Confirmar nova senha:</label>
                 <input type="password" id="confirmar-senha" name="confirmarSenha" maxlength="8" autocomplete="new-password" placeholder="••••••••" required>
+
+                <?php if (!empty($erro)) { ?>
+                <p
+                    style="background-color: #780000;
+                            color: #ffffff;
+                            padding: 8px 12px;
+                            border-radius: 6px;
+                            text-align: center;
+                            width: max-content;
+                            max-width: 100%;
+                            margin: 10px auto;">
+                    <?php echo $erro; ?>
+                </p>
+                <?php } ?>
 
                 <button type="submit">Salvar nova senha</button>
 

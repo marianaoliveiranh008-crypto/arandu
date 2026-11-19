@@ -2,6 +2,8 @@
     session_start();
     require_once '../config/database.php';
 
+    $erro = "";
+
     if(!isset($_SESSION['logado']) || $_SESSION['logado'] !== true){
         header("Location: login.php");
         exit;
@@ -127,6 +129,20 @@
                     <label for="estado">Estado:</label>
                     <input type="text" id="estado" name="estado" value="<?= htmlspecialchars($endereco['estado']) ?>" placeholder="Hipotético" required>
                 </div>
+
+                <?php if (!empty($erro)) { ?>
+                <p
+                    style="background-color: #780000;
+                            color: #ffffff;
+                            padding: 8px 12px;
+                            border-radius: 6px;
+                            text-align: center;
+                            width: max-content;
+                            max-width: 100%;
+                            margin: 10px auto;">
+                    <?php echo $erro; ?>
+                </p>
+                <?php } ?>
 
                 <button class="cadastro-submit" type="submit">Salvar</button>
             </form>

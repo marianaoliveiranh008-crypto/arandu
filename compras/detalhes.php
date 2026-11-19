@@ -2,6 +2,8 @@
     session_start();
     require_once "../config/database.php";
 
+    $erro = "";
+
     if(isset($_GET['id'])){
         $id_livro = $_GET['id'];
 
@@ -24,7 +26,7 @@
         if($resultado->num_rows>0){
             $livro = $resultado->fetch_assoc();
         }else{
-            die("Livro não encontrado!");
+            $erro = "Livro não encontrado!";
         }
     }
 ?>
@@ -89,7 +91,21 @@
 
                 <div class="detalhes-compra">
                     <p class="detalhes-preco"><span>R$</span> <?= number_format($livro['preco'], 2, ',', '.') ?></p>
-                
+                    
+                    <?php if (!empty($erro)) { ?>
+                    <p
+                        style="background-color: #780000;
+                                color: #ffffff;
+                                padding: 8px 12px;
+                                border-radius: 6px;
+                                text-align: center;
+                                width: max-content;
+                                max-width: 100%;
+                                margin: 10px auto;">
+                        <?php echo $erro; ?>
+                    </p>
+                    <?php } ?>
+
                     <form action="../carrinho.php" method="POST">
                         <input type="hidden" name="acao" value="adicionar">
                         <input type="hidden" name="id_livro" value="<?= htmlspecialchars($livro['id_liv'] ?? '') ?>">

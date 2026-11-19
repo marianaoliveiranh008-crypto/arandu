@@ -1,7 +1,8 @@
 <?php
     session_start();
     require_once "../../config/database.php";
-
+    
+    $erro = "";
     $id_usuario = $_GET['id_usuario'] ?? $_GET['id'] ?? 2;
 
     $sql = "SELECT u.nome, u.cpf_usuario, u.email, u.telefone, e.id_end, e.rua, e.numero, e.bairro, e.cidade
@@ -22,11 +23,11 @@
 
     $stmt->close();
     }else{
-        die("Erro no preparo da consulta: ".$conexao->error);
+        $erro = "Erro no preparo da consulta: ".$conexao->error;
     }
 
     if(!$id_usuario){
-        die("Usuário não encontrado.");
+        $erro= "Usuário não encontrado.";
     }
 ?>
 <!DOCTYPE html>
@@ -86,6 +87,20 @@
                     <?php endif; ?>
                 </p>
             </section>
+
+            <?php if (!empty($erro)) { ?>
+            <p
+                style="background-color: #780000;
+                        color: #ffffff;
+                        padding: 8px 12px;
+                        border-radius: 6px;
+                        text-align: center;
+                        width: max-content;
+                        max-width: 100%;
+                        margin: 10px auto;">
+                <?php echo $erro; ?>
+            </p>
+            <?php } ?>
 
             <div class="perfil-acoes">
                 <a href="../excluirConta.php">Excluir cliente</a>

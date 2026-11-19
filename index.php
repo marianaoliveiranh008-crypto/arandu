@@ -10,33 +10,32 @@
        }
    }
 
-
-   $sqlRomance = " SELECT DISTINCT l.* FROM livro l INNER JOIN liv_cat lc ON l.id_liv = lc.id_liv INNER JOIN categoria c ON lc.id_cat = c.id_cat WHERE c.nome_cat LIKE '%Romance%' ORDER BY l.titulo_liv";
-   $resultadoRomance = $conexao->query($sqlRomance);
+    $sqlRomance = " SELECT DISTINCT l.* FROM livro l INNER JOIN liv_cat lc ON l.id_liv = lc.id_liv INNER JOIN categoria c ON lc.id_cat = c.id_cat WHERE c.nome_cat LIKE '%Romance%' ORDER BY l.titulo_liv";
+    $resultadoRomance = $conexao->query($sqlRomance);
 
 
     $sqlSuspense = " SELECT DISTINCT l.* FROM livro l INNER JOIN liv_cat lc ON l.id_liv = lc.id_liv INNER JOIN categoria c ON lc.id_cat = c.id_cat WHERE c.nome_cat LIKE '%Suspense%' OR c.nome_cat LIKE '%Terror%' OR c.nome_cat LIKE '%Thriller%' OR c.nome_cat LIKE '%Horror%' ORDER BY l.titulo_liv";
-   $resultadoSuspense = $conexao->query($sqlSuspense);
+    $resultadoSuspense = $conexao->query($sqlSuspense);
 
 
-      $sqlContos = " SELECT DISTINCT l.* FROM livro l INNER JOIN liv_cat lc ON l.id_liv = lc.id_liv INNER JOIN categoria c ON lc.id_cat = c.id_cat WHERE c.nome_cat LIKE '%Conto%' OR c.nome_cat LIKE '%Cronica%' OR c.nome_cat LIKE '%Crônica%' ORDER BY l.titulo_liv";
-   $resultadoContos = $conexao->query($sqlContos);
+    $sqlContos = " SELECT DISTINCT l.* FROM livro l INNER JOIN liv_cat lc ON l.id_liv = lc.id_liv INNER JOIN categoria c ON lc.id_cat = c.id_cat WHERE c.nome_cat LIKE '%Conto%' OR c.nome_cat LIKE '%Cronica%' OR c.nome_cat LIKE '%Crônica%' ORDER BY l.titulo_liv";
+    $resultadoContos = $conexao->query($sqlContos);
 
 
-        $sqlNaoficcao = " SELECT DISTINCT l.* FROM livro l INNER JOIN liv_cat lc ON l.id_liv = lc.id_liv INNER JOIN categoria c ON lc.id_cat = c.id_cat WHERE c.nome_cat IN ('Diário', 'Autobiografia', 'Testemunho Histórico', 'Jornalismo Investigativo', 'Biografia / True Crime', 'Literatura de Testemunho', 'Ensaio', 'Reflexão Socioambiental') ORDER BY l.titulo_liv";
-   $resultadoNaoficcao = $conexao->query($sqlNaoficcao);
+    $sqlNaoficcao = " SELECT DISTINCT l.* FROM livro l INNER JOIN liv_cat lc ON l.id_liv = lc.id_liv INNER JOIN categoria c ON lc.id_cat = c.id_cat WHERE c.nome_cat IN ('Diário', 'Autobiografia', 'Testemunho Histórico', 'Jornalismo Investigativo', 'Biografia / True Crime', 'Literatura de Testemunho', 'Ensaio', 'Reflexão Socioambiental') ORDER BY l.titulo_liv";
+    $resultadoNaoficcao = $conexao->query($sqlNaoficcao);
 
 
-        $sqlliteraturainfantil = " SELECT DISTINCT l.* FROM livro l INNER JOIN liv_cat lc ON l.id_liv = lc.id_liv INNER JOIN categoria c ON lc.id_cat = c.id_cat WHERE c.nome_cat LIKE '%Infantil%' ORDER BY l.titulo_liv";
-   $resultadoLiteraturainfantil = $conexao->query($sqlliteraturainfantil);
+    $sqlliteraturainfantil = " SELECT DISTINCT l.* FROM livro l INNER JOIN liv_cat lc ON l.id_liv = lc.id_liv INNER JOIN categoria c ON lc.id_cat = c.id_cat WHERE c.nome_cat LIKE '%Infantil%' ORDER BY l.titulo_liv";
+    $resultadoLiteraturainfantil = $conexao->query($sqlliteraturainfantil);
 
 
-        $sqlDrama = " SELECT DISTINCT l.* FROM livro l INNER JOIN liv_cat lc ON l.id_liv = lc.id_liv INNER JOIN categoria c ON lc.id_cat = c.id_cat WHERE c.nome_cat LIKE '%Drama%' ORDER BY l.titulo_liv";
-   $resultadoDrama = $conexao->query($sqlDrama);
+    $sqlDrama = " SELECT DISTINCT l.* FROM livro l INNER JOIN liv_cat lc ON l.id_liv = lc.id_liv INNER JOIN categoria c ON lc.id_cat = c.id_cat WHERE c.nome_cat LIKE '%Drama%' ORDER BY l.titulo_liv";
+    $resultadoDrama = $conexao->query($sqlDrama);
 
 
     $sqlPoesia = " SELECT DISTINCT l.* FROM livro l INNER JOIN liv_cat lc ON l.id_liv = lc.id_liv INNER JOIN categoria c ON lc.id_cat = c.id_cat WHERE c.nome_cat LIKE '%Poesia%' ORDER BY l.titulo_liv";
-   $resultadoPoesia = $conexao->query($sqlPoesia);
+    $resultadoPoesia = $conexao->query($sqlPoesia);
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">

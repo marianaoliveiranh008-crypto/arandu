@@ -10,7 +10,6 @@
     }else{
         $bancodedados = "SELECT * FROM usuario";
     }
-    
     $dados = mysqli_query($conexao, $bancodedados);
 ?>
 <!DOCTYPE html>
@@ -49,6 +48,10 @@
             </button>
             <input type="search" name="busca" placeholder="Buscar nome do cliente..." aria-label="Buscar pedido ou cliente">
         </form>
+
+        <div class="adicionar-livro-usuario">
+            <a href="cadastrarUsuario.php"><button>+ Adicionar usuário</button></a>
+        </div>
 
         <div class="usuarios-table-scroll">
             <table class="usuarios-table">

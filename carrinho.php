@@ -82,7 +82,6 @@
                     'quantidade'=>1
                 ];
             }
-
             header ("Location: carrinho.php");
             exit;
         }
