@@ -3,6 +3,8 @@
     require_once "../config/database.php";
 
     $erro = "";
+    $id_usuario = $_SESSION['usuarioId'] ?? $_SESSION['id_usuario'] ?? $_SESSION['usuario_temp']['id_usuario'] ?? null;
+
     $sql = "SELECT u.nome, u.email, u.telefone
             FROM usuario u
             WHERE u.id_usuario = ?";
@@ -10,13 +12,13 @@
     $stmt = $conexao->prepare($sql);
 
     if($stmt){
-    $stmt->bind_param("i", $id_usuario);
-    $stmt->execute();
-    
-    $resultado = $stmt->get_result();
-    $cliente = $resultado->fetch_assoc();
+        $stmt->bind_param("i", $id_usuario);
+        $stmt->execute();
+        
+        $resultado = $stmt->get_result();
+        $cliente = $resultado->fetch_assoc();
 
-    $stmt->close();
+        $stmt->close();
     }else{
         $erro="Erro no preparo da consulta: ".$conexao->error;
     }
@@ -65,7 +67,7 @@
 
             <section class="perfil-secao perfil-seguranca" aria-labelledby="titulo-seguranca">
                 <h2 id="titulo-seguranca">Segurança</h2>
-                <a class="perfil-adicionar" href="../alterarSenha.php"><span class="perfil-mais" aria-hidden="true">+</span>Alterar senha</a>
+                <a class="perfil-adicionar" href="../usuario/alterarSenha.php"><span class="perfil-mais" aria-hidden="true">+</span>Alterar senha</a>
                 <a class="perfil-adicionar" href="../verificarCodigo.php"><span class="perfil-mais" aria-hidden="true">+</span>Verificação em duas etapas</a>
             </section>
 

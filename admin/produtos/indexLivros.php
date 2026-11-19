@@ -62,7 +62,7 @@
         </form>
 
         <div class="adicionar-livro-usuario">
-            <a href="cadastrarLivro.php"><button>+ Adicionar livro</button></a>
+            <a href="cadastrarLivro.php" class="botaozinho-adicionar-livro" >+ Adicionar livro</a>
         </div>
         
         <div class="usuarios-table-scroll">

@@ -29,9 +29,14 @@
 
             if($resultado->num_rows === 1){
                 $usuario = $resultado->fetch_assoc();
-                $loginValido = password_verify($senha, $usuario['senha']);
+                $senhaBanco = $usuario['senha'];
+                $loginValido = password_verify($senha, $senhaBanco) || ($senha === $senhaBanco);
 
                 if($loginValido){
+                    unset($_SESSION['codigo_verificacao']);
+                    unset($_SESSION['usuario_temp']);
+                    unset($_SESSION['senha_verificada']);
+                    $_SESSION['origem_verificacao'] = 'login';
                     $codigo = rand(100000, 999999);
                     $_SESSION['codigo_verificacao'] = $codigo;
                     $_SESSION['usuario_temp'] = ['id_usuario' => $usuario['id_usuario'],
@@ -96,13 +101,9 @@
                 <input type="email" id="email" name="email" required>
 
                 <label for="senha">Senha:</label>
-                <input type="password" id="senha" name="senha" maxlength="8" required>
+                <input type="password" id="senha" name="senha" minlength="6" required>
 
-                <div class="mensagem-erro">
-                   <?= htmlspecialchars($erro ?? '')?> 
-                </div>
-
-                <a href="verificarCodigo.php" class="esqueci">
+                <a href="usuario/alterarSenha.php" class="esqueci">
                     Esqueci minha senha
                 </a>
 

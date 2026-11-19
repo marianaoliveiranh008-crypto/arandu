@@ -226,12 +226,12 @@
 
                 <div class="campo-cadastro">
                     <label for="senha">Senha:</label>
-                    <input type="password" id="senha" name="senha" placeholder="••••••••"  maxlength="8" required>
+                    <input type="password" id="senha" name="senha" placeholder="••••••••"  minlength="6" required>
                 </div>
 
                 <div class="campo-cadastro">
                     <label for="confirmar">Confirmar senha:</label>
-                    <input type="password" id="confirmar" name="confirmar" placeholder="••••••••"  maxlength="8" required>
+                    <input type="password" id="confirmar" name="confirmar" placeholder="••••••••" minlength="6" required>
                 </div>
 
                 <?php if (!empty($erro)) { ?>

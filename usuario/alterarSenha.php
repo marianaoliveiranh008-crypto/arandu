@@ -4,55 +4,49 @@
 
     $erro = "";
     if(!isset($_SESSION['logado']) || $_SESSION['logado'] !== true){
-        header("Location: login.php");
+        header("Location: ../login.php");
+        exit;
+    }
+
+    if(!isset($_SESSION['senha_verificada']) || $_SESSION['senha_verificada'] !== true){
+        header("Location: ../verificarCodigo.php?origem=alterarSenha");
         exit;
     }
 
     $id_usuario = $_SESSION['usuarioId'];
 
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
-        $senhaAtual = $_POST['senhaAtual'] ?? '';
         $novaSenha = $_POST['novaSenha'] ?? '';
         $confirmarSenha = $_POST['confirmarSenha'] ?? '';
 
-        $sqlSel = "SELECT senha FROM usuario WHERE id_usuario = ?";
-        $stmtSel = $conexao->prepare($sqlSel);
-        $stmtSel->bind_param("i", $id_usuario);
-        $stmtSel->execute();
-
-        $resultadoSel = $stmtSel->get_result();
-        $usuario = $resultadoSel->fetch_assoc();
-
-        $stmtSel->close();
-
-        if(!$usuario){
-            $erro = "Usuário não encontrado.";
-        }elseif(!password_verify($senhaAtual, $usuario['senha'])){
-            $erro = "A senha atual está incorreta.";
-        }elseif($novaSenha !== $confirmarSenha){
-            $erro =  "A nova senha e a confirmação não coincidem";
+        if(strlen($novaSenha) < 6){
+            $erro = "A nova senha deve ter mais que 6 caracteres.";
+        }elseif ($novaSenha !== $confirmarSenha) {
+            $erro = "A nova senha e a confirmação não coincidem.";
         }else{
             $senhaHash = password_hash(
                 $novaSenha,
                 PASSWORD_DEFAULT
             );
 
-        $sqlUp = "UPDATE usuario SET senha = ? WHERE id_usuario = ?";
-        $stmtUp = $conexao->prepare($sqlUp);
-        
-        if(!$stmtUp){
-            die("Erro ao preparar consulta: ".$conexao->error);
-        }
+            $sqlUp = "UPDATE usuario SET senha = ? WHERE id_usuario = ?";
+            $stmtUp = $conexao->prepare($sqlUp);
+            
+            if(!$stmtUp){
+                die("Erro ao preparar consulta: ".$conexao->error);
+            }
 
-        $stmtUp->bind_param("si", $senhaHash, $id_usuario);
+            $stmtUp->bind_param("si", $senhaHash, $id_usuario);
 
-        if($stmtUp->execute()){
-            header("Location: perfil.php");
-            exit;
-        }else{
-            $erro = "Erro ao atualizar a senha: ".$stmtUp->error;
-        }
-        $stmtUp->close();
+            if($stmtUp->execute()){
+                $stmtUp->close();
+                unset($_SESSION['senha_verificada']);
+                header("Location: perfil.php");
+                exit;
+            }else{
+                $erro = "Erro ao atualizar a senha: " . $stmtUp->error;
+                $stmtUp->close();
+            }
         }
     }
 ?>
@@ -99,19 +93,13 @@
             <p class="senha-intro">Atualize sua senha para manter sua conta protegida.</p>
 
             <form method="post">
-
-                <label for="senha-atual">Senha atual:</label>
-                <input type="password" id="senha-atual" name="senhaAtual" maxlength="8" autocomplete="current-password" placeholder="••••••••" required>
-
-                <a href="../verificarCodigo.php" class="esqueci">Esqueci minha senha</a>
-
                 <label for="nova-senha">Nova senha:</label>
-                <input type="password" id="nova-senha" name="novaSenha" maxlength="8" autocomplete="new-password" placeholder="••••••••" required>
+                <input type="password" id="nova-senha" name="novaSenha" minlength="6" autocomplete="new-password" placeholder="••••••••" required>
 
                 <small class="aviso">Máximo de 8 caracteres</small>
 
                 <label for="confirmar-senha">Confirmar nova senha:</label>
-                <input type="password" id="confirmar-senha" name="confirmarSenha" maxlength="8" autocomplete="new-password" placeholder="••••••••" required>
+                <input type="password" id="confirmar-senha" name="confirmarSenha" minlength="6" autocomplete="new-password" placeholder="••••••••" required>
 
                 <?php if (!empty($erro)) { ?>
                 <p

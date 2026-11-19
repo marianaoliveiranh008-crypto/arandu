@@ -2,6 +2,20 @@
     session_start();
     require_once "config/database.php";
 
+    if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['origem']) && $_GET['origem'] === 'alterarSenha'){
+        $idSessao = $_SESSION['usuarioId'] ?? $_SESSION['id_usuario'] ?? null;    
+        if(!empty($idSessao)){
+                $_SESSION['origem_verificacao'] = 'alterarSenha';
+                $_SESSION['codigo_verificacao'] = rand(100000, 999999);
+                $_SESSION['usuario_temp'] = [
+                    'id_usuario' => $idSessao,
+                    'nome' => $_SESSION['usuarioNome'] ?? '',
+                    'email' => $_SESSION['usuarioEmail'] ?? '',
+                    'tipo_usuario' => $_SESSION['tipo_usuario'] ?? 1
+                ];
+        }
+    }
+
     if(!isset($_SESSION['codigo_verificacao']) || !isset($_SESSION['usuario_temp'])){
         header("Location: login.php");
         exit;
@@ -16,6 +30,8 @@
     $codigoDig = trim($_POST['codigo'] ?? '');
 
         if($codigoDig == $_SESSION['codigo_verificacao']){
+            $origem = $_SESSION['origem_verificacao'] ?? 'login';
+            
             $usuario = $_SESSION['usuario_temp'];
             $id_usuario = $usuario['id_usuario'];
 
@@ -27,6 +43,13 @@
 
             unset($_SESSION['codigo_verificacao']);
             unset($_SESSION['usuario_temp']);
+            unset($_SESSION['origem_verificacao']);
+
+            if($origem === 'alterarSenha'){
+                $_SESSION['senha_verificada'] = true;
+                header("Location: usuario/alterarSenha.php");
+                exit;
+            }
 
             $sqlCar = "SELECT id_car FROM carrinho WHERE id_usuario = ?";
             $stmtCar = $conexao->prepare($sqlCar);

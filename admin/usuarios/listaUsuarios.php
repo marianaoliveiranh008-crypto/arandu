@@ -50,7 +50,7 @@
         </form>
 
         <div class="adicionar-livro-usuario">
-            <a href="cadastrarUsuario.php"><button>+ Adicionar usuário</button></a>
+            <a href="cadastrarUsuario.php" class="botaozinho-adicionar-livro">+ Adicionar usuário</a>
         </div>
 
         <div class="usuarios-table-scroll">

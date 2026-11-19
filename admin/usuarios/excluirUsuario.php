@@ -2,38 +2,54 @@
     session_start();
     require_once "../../config/database.php";
 
+    if($_SERVER['REQUEST_METHOD'] !== 'POST'){
+        header("Location: listaUsuarios.php");
+        exit;
+    }
+
     $id_usuario = $_POST['id_usuario'] ?? null;
 
-    $id_admin_logado =  $_SESSION['id_usuario'] ?? null;
+    $id_admin_logado =  $_SESSION['id_usuario'] ?? $_SESSION['id_usuario'] ?? null;
 
-    if($id_usuario){
-        if($id_usuario == $id_admin_logado){
-            die("Erro: Você não pode excluir a sua própria conta de administrador por esta tela!");
-        }
+    if(empty($id_usuario) || !filter_var($id_usuario, FILTER_VALIDATE_INT) || $id_usuario <= 0){
+        $_SESSION['erro'] = "ID do cliente inválido.";
+        header("Location: listaUsuarios.php");
+        exit;
+    }
 
+    if($id_usuario == $id_admin_logado){
+        die("Erro: Você não pode excluir a sua própria conta de administrador por esta tela!");
+        header("Location: listaUsuarios.php");
+        exit;
+    }
+
+    try{
         $conexao->begin_transaction();
+        $sqlEnd = "DELETE FROM endereco WHERE id_usuario = ?";
+        $stmtEnd = $conexao->prepare($sqlEnd);
+        $stmtEnd->bind_param("i", $id_usuario);
+        $stmtEnd->execute();
+        $stmtEnd->close();
 
-        try{
-            $stmtEnd = $conexao->prepare("DELETE FROM endereco WHERE id_usuario = ?");
-            $stmtEnd->bind_param("i", $id_usuario);
-            $stmtEnd->execute();
-            $stmtEnd->close();
+        $sqlDel = "DELETE FROM usuario WHERE id_usuario = ?";
+        $stmtDel = $conexao->prepare($sqlDel);
+        $stmtDel->bind_param("i", $id_usuario);
+        $stmtDel->execute();
 
-            $stmtUser = $conexao->prepare("DELETE FROM usuario WHERE id_usuario = ?");
-            $stmtUser->bind_param("i", $id_usuario);
-            $stmtUser->execute();
-            $stmtUser->close();
-            
+        if($stmtUser->affected_rows > 0){
+            $stmtDel->close();
             $conexao->commit();
-            $_SESSION['mensagem'] = "Cliente excluído com sucesso!";
-
-        }catch(Exception $e){
-            $conexao->rollback();
-            $_SESSION['erro'] = "Erro ao excluir cliente: ".$e->getMessage();
-        
+            header("Location: listaUsuarios.php");
+            exit;
+        }else{
+            $stmtDel->close();
+            throw new Exception("Cliente não encontrado.");
+        }
+    }catch(Exception $e){
+        $conexao->rollback();
+        $erro = "Erro ao excluir cliente.";
     }
-    }
 
-    header("Location: listaUsuarios.php");
+    header("Location: admin/index.php");
     exit;
 ?>

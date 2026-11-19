@@ -4,30 +4,69 @@
     
     $erro = "";
     $id_usuario = $_GET['id_usuario'] ?? $_GET['id'] ?? 2;
-
-    $sql = "SELECT u.nome, u.cpf_usuario, u.email, u.telefone, e.id_end, e.rua, e.numero, e.bairro, e.cidade
-            FROM usuario u
-            LEFT JOIN endereco e ON u.id_usuario = e.id_usuario
-            WHERE u.id_usuario = ?
-            ORDER BY e.id_end DESC
-            LIMIT 1";
-            
-    $stmt = $conexao->prepare($sql);
-
-    if($stmt){
-    $stmt->bind_param("i", $id_usuario);
-    $stmt->execute();
     
-    $resultado = $stmt->get_result();
-    $cliente = $resultado->fetch_assoc();
-
-    $stmt->close();
-    }else{
-        $erro = "Erro no preparo da consulta: ".$conexao->error;
+    if(!$id_usuario){
+            $erro= "Usuário não encontrado.";
     }
 
-    if(!$id_usuario){
-        $erro= "Usuário não encontrado.";
+    if($_SERVER['REQUEST_METHOD'] === 'POST'){
+    var_dump($_POST);    
+    $id_excluir = filter_input(INPUT_POST, 'id_usuario', FILTER_VALIDATE_INT);
+        if(!$id_excluir){
+            $erro = "ID do usuário inválido.";
+        }else{
+            try{
+                $conexao->begin_transaction();
+                $sqlEnd = "DELETE FROM endereco WHERE id_usuario = ?";
+                $stmtEnd = $conexao->prepare($sqlEnd);
+                $stmtEnd->bind_param("i", $id_excluir);
+                $stmtEnd->execute();
+                $stmtEnd->close();
+
+                $sqlDel = "DELETE FROM usuario WHERE id_usuario = ?";
+                $stmtDel = $conexao->prepare($sqlDel);
+                $stmtDel->bind_param("i", $id_excluir);
+                $stmtDel->execute();
+
+                if($stmtDel->affected_rows > 0){
+                    $stmtDel->close();
+                    $conexao->commit();
+                    header("Location: listaUsuarios.php");
+                    exit;
+                }else{
+                    $stmtDel->close();
+                    throw new Exception("Cliente não encontrado.");
+                }
+            }catch(Exception $e){
+                $conexao->rollback();
+                $erro = "Erro ao excluir cliente.";
+            }
+        }
+    }
+
+    if(empty($erro) && $id_usuario){
+        $sql = "SELECT u.nome, u.cpf_usuario, u.email, u.telefone, e.id_end, e.rua, e.numero, e.bairro, e.cidade
+                FROM usuario u
+                LEFT JOIN endereco e ON u.id_usuario = e.id_usuario
+                WHERE u.id_usuario = ?
+                ORDER BY e.id_end DESC
+                LIMIT 1";
+        $stmt = $conexao->prepare($sql);
+
+        if($stmt){
+            $stmt->bind_param("i", $id_usuario);
+            $stmt->execute();
+        
+            $resultado = $stmt->get_result();
+            $cliente = $resultado->fetch_assoc();
+
+            $stmt->close();
+        if(!$cliente){
+            $erro = "Usuário não encontrado.";
+        }
+        }else{
+            $erro = "Erro no preparo da consulta: ".$conexao->error;
+        }
     }
 ?>
 <!DOCTYPE html>
@@ -101,10 +140,13 @@
                 <?php echo $erro; ?>
             </p>
             <?php } ?>
-
-            <div class="perfil-acoes">
-                <a href="../excluirConta.php">Excluir cliente</a>
-            </div>
+            
+            <form method="POST">
+                <input type="hidden" name="id_usuario" value="<?= htmlspecialchars((string)$id_usuario) ?>">
+                <div class="perfil-acoes">
+                    <button tyoe="submit" value="excluir">Excluir cliente</button>
+                </div>
+            </form>
         </section>
     </main>
 </body>

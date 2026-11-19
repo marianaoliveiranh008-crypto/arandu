@@ -1209,6 +1209,7 @@ header {
     color: #ed5b35;
     font-size: 14px;
     font-weight: bold;
+    border-radius: 10px;
 }
 
 .verificacao-page .verificacao-voltar:hover {
@@ -2997,14 +2998,26 @@ body.carrinho-page {
 }
 
 .adicionar-livro-usuario {
-    font-size: 11px;
-    font-weight: bold;
-    text-align: center;
+    text-align: left;
     margin-top: 7px;
-    white-space: nowrap;
+    margin-bottom: 15px;
     position: relative;
-    left: 50%;
-    transform: translateX(-50%);
     width: max-content;
     max-width: calc(100vw - 30px);
+}
+
+.botaozinho-adicionar-livro {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: bold;
+    background-color: #e65e35;
+    color: #ffffff;
+    padding: 8px 8px;
+    border-radius: 10px;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.botaozinho-adicionar-livro:hover {
+    background-color: #ec7959;
 }
